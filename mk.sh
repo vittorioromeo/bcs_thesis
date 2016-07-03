@@ -10,6 +10,7 @@ mkdir -p "./source/figures/generated/ecst/overview/multithreading/inner"
 mkdir -p "./source/figures/generated/ecst/architecture"
 mkdir -p "./source/figures/generated/ecst/compiletime"
 mkdir -p "./source/figures/generated/ecst/flow"
+mkdir -p "./source/figures/generated/ecst/multithreading"
 mkdir -p "./source/figures/generated/sim"
 
 # make pdf && (chromium ./output/thesis.pdf &)&
