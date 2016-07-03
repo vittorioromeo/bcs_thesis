@@ -1,0 +1,106 @@
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{nameref}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{makeidx}
+\usepackage{bytefield}
+\usepackage{url}
+\usepackage[totoc]{idxlayout}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{ctable}
+\usepackage{morefloats}
+\usepackage{siunitx}
+\usepackage{tcolorbox}
+\usepackage{etoolbox}
+\usepackage[style=ieee]{biblatex}
+\usepackage{appendix}
+
+
+% Table of contents formatting
+\renewcommand{\contentsname}{Table of Contents}
+\setcounter{tocdepth}{3}
+
+% Headers and page numbering
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LO]{\leftmark}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LE,RO]{\thepage}
+\fancyfoot{}
+
+\fancypagestyle{plain}{%
+\fancyhf{}%
+\fancyfoot{}%
+\renewcommand{\headrulewidth}{0.0pt}%
+}
+% \fancyhf{}
+% \lhead{\thepage}
+% \chead{}
+% \rhead{\leftmark}
+% \lfoot{}
+% \cfoot{}
+% \rfoot{}
+
+
+
+% Code and pseudocode
+\usepackage[draft=false]{minted}
+\definecolor{codebg}{rgb}{0.975,0.975,0.975}
+
+% Boxed code
+% \usepackage[draft=true]{minted}
+% \BeforeBeginEnvironment{minted}{\singlespacing\begin{tcolorbox}[arc=0mm, colback=codebg]}%
+% \AfterEndEnvironment{minted}{\end{tco\UrlBreaks}{\do\/\do\-\do\_\do\.\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z}lorbox}\onehalfspacing}%
+
+% Algorithm2e style
+\usepackage[linesnumbered,lined,boxruled]{algorithm2e}
+\newcommand\mycommfont[1]{\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+\setlength{\algomargin}{2em}
+
+% Math formatting
+\DeclareMathSizes{12}{13}{7}{7}
+
+% Code line numbers
+\renewcommand{\theFancyVerbLine}{\sffamily
+\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize
+\oldstylenums{\arabic{FancyVerbLine}}}}
+
+% TODO: (?): Set colour of links to black so that they don't show up when printed
+\usepackage{hyperref}
+\hypersetup{%
+    colorlinks=true,%
+    linkcolor=blue,%
+    citecolor=blue,%
+    breaklinks=true,%
+    unicode%
+}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{array}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}m{#1}}%
+
+% Set figure legends and captions to be smaller sized sans serif font
+\usepackage[font={footnotesize,sf}]{caption}
+
+% Allow for long captions and float captions on opposite page of figures
+% \usepackage[rightFloats, CaptionBefore]{fltpage}
+
+% Don't let floats cross subsections
+% \usepackage[section,subsection]{extraplaceins}
+
+\onehalfspacing
+\setlength{\headheight}{20pt} 
+
+\renewcommand{\UrlBreaks}{\do\/\do\-\do\_\do\.\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z}	
