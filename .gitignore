@@ -1,2 +1,13 @@
 pandoc.log
 temp
+_minted-thesis
+output/*.aux
+output/*.log
+output/*.mintedcmd
+output/*.mintedmd5
+output/*.out
+output/*.pyg
+output/*.toc
+output/*.bcf
+output/*.xml
+output/*.lof
