@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p "./temp"
+mkdir -p "./output"
 mkdir -p "./source/figures/generated/ecs/overview/oop"
 mkdir -p "./source/figures/generated/ecs/overview/oop_composition"
 mkdir -p "./source/figures/generated/ecs/overview/dod_composition"
