@@ -15,7 +15,6 @@ pdf:
 	-S \
 	--standalone \
 	--filter "$(BASEDIR)/pandoc-minted.py" \
-	--filter "$(BASEDIR)/pandoc-wrapfig.py" \
 	-o "$(OUTPUTDIR)/thesis.tex" \
 	-H "$(STYLEDIR)/preamble.tex" \
 	--template="$(STYLEDIR)/template.tex" \
