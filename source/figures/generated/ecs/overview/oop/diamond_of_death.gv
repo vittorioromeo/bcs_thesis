@@ -1,0 +1,14 @@
+
+
+digraph
+{
+    rankdir=RL
+
+    warrior -> npc
+    sword_warrior -> warrior
+    bow_warrior -> warrior
+    sword_bow_warrior -> sword_warrior
+    sword_bow_warrior -> bow_warrior
+}
+
+

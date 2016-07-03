@@ -1,0 +1,27 @@
+
+
+digraph
+{
+    rankdir=BT
+
+    Acceleration -> Start
+    Life -> Start
+
+    Velocity -> Acceleration
+    KeepInBounds -> Velocity
+    SpatialPartition -> KeepInBounds
+    Collision -> SpatialPartition
+    SolveContacts -> Collision
+    Render -> SolveContacts
+
+    Fade -> Life
+
+    End -> Fade
+    End -> Render
+
+    Start [label="", shape="point", width="0.25", height="0.25", fixedsize="true"]
+
+    End [label="", shape="point", width="0.25", height="0.25", fixedsize="true"]
+}
+
+

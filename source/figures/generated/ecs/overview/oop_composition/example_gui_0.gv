@@ -1,0 +1,34 @@
+
+
+digraph
+{
+    animation0 [shape="rectangle", style="rounded", label="animation"]
+    keyboard0 [shape="rectangle", style="rounded", label="keyboard"]
+    layout0 [shape="rectangle", style="rounded", label="layout"]
+
+    animation1 [shape="rectangle", style="rounded", label="animation"]
+    mouse1 [shape="rectangle", style="rounded", label="mouse"]
+    layout1 [shape="rectangle", style="rounded", label="layout"]
+
+    keyboard2 [shape="rectangle", style="rounded", label="keyboard"]
+    layout2 [shape="rectangle", style="rounded", label="layout"]
+
+    mouse3 [shape="rectangle", style="rounded", label="mouse"]
+    layout3 [shape="rectangle", style="rounded", label="layout"]
+
+    animation0 -> animated_textbox
+    keyboard0 -> animated_textbox
+    layout0 -> animated_textbox
+
+    animation1 -> animated_button
+    mouse1 -> animated_button
+    layout1 -> animated_button
+
+    keyboard2 -> static_textbox
+    layout2 -> static_textbox
+
+    mouse3 -> static_button
+    layout3 -> static_button
+}
+
+

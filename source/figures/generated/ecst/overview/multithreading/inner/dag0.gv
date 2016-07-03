@@ -1,0 +1,49 @@
+
+
+digraph
+{
+    rankdir=RL
+
+    Velocity_Fork [shape=rectangle, label="Velocity (fork)"];
+    Velocity_Join [shape=rectangle, label="Velocity (join)"];
+    Acceleration_Fork [shape=rectangle, label="Acceleration (fork)"];
+    Acceleration_Join [shape=rectangle, label="Acceleration (join)"];
+
+    Velocity_0 [shape="circle", label="0", width=".2", height=".2", fixedsize="true"];
+    Velocity_1 [shape="circle", label="1", width=".2", height=".2", fixedsize="true"];
+    Velocity_2 [shape="circle", label="2", width=".2", height=".2", fixedsize="true"];
+    Velocity_3 [shape="circle", label="3", width=".2", height=".2", fixedsize="true"];
+
+    Acceleration_0 [shape="circle", label="0", width=".2", height=".2", fixedsize="true"];
+    Acceleration_1 [shape="circle", label="1", width=".2", height=".2", fixedsize="true"];
+    Acceleration_2 [shape="circle", label="2", width=".2", height=".2", fixedsize="true"];
+    Acceleration_3 [shape="circle", label="3", width=".2", height=".2", fixedsize="true"];
+
+    subgraph velocity
+    {
+        Velocity_0 -> Velocity_Fork
+        Velocity_1 -> Velocity_Fork
+        Velocity_2 -> Velocity_Fork
+        Velocity_3 -> Velocity_Fork
+        Velocity_Join -> Velocity_0
+        Velocity_Join -> Velocity_1
+        Velocity_Join -> Velocity_2
+        Velocity_Join -> Velocity_3
+    }
+
+    subgraph acceleration
+    {
+        Acceleration_Join -> Acceleration_0
+        Acceleration_Join -> Acceleration_1
+        Acceleration_Join -> Acceleration_2
+        Acceleration_Join -> Acceleration_3
+        Acceleration_0 -> Acceleration_Fork
+        Acceleration_1 -> Acceleration_Fork
+        Acceleration_2 -> Acceleration_Fork
+        Acceleration_3 -> Acceleration_Fork
+    }
+
+    Velocity_Fork -> Acceleration_Join
+}
+
+

@@ -1,0 +1,26 @@
+
+
+    digraph
+    {
+        rankdir=LR
+
+        Consumer0 [label="Consumer"]
+        Consumer1 [label="Consumer"]
+        Output [shape="cylinder"]
+
+        subgraph cluster_producer
+        {
+            color="black"
+
+            Producer
+            Output
+        }
+
+        Producer -> Consumer0
+        Producer -> Consumer1
+
+        Output -> Consumer0 [style=dotted, arrowhead="onormal"]
+        Output -> Consumer1 [style=dotted, arrowhead="onormal"]
+    }
+    
+

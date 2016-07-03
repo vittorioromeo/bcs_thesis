@@ -1,0 +1,39 @@
+@startuml
+
+skinparam style strictuml
+
+    skinparam backgroundColor transparent
+    skinparam classBackgroundColor transparent
+    skinparam classArrowColor black
+    skinparam classBorderColor black
+
+    skinparam sequenceParticipantBackgroundColor trasparent
+    skinparam sequenceParticipantBorderColor black
+    skinparam sequenceBoxLineColor black
+    skinparam sequenceLifeLineBorderColor black
+    skinparam sequenceArrowColor black
+
+    skinparam activityBorderColor black
+    skinparam activityArrowColor black 
+    skinparam activityBackgroundColor transparent
+
+left to right direction
+
+class entity_metadata_storage {
+    sparse_int_set _free_ids
+    metadata[] _metadata
+
+    entity_id create()
+    void reclaim(entity_id)
+    bool alive(entity_id)
+    metadata& get_metadata(entity_id)
+}
+
+class metadata {
+    bitset _component_type_bits
+    size_t _validity_counter
+}
+
+entity_metadata_storage o-- "many" metadata
+
+@enduml

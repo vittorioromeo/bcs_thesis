@@ -1,0 +1,13 @@
+
+
+digraph
+{
+    rankdir=RL
+    Velocity -> Acceleration
+    Growth -> Shape
+    Rendering -> Growth
+    Rendering -> Velocity
+    Rendering -> Rotation
+}
+
+

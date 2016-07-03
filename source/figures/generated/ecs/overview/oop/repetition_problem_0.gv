@@ -1,0 +1,12 @@
+
+
+digraph
+{
+    rankdir=RL
+
+    animated_widget -> widget
+    textbox -> animated_widget
+    button -> animated_widget
+}
+
+

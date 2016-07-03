@@ -1,0 +1,33 @@
+
+
+digraph
+{
+    subgraph cluster_z
+    {
+        label="acceleration"
+        C [shape="record", rank=-10000, label="A | <f1> A | A | A | A | ..."]
+        C
+    }
+
+    subgraph cluster_y
+    {
+        label="velocity"
+        B [shape="record", rank=-10000, label="V | <f1> V | V | V | V | ..."]
+        B
+    }
+
+    subgraph cluster_x
+    {
+        label="position"
+        A [shape="record", rank=-10000, label="P | <f1> P | P | P | P | ..."]
+        A
+    }
+
+    1 [label="EID: 1"]
+
+    C:f1 -> 1 [dir="back"]
+    B:f1 -> 1 [dir="back"]
+    A:f1 -> 1 [dir="back"]
+}
+
+

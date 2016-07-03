@@ -1,0 +1,20 @@
+
+
+digraph
+{
+    BehaviorA0 [shape="rectangle", style="rounded", label="BehaviorA"]
+    BehaviorB0 [shape="rectangle", style="rounded", label="BehaviorB"]
+    BehaviorC0 [shape="rectangle", style="rounded", label="BehaviorC"]
+
+    BehaviorA1 [shape="rectangle", style="rounded", label="BehaviorA"]
+    BehaviorC1 [shape="rectangle", style="rounded", label="BehaviorC"]
+
+    BehaviorA0 -> EntityA
+    BehaviorB0 -> EntityA
+    BehaviorC0 -> EntityA
+
+    BehaviorA1 -> EntityB
+    BehaviorC1 -> EntityB
+}
+
+

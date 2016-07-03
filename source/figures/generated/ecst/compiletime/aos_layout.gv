@@ -1,0 +1,73 @@
+
+
+digraph
+{
+    subgraph cluster_x
+    {
+        label="physics"
+        A [shape="rectangle",  label=<
+            <TABLE ALIGN="LEFT" BORDER="0">
+                <TR>
+                    <TD BORDER="1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR>
+                                <TD BORDER="1">A</TD>
+                                <TD BORDER="1">V</TD>
+                                <TD BORDER="1">P</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                   <TD BORDER="1" PORT="f1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR >
+                                <TD BORDER="1">A</TD>
+                                <TD BORDER="1" >V</TD>
+                                <TD BORDER="1">P</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                    <TD BORDER="1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR>
+                                <TD BORDER="1">A</TD>
+                                <TD BORDER="1">V</TD>
+                                <TD BORDER="1">P</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                    <TD BORDER="1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR>
+                                <TD BORDER="1">A</TD>
+                                <TD BORDER="1">V</TD>
+                                <TD BORDER="1">P</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                    <TD BORDER="1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR>
+                                <TD BORDER="1">A</TD>
+                                <TD BORDER="1">V</TD>
+                                <TD BORDER="1">P</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                    <TD BORDER="1">
+                        <TABLE ALIGN="LEFT" BORDER="0">
+                            <TR>
+                                <TD BORDER="1">...</TD>
+                            </TR>
+                        </TABLE>
+                    </TD>
+                </TR>
+            </TABLE>
+        >, ];
+    }
+
+    1 [label="EID: 1"]
+
+    A:f1 -> 1 [dir="back"]
+}
+
+

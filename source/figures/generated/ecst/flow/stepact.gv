@@ -1,0 +1,47 @@
+
+
+digraph
+{
+    Done [label="Done?", shape="diamond"]
+
+    subgraph cluster_step
+    {
+        label="Step stage"
+
+        Choice [label="", shape="diamond", width=".2", height=".2", fixedsize="true"]
+
+        NonCrit [label="Non-critical operation", shape="rectangle"]
+
+        Crit [label="Critical operation", shape="rectangle"]
+
+        Chain [label="System chain", shape="rectangle"]
+
+        ChoiceEnd [label="", shape="diamond", width=".2", height=".2", fixedsize="true"]
+    }
+
+    Start [label="", shape="point", width="0.25", height="0.25", fixedsize="true"]
+
+    Start -> Choice
+
+    Done -> Choice  [label=" no"]
+
+    Choice -> NonCrit
+    Choice -> Crit
+    Choice -> Chain
+
+    NonCrit -> ChoiceEnd
+    Crit -> ChoiceEnd
+    Chain -> ChoiceEnd
+
+    ChoiceEnd -> Done
+
+    Done -> Chain [style=invis]
+
+    Done -> Refresh [label=" yes"]
+
+    End [label="", shape="doublecircle", width="0.25", height="0.25", fixedsize="true", fillcolor="black", style=filled]
+
+    Refresh -> End
+}
+
+

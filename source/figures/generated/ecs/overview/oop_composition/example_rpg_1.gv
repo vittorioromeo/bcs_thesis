@@ -1,0 +1,26 @@
+
+
+digraph
+{
+    Physics0 [shape="rectangle", style="rounded", label="physics"]
+    AI0 [shape="rectangle", style="rounded", label="ai"]
+    Enemy0 [shape="rectangle", style="rounded", label="npc"]
+
+    Physics2 [shape="rectangle", style="rounded", label="physics"]
+    AI2 [shape="rectangle", style="rounded", label="ai"]
+    Enemy2 [shape="rectangle", style="rounded", label="npc"]
+    Sword2 [shape="rectangle", style="rounded", label="sword"]
+    Bow2 [shape="rectangle", style="rounded", label="bow"]
+
+    Physics0 -> warrior
+    AI0 -> warrior
+    Enemy0 -> warrior
+
+    Physics2 -> sword_bow_warrior
+    AI2 -> sword_bow_warrior
+    Enemy2 -> sword_bow_warrior
+    Sword2 -> sword_bow_warrior
+    Bow2 -> sword_bow_warrior
+}
+
+

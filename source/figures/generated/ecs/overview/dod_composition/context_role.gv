@@ -1,0 +1,24 @@
+
+
+digraph
+{
+    dispatch [shape="diamond"]
+    context [shape="rectangle"]
+    network [style="dashed"]
+
+
+    user -> context [dir="both"]
+    context -> entity_metadata [dir="both"]
+    context -> component_storage [dir="both"]
+    component_storage -> dispatch [dir="both"]
+
+    subgraph
+    {
+
+        dispatch -> network [dir="both", style="dashed"]
+        dispatch -> hash_map [dir="both"]
+        dispatch -> array [dir="both"]
+    }
+}
+
+

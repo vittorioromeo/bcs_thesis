@@ -1,0 +1,13 @@
+
+
+digraph
+{
+    rankdir=BT
+
+    textbox -> widget
+    button -> widget
+    animated_textbox -> textbox
+    animated_button -> button
+}
+
+

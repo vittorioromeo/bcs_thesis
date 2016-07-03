@@ -1,0 +1,28 @@
+
+
+digraph
+{
+    rankdir = LR
+
+    subgraph cluster_workers
+    {
+        label = "Workers"
+        C[shape = "record", rank = -10000, label = "<f0> W0 | <f1> W1 | <f2> W2"]
+        C
+    }
+
+    subgraph cluster_queue
+    {
+        label = "Task queue"
+        Queue[shape = "record", rank = 10000, label = "{<fx> ... | T3 | T2 | T1 | <f0> T0}"]
+        Queue
+    }
+
+    Queue:f0 -> C:f0
+    Queue:f0 -> C:f1
+    Queue:f0 -> C:f2
+
+    Context->Queue : fx
+}
+
+

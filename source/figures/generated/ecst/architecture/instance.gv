@@ -1,0 +1,45 @@
+@startuml
+
+skinparam style strictuml
+
+    skinparam backgroundColor transparent
+    skinparam classBackgroundColor transparent
+    skinparam classArrowColor black
+    skinparam classBorderColor black
+
+    skinparam sequenceParticipantBackgroundColor trasparent
+    skinparam sequenceParticipantBorderColor black
+    skinparam sequenceBoxLineColor black
+    skinparam sequenceLifeLineBorderColor black
+    skinparam sequenceArrowColor black
+
+    skinparam activityBorderColor black
+    skinparam activityArrowColor black 
+    skinparam activityBackgroundColor transparent
+
+left to right direction
+
+class instance {
+    state_manager _state_manager
+    system _system
+    sparse_int_set _subscribed
+    bitset _required
+}
+
+class state_manager {
+    state[] _states
+}
+
+class state {
+    sparse_int_set _to_reclaim
+    output _output
+    function[] _deferred_functions
+}
+
+instance *-- "1" state_manager
+instance *-- "1" system
+
+state_manager o-- "many" state
+
+
+@enduml

@@ -1,0 +1,17 @@
+
+
+    digraph
+    {
+        rankdir=LR
+
+        Queue [shape="record", label="{* | * | * | *}"]
+
+        Consumer0 [label="Consumer"]
+        Consumer1 [label="Consumer"]
+
+        Producer -> Queue
+        Queue -> Consumer0
+        Queue -> Consumer1
+    }
+    
+

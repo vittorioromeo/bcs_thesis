@@ -1,0 +1,15 @@
+
+
+digraph
+{
+    rankdir=BT
+
+    animated_widget -> widget
+    static_widget -> widget
+    static_textbox -> static_widget
+    static_button -> static_widget
+    animated_textbox -> animated_widget
+    animated_button -> animated_widget
+}
+
+

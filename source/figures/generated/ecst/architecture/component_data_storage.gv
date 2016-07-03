@@ -1,0 +1,37 @@
+@startuml
+
+skinparam style strictuml
+
+    skinparam backgroundColor transparent
+    skinparam classBackgroundColor transparent
+    skinparam classArrowColor black
+    skinparam classBorderColor black
+
+    skinparam sequenceParticipantBackgroundColor trasparent
+    skinparam sequenceParticipantBorderColor black
+    skinparam sequenceBoxLineColor black
+    skinparam sequenceLifeLineBorderColor black
+    skinparam sequenceArrowColor black
+
+    skinparam activityBorderColor black
+    skinparam activityArrowColor black 
+    skinparam activityBackgroundColor transparent
+
+left to right direction
+
+class component_data_storage {
+    chunk[] _chunk
+}
+
+class chunk {
+    container _data
+
+    auto& get(entity_id)
+}
+
+component_data_storage o-- "many" chunk
+
+chunk *-- "1" container
+
+
+@enduml

@@ -1,0 +1,24 @@
+
+
+digraph
+{
+    Physics0 [shape="rectangle", style="rounded", label="physics"]
+    AI0 [shape="rectangle", style="rounded", label="ai"]
+    Enemy0 [shape="rectangle", style="rounded", label="npc"]
+
+    Physics1 [shape="rectangle", style="rounded", label="physics"]
+    AI1 [shape="rectangle", style="rounded", label="ai"]
+    Enemy1 [shape="rectangle", style="rounded", label="npc"]
+    Flight1 [shape="rectangle", style="rounded", label="flight"]
+
+    Physics0 -> skeleton
+    AI0 -> skeleton
+    Enemy0 -> skeleton
+
+    Physics1 -> dragon
+    AI1 -> dragon
+    Enemy1 -> dragon
+    Flight1 -> dragon
+}
+
+

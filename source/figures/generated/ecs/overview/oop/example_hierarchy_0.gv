@@ -1,0 +1,12 @@
+
+
+digraph
+{
+    rankdir=BT
+
+    EntityA -> BaseEntity
+    EntityB -> BaseEntity
+    EntityC -> BaseEntity
+}
+
+

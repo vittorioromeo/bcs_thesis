@@ -1,0 +1,22 @@
+
+
+digraph
+{
+    Context [shape="diamond"]
+    User -> Context [dir="both"]
+
+    "Thread Pool" [shape="rectangle"]
+    "Systems" [shape="rectangle"]
+    "Component Data" [shape="rectangle"]
+    "Entity Metadata" [shape="rectangle"]
+
+    subgraph cluster_context
+    {
+        Context -> "Thread Pool" [dir="both"]
+        Context -> "Systems" [dir="both"]
+        Context -> "Component Data" [dir="both"]
+        Context -> "Entity Metadata" [dir="both"]
+    }
+}
+
+
