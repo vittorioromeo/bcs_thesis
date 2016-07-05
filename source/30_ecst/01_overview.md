@@ -395,7 +395,7 @@ digraph
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This allows the $0..4$ sub-tasks to run in parallel. Commonly, **inner parallelism executors**, which implement inner parallelism policies, simply split the subscribed entities of a system evenly between the generated subtasks. The *"fork"* and *"join"* nodes present in the DAG are implicit - they can however be handled by users thanks to **system execution adapters** *(described in [the "advanced features" chapter]{#chap_advfeats})*, allowing to code execution before and/or after the execution of a system's sub-tasks.
+This allows the $0..4$ sub-tasks to run in parallel. Commonly, **inner parallelism executors**, which implement inner parallelism policies, simply split the subscribed entities of a system evenly between the generated subtasks. The *"fork"* and *"join"* nodes present in the DAG are implicit - they can however be handled by users thanks to **system execution adapters** *(described in [the "advanced features" chapter](#chap_advfeats))*, allowing to code execution before and/or after the execution of a system's sub-tasks.
 
 
 

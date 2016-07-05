@@ -502,7 +502,7 @@ GitHub repository under the \emph{Academic Free License (``AFL'') v.
 \emph{Note to readers:} most of the code snippets included in the thesis
 are simplified in order to make them more easily understandable and less
 cluttered. Features like
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{noexcept}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{noexcept}
 and boilerplate code like repeated \emph{ref-qualified} member functions
 are intentionally not included. From {[}Part 2{]} onwards, the reader is
 expected to be familiar with advanced C++11 and C++14 features.
@@ -764,7 +764,7 @@ detail. Since entity types have to conform to the same interface
 \emph{(due to the use of run-time polymorphism)}, the \emph{``base
 entity''} class is defined directly in the application's codebase. The
 provided
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual}
 interface greatly depends on the application itself. Some sort of
 \emph{``manager''} class is usually defined as well, which keeps track
 of the active entities and provides a convenient interface to perform
@@ -782,7 +782,7 @@ hierarchy is shown below:
 \end{figure}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{game_object}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{game_object}
 entity type will be the base class from which all other game objects
 derive - the interface has to be defined there:
 
@@ -798,10 +798,10 @@ public:
 \end{minted}
 
 The rest of the hierarchy is built upon
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{game_object},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{game_object},
 \textbf{incrementally} adding data and logic. Every game object that
 follows the laws of physics will inherit from
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{physics_body}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{physics_body}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 class physics_body : game_object
@@ -819,7 +819,7 @@ public:
 
 Physical objects that can be rendered and controlled by an AI will
 inherit from
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{npc}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{npc}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 class npc : physics_body
@@ -861,16 +861,16 @@ To avoid code repetition during the implementation of a warrior that
 simultaneously uses both a sword and a bow, a situation that requires
 \emph{multiple inheritance} arises. A possible way of avoiding
 duplicating the contents of the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{warrior}
 class twice in
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sword_bow_warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sword_bow_warrior}
 is using C++'s
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual}
 inheritance feature, concisely explained in
 {[}\protect\hyperlink{ref-cppreference_virtual_base_classes}{17}{]}.
 These kind of hierarchies making use of multiple inheritance are
 extremely cumbersome to maintain and expand: the pattern appearing in
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sword_bow_warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sword_bow_warrior}
 is in fact commonly called \emph{``diamond of death''}.
 
 \paragraph{\texorpdfstring{``Diamond of
@@ -889,17 +889,17 @@ is found in this part of the previous hierarchy:
 \end{figure}
 
 The hierarchy causes \textbf{ambiguity} in case both
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sword_warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sword_warrior}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bow_warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bow_warrior}
 override the same method in
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{warrior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{warrior}
 and causes \textbf{duplication} of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{warrior}'s
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{warrior}'s
 fields in
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sword_bow_warrior}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sword_bow_warrior}.
 To solve these problems, unless a feature like C++'s
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual}
 inheritance is used, the class hierarchy has to be altered to avoid the
 ``diamond'', potentially introducing code repetition.
 
@@ -909,7 +909,7 @@ An example implementation of the previously described imaginary GUI
 framework will now be covered. As with the role-playing game, the proper
 starting point is the class hierarchy. The base class of the framework
 will be called
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{widget}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{widget}.
 Unfortunately, the feature that allows widgets to be optionally animated
 impedes the creation of a straightforward diagram and introduces the
 \textbf{repetition problem}.
@@ -918,7 +918,7 @@ impedes the creation of a straightforward diagram and introduces the
 
 Handling optional animation features is problematic: a possible approach
 would be defining a base
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{animated_widget}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{animated_widget}
 class and have all widgets derive from it.
 
 \begin{figure}[htbp]
@@ -928,9 +928,9 @@ class and have all widgets derive from it.
 \end{figure}
 
 In the case shown above, all instances of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{textbox}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{textbox}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{button}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{button}
 will have potentially unnecessary fields and methods if they do not make
 use of the framework's animation capabilities. To solve this, one may
 try to restructure the hierarchy as follows:
@@ -955,28 +955,28 @@ one way or another}:
 \begin{itemize}
 \item
   In the first hierarchy, the widget data/logic for
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{textbox}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{textbox}
   and
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{button}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{button}
   has to be repeated for the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{static_widget}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_widget}
   and
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{animated_widget}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{animated_widget}
   branches of the hierarchies.
 \item
   In the second hierarchy, the animation data/logic has to be repeated
   both for
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{textbox}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{textbox}
   and
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{button}.
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{button}.
 \end{itemize}
 
 Upon deciding between one of the hierarchies, the implementation does
 not differ much from the RPG one: a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{widget}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{widget}
 base class will be created, with an interface all derived widgets must
 conform to. The derived widget types will override
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{widget}'s
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{widget}'s
 methods to implement their logic.
 
 \hypertarget{chapter_oop_communication}{\subsection{Communication}\label{chapter_oop_communication}}
@@ -1003,11 +1003,11 @@ reasons, including:
   \tightlist
   \item
     \emph{Example:} a
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tank}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tank}
     entity may be ``composed'' by a
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{cannon}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{cannon}
     entity and a
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tracks}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tracks}
     entity.
   \end{itemize}
 \end{itemize}
@@ -1019,7 +1019,7 @@ not change during program execution. Senders that are \textbf{aware of
 the lifetimes of their listeners} can effectively store pointers
 \emph{(or references)} to them, in order to directly execute some of
 their methods or mutate their
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{public}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{public}
 fields.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1063,9 +1063,9 @@ subscribing to specific event types lies on the receiver, that can
 unsubscribe itself upon destruction.
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{game_object}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{game_object}
 class will contain an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{on_destruction}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{on_destruction}
 event that will be invoked on entity destruction:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1078,7 +1078,7 @@ public:
 \end{minted}
 
 Game objects that need to communicate, like
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tank},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tank},
 will provide subscribable events:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1119,11 +1119,11 @@ While this approach provides some decoupling between entity types, it
 also introduces unnecessary run-time overhead due to event management.
 It is also unsafe, as application code needs to make sure entities with
 subscribers outlive their subscribers \emph{(e.g.
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tk}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tk}
 needs to outlive both
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{cn}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{cn}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ts})}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ts})}.
 
 \subsubsection{Message-based}\label{message-based}
 
@@ -1132,10 +1132,10 @@ entities themselves, consists in \textbf{producers} generating
 \textbf{messages} that are forwarded to a \textbf{message queue} and
 read by \textbf{consumers}. Message types can be implemented as a
 \textbf{tagged}
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{union}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{union}
 of lightweight structs, by using run-time polymorphism, or by using a
 variant type like
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::variant}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::variant}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct maximize_message { int _window_id; };
@@ -1146,7 +1146,7 @@ using message = variant<maximize_message, close_message>;
 
 After modeling the union of message types, the base entity class will
 need to provide a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual}
 event handler method:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1159,7 +1159,7 @@ protected:
 \end{minted}
 
 Entities can create messages by enqueuing them in a shared
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{message_queue}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{message_queue}
 object:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1249,7 +1249,7 @@ following characteristics:
 \item
   Behavior types \textbf{conform to the same interface} and
   polymorphically inherit from a base
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{behavior}
   class;
 \item
   Behaviors can be added and removed from entities at run-time.
@@ -1268,16 +1268,16 @@ this:
 
 As with the previous approach, a base class containing an
 application-specific
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual}
 interface needs to be defined - this time the class will represent a
 behavior type, not an entity type.
 
 \subsubsection{Role-playing game}\label{role-playing-game-2}
 
 Here is an example on how the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{skeleton}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{skeleton}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{dragon}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{dragon}
 entities could be encoded using object-oriented composition:
 
 \begin{figure}[htbp]
@@ -1297,9 +1297,9 @@ warrior}
 \end{figure}
 
 The code for the base polymorphic
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{behavior}
 class closely resembles the previously seen
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{game_object}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{game_object}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 class behavior
@@ -1321,12 +1321,12 @@ class bow : behavior { /* ... */ };
 \end{minted}
 
 The implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{entity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{entity}
 provides an interface to manipulate behaviors at run-time, and stores
 the behaviors in a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector}
 of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::unique_ptr<behavior>},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::unique_ptr<behavior>},
 in order to enable polymorphism to correctly take place:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1415,7 +1415,7 @@ Subsection 3.3.2}, this technique also may require that behaviors
 ``talk'' to one another.
 
 Imagine implementing a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{clickable}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{clickable}
 behavior for widgets:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1432,7 +1432,7 @@ struct clickable : behavior
 \end{minted}
 
 Buttons and textboxes need to ``ask'' the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{clickable}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{clickable}
 behavior whether or not they need to handle a mouse click.
 
 \subsubsection{Address-based}\label{address-based-1}
@@ -1468,13 +1468,13 @@ coupling between behaviors.
 
 Similarly to the object-oriented approach, using lightweight messages
 and a mediator
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{message_queue}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{message_queue}
 class can reduce coupling and make communication between behaviors much
 easier to manage. The implementation is essentially equivalent to the
 one previously shown: the base
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{behavior}
 type will provide a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual handle_message(const message&)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{virtual handle_message(const message&)}
 function that derived behavior types can override.
 
 \subsection{Advantages and
@@ -1560,7 +1560,7 @@ The table above shows how component types can be bound and unbound from
 entity instances. The previously mentioned \textbf{context} object will
 keep track of component availability in entity instances, thus providing
 an interface roughly similar to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bool context::has_component<...>(entity_id)}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bool context::has_component<...>(entity_id)}.
 
 \begin{figure}[htbp]
 \centering
@@ -1572,7 +1572,7 @@ object}
 Knowing that an entity instance possesses a specific component type, a
 function that retrieves the data of the component for that particular
 instance will also be provided by the context object:
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{auto& context::get_component<...>(entity_id)}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{auto& context::get_component<...>(entity_id)}.
 
 \begin{figure}[htbp]
 \centering
@@ -1581,19 +1581,19 @@ instance will also be provided by the context object:
 \end{figure}
 
 The role of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{entity metadata}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{entity metadata}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{component storage}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{component storage}
 in the diagrams is to show the additional layer of abstraction between
 the user and the pattern implementation. With the introduction of the
 \textbf{context object} concept, it is possible to cleanly implement
 \textbf{systems}. They will ``ask'' the context to return the set of all
 matching entities\footnote{in a real implementation, systems will
   efficiently cache the set of entities they match - the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
   will not have to continuously iterate over all existing entities.},
 with an interface like
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{void context::for_entities_with<...>(f)}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{void context::for_entities_with<...>(f)}.
 
 \begin{figure}[htbp]
 \centering
@@ -1620,9 +1620,9 @@ void example_system(context& c)
 All the logic of the application can then be defined in terms of
 sequential data transformations\footnote{``dataflow programming''.},
 which are very easy to maintain, expand and parallelize. For instance,
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{example_system}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{example_system}
 could be parallelized by splitting the range provided by
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{for_entities_with}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{for_entities_with}
 evenly between CPU cores.
 
 The role of the context is to decouple entities, components and systems,
@@ -1673,9 +1673,9 @@ public:
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
 will take care of retrieving data from
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{component_storage},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{component_storage},
 thus making the implementation of system types extremely simple:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1723,7 +1723,7 @@ All the leftover details can be implemented in multiple ways:
   \item
     The bitsets and additional metadata can be stored in various ways -
     the
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
     will take care of providing access to them.
   \end{itemize}
 \item
@@ -1734,7 +1734,7 @@ All the leftover details can be implemented in multiple ways:
   \tightlist
   \item
     The
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
     can take care of matching entities to systems when a new entity is
     created or its components are changed.
   \end{itemize}
@@ -1748,7 +1748,7 @@ All the leftover details can be implemented in multiple ways:
 
 The class design is identical to the one seen in the object-oriented
 composition approach. Instead of using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{behavior}
 types that handle both data and logic, they are completely split: data
 is stored in components, logic is handled by systems:
 
@@ -1778,7 +1778,7 @@ namespace s
 \end{minted}
 
 Entity creation and mutation are delegated to the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context},
 which takes care of bookkeeping and binding all elements together:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1794,7 +1794,7 @@ auto make_skeleton(context& c, /* ... */)
 \end{minted}
 
 The application code or the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
 will take care of instantiating and executing systems. Systems that do
 not depend on each other can be executed in parallel, and systems with
 no processing ordering requirements can also be internally parallelized.
@@ -1841,15 +1841,15 @@ namespace s
 
 As seen from the above component and system definitions, the existence
 of an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{animation}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{animation}
 component in an entity will either enable or disable optional
 animations. If an entity has the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{animation}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{animation}
 component, the logic will depend on the other components the entity has,
 making it easy to define widget-specific animation behavior.
 
 All that is left is instantiating the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
 and the system types, then execute application-specific logic:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -1894,13 +1894,13 @@ struct acceleration { vec3f _v };
 
 Two systems can be used to implement \(v' = v + a\) and \(p' = p + v\),
 allowing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{velocity}
 to communicate with
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{acceleration}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{acceleration}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{position}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{position}
 to communicate with
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{velocity}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 void process_acceleration(context& c)
@@ -2119,7 +2119,7 @@ Imagine a 2D particle simulation composed by:
 
 Component types are defined as simple \textbf{POD}
 \emph{(plain-old-data)}
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
 types.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -2133,7 +2133,7 @@ namespace c
 \end{minted}
 
 System types are declared as
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
 types that will eventually be defined alongside their processing logic.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -2148,16 +2148,16 @@ namespace s
 ECST makes heavy use of the \textbf{type-value-encoding} \emph{(a.k.a.
 dependent typing)} meta-programming paradigm. It is necessary to define
 wrapper
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 \textbf{tag} values that will store the type information of components
 and systems: tags are be used to greatly simplify both the user
 interface \emph{(as accessing template methods in C++ requires the
 cumbersome
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.template}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.template}
 disambiguation syntax)} and implementation code.
 
 Component tags are defined using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::tag::component::v}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::tag::component::v}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 // The namespace `ct` will contain all component tags.
@@ -2175,7 +2175,7 @@ namespace ct
 \end{minted}
 
 System tags are defined using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::tag::system::v}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::tag::system::v}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 // The namespace `st` will contain all system tags.
@@ -2212,7 +2212,7 @@ Signatures are stored in compile-time type lists called
 creation, in order to instantiate a context object.
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{make_csl()}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{make_csl()}
 function will create a component signature for every previously-defined
 component tag, and will return a component signature list holding all of
 them.
@@ -2241,7 +2241,7 @@ constexpr auto make_csl()
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{make_ssl()}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{make_ssl()}
 function will create a system signature for every previously-defined
 system tag, and will return a system signature list holding all of them.
 
@@ -2273,7 +2273,7 @@ constexpr auto make_ssl()
 \end{minted}
 
 The final setup step consists in the definition of a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 \textbf{context settings} instance, which will be used to instantiate an
 ECST context.
 
@@ -2293,7 +2293,7 @@ approach: the goal of the code snippets above is to clarify that
 component and system types \emph{need} to be known at compile-time and
 \emph{how} that information is passed to an ECST context. The knowledge
 provided by
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context_settings}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context_settings}
 will be used to \textbf{generate} the following elements at
 \textbf{compile-time}:
 
@@ -2431,7 +2431,7 @@ proxies.
 proxies}\label{code-example-transparency-through-proxies}
 
 Here's a possible implementation of the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::velocity}
 system declared in
 \protect\hyperlink{code_example_settings_definition}{Subsection 4.1.1}:
 
@@ -2456,30 +2456,30 @@ struct velocity
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{velocity}
 system
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
 contains a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{process}
 template method that takes a single
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{TData& data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{TData& data}
 \emph{lvalue reference} as its argument \emph{(note that
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{process}
 is not a special method that is specifically recognized by ECST)}.
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{data}
 is a \textbf{data proxy} object, which abstracts the operations of a
 system behind a \textbf{safe and transparent} interface.
 
 By invoking the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{data.for_entities}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{data.for_entities}
 method with a callable object, it is possible to iterate over the
 entities subscribed to the system, and perform some actions on the
 component they own. In this case, we're accessing the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::position}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::position}
 component through a mutable reference, and the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::velocity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::velocity}
 component through a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{const}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{const}
 reference, in order to move the particle by its velocity.
 
 The interesting thing is that this syntax is \textbf{completely
@@ -2490,26 +2490,26 @@ proxy. Other things to take notice of are:
 \begin{itemize}
 \item
   The storage policy of the components is irrelevant.
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::position}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::position}
   and
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::velocity}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::velocity}
   could be stored in the same contiguous buffer, or one of them could be
   in an hash-map while the other one is in a machine on the other side
   of the world \emph{(storing a component in a different continent could
   slightly affect the performance of your application)};
 \item
   Getting a mutable or
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{const}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{const}
   reference to a component is \textbf{statically checked} at
   compile-time, producing an error in case the component access does not
   fulfill what was specified in the system signature;
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{process}
   is not special, and not limited to a single argument - additional data
   could be passed to the method and captured in the lambda. This will be
   covered in detail in \protect\hyperlink{chap_flow}{Chapter 8} - here's
   a possible way of invoking
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity::process}:
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::velocity::process}:
 
   \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   namespace sea = ecst::system_execution_adapter;
@@ -2632,9 +2632,9 @@ policies, simply split the subscribed entities of a system evenly
 between the generated subtasks. The \emph{``fork''} and \emph{``join''}
 nodes present in the DAG are implicit - they can however be handled by
 users thanks to \textbf{system execution adapters} \emph{(described in
-{[}the ``advanced features'' chapter{]}\{\#chap\_advfeats\})}, allowing
-to code execution before and/or after the execution of a system's
-sub-tasks.
+\protect\hyperlink{chap_advfeats}{the ``advanced features'' chapter})},
+allowing to code execution before and/or after the execution of a
+system's sub-tasks.
 
 \chapter{Architecture}\label{architecture}
 
@@ -2664,17 +2664,17 @@ are:
 \section{Context}\label{context}
 
 In the current version of the library, the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
 stores entity, system and component data.
 
 \begin{itemize}
 \item
   The composition of the \textbf{entity metadata storage} and of the
   \textbf{component data storage} is called
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{main_storage}.
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{main_storage}.
 \item
   The element managing systems, threads, and scheduling is called the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_manager}.
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_manager}.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -2686,7 +2686,7 @@ stores entity, system and component data.
 \subsection{Entity metadata storage}\label{entity-metadata-storage}
 
 The \textbf{entity metadata storage} contains
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{metadata}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{metadata}
 instances for every entity, which are used to:
 
 \begin{itemize}
@@ -2707,7 +2707,7 @@ It also manages unused and used entity IDs.
 \subsection{Component data storage}\label{component-data-storage}
 
 The \textbf{component data storage} contains
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{chunk}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{chunk}
 instances for every component signature type. \textbf{Chunks} store the
 data of one or more component types with a user-specified strategy
 \emph{(e.g.~contiguous buffer or hash map)} and provide a way to
@@ -2727,14 +2727,14 @@ The system manager contains:
 \begin{itemize}
 \item
   A
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{thread_pool}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{thread_pool}
   instance, used to efficiently execute system logic in separate
   threads;
 \item
   A
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_storage},
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_storage},
   which stores an
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{instance}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance}
   for every system signature type.
 
   \begin{itemize}
@@ -2759,18 +2759,18 @@ Instances wrap user-provided systems, storing an instance of the
 \begin{itemize}
 \item
   A
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{state_manager},
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{state_manager},
   containing
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{state}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{state}
   instances;
 
   \begin{itemize}
   \tightlist
   \item
     Every subtask executed by an
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{instance}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance}
     has its own
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{state},
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{state},
     which contains eventual \emph{system output}, \emph{deferred
     functions}\footnote{used to delay the execution of functions in a
       later synchronous step.}, and IDs of entities to reclaim.
@@ -2782,7 +2782,7 @@ Instances wrap user-provided systems, storing an instance of the
     14, Section 14.1}.} tracking the entity IDs subscribed to the
   instance;
 \item
-  A \emph{dense bitset}\footnote{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::bitset}.}
+  A \emph{dense bitset}\footnote{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::bitset}.}
   representing the set of component types required for system
   subscription.
 \end{itemize}
@@ -2834,9 +2834,9 @@ algorithms and utilities that work both on types and ``traditional''
 values.
 
 As an example, component and system signature lists are implemented as
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1basic__tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::basic_tuple}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1basic__tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::basic_tuple}}
 instances containing the user-specified signature types wrapped in
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html\#ae35139e732c4b75e91061513cf445628}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::type_c}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html\#ae35139e732c4b75e91061513cf445628}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::type_c}}
 instances, which can be passed around like any other value and easily
 manipulated.
 
@@ -2847,11 +2847,11 @@ manipulated.
 A very large number of methods in the library is parametrized on
 component types and system types. User code calling those methods would
 normally require the constant and inelegant use of the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{instance.template method<...>(...)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance.template method<...>(...)}
 template disambiguation syntax\footnote{such syntax negatively impacts
   the readability of the code and is essentially avoidable boilerplate.
   It is required due to ambiguous parsing for the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{<}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{<}
   token, which could be interpreted both as an \emph{``angle bracket''}
   or as a \emph{less-than operator}. Details can be found
   \href{http://en.cppreference.com/w/cpp/language/dependent_name\#The_template_disambiguator_for_dependent_names}{on
@@ -2892,11 +2892,11 @@ auto make_particle = [](auto& proxy)
 \end{minted}
 
 In order to prevent the mandatory
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.template}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.template}
 disambiguation syntax and to treat component and system types as values,
 ECST provides \textbf{component tags} and \textbf{system tags}.
 \textbf{Tags} are
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 wrappers that store the type information of components and systems in
 values, allowing them to be conveniently passed to implementation and
 interface functions with a natural syntax.
@@ -2957,12 +2957,12 @@ codebase.
 \subsection{Implementation}\label{implementation-3}
 
 All tag-related types and functions are declared in the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::tag}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::tag}
 namespace. Both component tags and system tags are implemented in the
 same way: a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
 deriving from
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::type}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::type}}
 is defined, that can be immediately used in any Boost.Hana algorithm.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -2974,9 +2974,9 @@ namespace impl
 \end{minted}
 
 A
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 variable called
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{v}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{v}
 \emph{(standing for ``value'')} is provided as a convenient way for the
 user to define tags:
 
@@ -2986,11 +2986,11 @@ constexpr auto v = impl::tag_impl<T>{};
 \end{minted}
 
 The types encoded inside tags can be accessed using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::mp::unwrap}\footnote{the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::mp}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::mp::unwrap}\footnote{the
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::mp}
   namespace contains metaprogramming-related utilities.}, which is a
 type alias for types stored inside
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::type}}:
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::type}}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 namespace mp
@@ -3002,7 +3002,7 @@ namespace mp
 
 Converting a traditional template method to a tag-accepting one is a
 straightforward process: the original method is hidden using the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{private}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{private}
 access specifier - the new one will call it by \emph{unwrapping} the
 tag:
 
@@ -3047,19 +3047,19 @@ constexpr impl::valid_t valid{};
 \end{minted}
 
 Note that
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{valid}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{valid}
 is implemented as a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 value \emph{(instance of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{impl::valid_t})}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{impl::valid_t})}
 and not as a regular function. This pattern is used throughout ECST, due
 to the fact that functions implemented as
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 instances of callable objects can be easily used as arguments to other
 functions without the need of a lambda wrapper. This is the case for the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tag::component::is_list}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tag::component::is_list}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{tag::system::is_list}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{tag::system::is_list}
 functions, that return whether or not the passed argument is a list of
 tags:
 
@@ -3079,10 +3079,10 @@ maps}\label{metaprogramming_option_maps}}
 User-provided compile-time settings are a vital part of ECST: in order
 to allow users to set options in a convenient and clear way,
 \textbf{option maps} were implemented using
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::map}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::map}}
 instances and method chaining. Here is an example of user code that
 creates a \emph{system signature} for
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::acceleration}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 constexpr auto ss_acceleration =
@@ -3093,35 +3093,35 @@ constexpr auto ss_acceleration =
 \end{minted}
 
 The code snippet above defines
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ss_acceleration}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ss_acceleration}
 to be a system signature for
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::acceleration}
 with the following settings, known at \textbf{compile-time}:
 
 \begin{itemize}
 \item
   Use the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{split_evenly_per_core}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{split_evenly_per_core}
   \emph{inner parallelism strategy};
 \item
   Use the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::acceleration}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::acceleration}
   component (read-only);
 \item
   Use the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::velocity}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::velocity}
   component (mutable).
 \end{itemize}
 
 The options are provided by the user by chaining methods such as
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.parallelism(...)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.parallelism(...)}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.read(...)}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.read(...)}.
 The calls can be freely re-ordered, and if the same method is
 accidentally called twice, a compile-time error will be generated.
 
 Defining settings using the pattern above is possible thanks to the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::mp::option_map}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::mp::option_map}
 compile-time data structure.
 
 \subsection{Implementation}\label{implementation-4}
@@ -3132,23 +3132,23 @@ the following properties:
 \begin{itemize}
 \item
   Keys are values fulfilling the Boost.Hana
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Comparable.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{Comparable}}
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Comparable.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{Comparable}}
   and
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Hashable.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{Hashable}}
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Hashable.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{Hashable}}
   concept;
 
   \begin{itemize}
   \tightlist
   \item
     A set of keys is composed by
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
-    \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
+    \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::integral_constant}}
     instances, with incrementing values.
   \end{itemize}
 \item
   The keys are associated with compile-time pairs of an user-defined
   type and
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html\#aa301b96de91d665fdc846bde4659b0d3}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::bool_c}}.
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html\#aa301b96de91d665fdc846bde4659b0d3}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::bool_c}}.
 
   \begin{itemize}
   \item
@@ -3184,27 +3184,27 @@ public:
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_map}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_map}
 field is a
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::map}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::map}}
 instance. The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{set}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{set}
 method returns a new
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{option_map}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{option_map}
 instance, adding
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{key -> (x, boost::hana::false_c)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{key -> (x, boost::hana::false_c)}
 to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_map}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_map}.
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{add}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{add}
 method returns a new
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{option_map}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{option_map}
 instance, setting the value at
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{key}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{key}
 to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{(x, boost::hana::true_c)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{(x, boost::hana::true_c)}
 - it statically asserts the bool at
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{key}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{key}
 to be false, to prevent users from accidentally modifying a previously
 set option.
 
@@ -3214,7 +3214,7 @@ chaining requires the following elements:
 \begin{itemize}
 \item
   A class that contains an
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{option_map}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{option_map}
   instance and provides a clean method chaining interface;
 \item
   A set of keys representing the available options;
@@ -3236,7 +3236,7 @@ class system_signature;
 \end{minted}
 
 It is default-instantiated using the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::signature::system::make(...)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::signature::system::make(...)}
 function:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -3257,7 +3257,7 @@ constexpr auto make(TSystemTag)
 \end{minted}
 
 The keys shown above are
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 instances of Hana integral constants with unique values:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -3272,13 +3272,13 @@ namespace keys
 \end{minted}
 
 After instantiating a default
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_signature}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_signature}
 by calling
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{signature::system::make},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{signature::system::make},
 the user can modify options by using its methods, which return updated
 copies of the signature. After calling any number of unique methods, the
 final expression will evaluate to an instance of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_signature}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_signature}
 containing all user-desired settings.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -3308,7 +3308,7 @@ public:
 
 Upon passing the final customized system signature to the context, ECST
 can retrieve the options provided by the user by querying
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_option_map}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_option_map}.
 This pattern is currently used to implement \textbf{system signatures},
 \textbf{component signatures} and \textbf{context settings}.
 
@@ -3332,9 +3332,9 @@ are used throughout ECST:
   Section 14.2} for more details;
 \item
   \textbf{SFINAE},
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::enable_if_t},
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::enable_if_t},
   and generic lambdas with trailing return types are used together with
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::overload}}
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::overload}}
   to implement \emph{system execution adapters}, \emph{refresh event
   handling}, and \emph{generic system execution}. These techniques will
   be covered in \protect\hyperlink{chap_flow}{Chapter 8} and
@@ -3346,7 +3346,7 @@ settings}\label{chap_ecst_compiletime}}
 
 After including ECST, the user must define some mandatory compile-time
 settings, required to instantiate a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}:
 
 \begin{figure}[htbp]
 \centering
@@ -3362,7 +3362,7 @@ following sections.
 \section{Signatures}\label{signatures}
 
 \textbf{Signatures} are
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 values containing compile-time options. They are implemented using
 option maps, covered in
 \protect\hyperlink{metaprogramming_option_maps}{Chapter 6, Section 6.3}.
@@ -3377,14 +3377,14 @@ storage strategy. Users can implement their own storage strategies
 \emph{(briefly explained in
 \protect\hyperlink{storage_comp_strategy}{Chapter 9, Subsection
 9.1.1})}. The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contiguous_buffer}
 strategy is available by default and allows users to store components in
 contiguous memory locations.
 
 \subsubsection{SoA}\label{soa}
 
 Creating a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contiguous_buffer}
 signature per component type results in a \textbf{SoA} \emph{(structure
 of arrays)} storage layout:
 
@@ -3411,7 +3411,7 @@ storage layout}
 \subsubsection{AoS}\label{aos}
 
 Creating a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contiguous_buffer}
 signature with multiple component types results in a \textbf{AoS}
 \emph{(array of structures)} storage layout:
 
@@ -3473,7 +3473,7 @@ signatures together, in order to pass them to the context settings
 definition.
 
 They are implemented using
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1basic__tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::basic_tuple}}.
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1basic__tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::basic_tuple}}.
 The user creates them using the following syntax:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -3504,7 +3504,7 @@ constexpr auto make_ssl()
 
 \textbf{Context settings} are mandatory options that need to be defined
 prior to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}
 instantiation, implemented using
 \protect\hyperlink{metaprogramming_option_maps}{option maps}. The
 context needs to be aware of:
@@ -3632,7 +3632,7 @@ ECST's execution flow is composed of the following stages:
 \hypertarget{step_stage}{\subsection{Step}\label{step_stage}}
 
 \textbf{Step} stages are accessed through a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context},
 using a \textbf{step proxy}.
 
 They:
@@ -3657,7 +3657,7 @@ They:
 \subsubsection{User code}\label{user-code}
 
 A step can be defined in user code by calling
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context::step(...)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context::step(...)}
 with a function that accepts a \emph{step proxy}. The following example
 shows a code snippet in which the user, inside of a step stage, prepares
 a rendering system, executes a system chain that processes physics and
@@ -3730,9 +3730,9 @@ A \textbf{refresh state} is instantiated at the beginning of the
 refresh, that will be used as a buffer in order to allow communication
 between all refresh stages. The refresh state contains a set of entity
 IDs to reclaim
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{to_kill}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{to_kill}
 and a set of entity IDs to match
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{to_match}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{to_match}.
 
 \begin{algorithm}[H]
 \caption{ECST flow: refresh algorithm overview}
@@ -3834,7 +3834,7 @@ Newly created entities and entities with a mutated component set must be
 matched to systems. Checking if an entity matches a system is done by
 computing \emph{dense bitset inclusion} between the entity's active
 component bitset and the system's required component bitset. Testing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::bitset}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::bitset}
 inclusion is not part of the Standard Library \emph{(although proposed,
 see {[}\protect\hyperlink{ref-isocpp_proposal_p0125r0}{22}{]})} - it can
 be implemented using bitwise operators as follows:
@@ -3903,14 +3903,14 @@ data}\label{storage_component}}
 Component data is stored in \textbf{chunks}. A \textbf{chunk} binds one
 or more component types to a particular \textbf{component storage
 strategy}. When the user tries to access a component by a tag
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ct},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ct},
 the chunk responsible for storing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ct}
 is found at compile-time, and the data is retrieved from the bound
 storage.
 
 Chunks are stored inside the context in a
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}}.
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::tuple}}.
 
 \hypertarget{storage_comp_strategy}{\subsection{Component storage
 strategy}\label{storage_comp_strategy}}
@@ -3925,10 +3925,10 @@ it satisfies the following requirements:
 
   \begin{itemize}
   \item
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{component_tag_list_type}:
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{component_tag_list_type}:
     a \emph{type list} containing all the tags of components stored;
   \item
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{metadata_type}:
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{metadata_type}:
     storage-specific metadata that will be \emph{injected} in entity
     metadata. Can be used to store additional data required to retrieve
     components directly in the entities. Usually an empty class.
@@ -3952,29 +3952,29 @@ it satisfies the following requirements:
 \end{itemize}
 
 By default, the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer},
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{empty}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contiguous_buffer},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{empty}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{hash_map}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{hash_map}
 storage strategies are available.
 
 \begin{itemize}
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contiguous_buffer}
   stores data in either an
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::array}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::array}
   or an
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector},
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector},
   depending on whether or not the \emph{entity limit} is fixed or
   dynamic.
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{empty}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{empty}
   does not store any data - it's used for data-less components which
   only ``mark'' entities.
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{hash_map}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{hash_map}
   stores data in an
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::unordered_map}.
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::unordered_map}.
   It should only be used for very big components with infrequent
   lookups/additions.
 \end{itemize}
@@ -3982,7 +3982,7 @@ storage strategies are available.
 Users can create their own storage strategies by writing classes
 fulfilling the requirements mentioned above, and by providing a
 \emph{``maker''}
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
 with the following interface:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -4026,7 +4026,7 @@ with keeping track of active components, ensuring handle validity and
 storing \emph{chunk metadata}.
 
 It is implemented as a simple
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TComponentBitset, typename TChunkMetadataTuple>
@@ -4038,31 +4038,31 @@ struct metadata : TChunkMetadataTuple
 };
 \end{minted}
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{metadata}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{metadata}
 derives from
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{TChunkMetadataTuple}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{TChunkMetadataTuple}
 in order to take advantage of the \textbf{empty base optimization}
 \emph{(EBO)} \emph{(more details at
 {[}\protect\hyperlink{ref-cppreference_ebo}{24}{]})}. The stored
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_counter}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_counter}
 is incremented every time an entity IDs is reused - handles that try to
 access an entity check if their local counter matches with
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_counter}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_counter}
 to make sure they're not accessing another entity reusing the same ID
 {[}\protect\hyperlink{ref-tmachine_eids}{25}{]}.
 
 All entity metadata instances, along with available entity IDs, are
 stored in either
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::entity::container::dynamic}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::entity::container::dynamic}
 or
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::entity::container::fixed},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::entity::container::fixed},
 depending on the entity limit specified by the user in context settings.
 
 The dynamic storage uses an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector}
 to store metadata and a \emph{dynamic sparse integer set} to store
 available IDs. The fixed storage uses an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::array}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::array}
 to store metadata and a \emph{fixed sparse integer set} to store
 available IDs - it is faster than the dynamic one as no checks for
 growth \emph{(reallocation)} have to be performed.
@@ -4078,7 +4078,7 @@ systems}\label{storage_system}}
 User-defined systems are stored inside \textbf{system instances}. Every
 system type has a corresponding system instance. All system instances
 are stored in the context, in an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::tuple},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::tuple},
 allowing users and other modules of the library to lookup instances at
 compile-time by system type.
 
@@ -4126,7 +4126,7 @@ the following elements:
   \end{itemize}
 \item
   A
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{to_kill}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{to_kill}
   sparse integer set, that keeps track of the entities marked as dead
   during subtask execution;
 
@@ -4138,7 +4138,7 @@ the following elements:
   \end{itemize}
 \item
   A
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector}
   of \textbf{deferred functions}.
 
   \begin{itemize}
@@ -4181,17 +4181,17 @@ continuously dequeues \textbf{tasks} from the queue, executing them.
 \end{figure}
 
 Tasks are implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ecst::fixed_function},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ecst::fixed_function},
 similar to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::function}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::function}
 but with a fixed allocation size. Synchronization is implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::condition_variable}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::atomic}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
 counters. An implementation making use of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::packaged_task}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::packaged_task}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::future}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::future}
 was tested, but the unnecessary overhead brought by those classes was
 significant.
 
@@ -4200,7 +4200,7 @@ significant.
 To provide \textbf{workers} with tasks, a third-party blocking
 concurrent lock-free queue developed by Cameron Desrochers is used. The
 queue class is called
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{moodycamel::BlockingConcurrentQueue},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{moodycamel::BlockingConcurrentQueue},
 and is \href{https://github.com/cameron314/concurrentqueue}{available on
 GitHub} under the \emph{Simplified BSD License}.
 
@@ -4220,10 +4220,10 @@ void worker::run()
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_queue->wait_dequeue(t)}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_queue->wait_dequeue(t)}
 method call will block the current thread until the queue is not empty,
 and then dequeue a task into
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{t}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{t}.
 In order to prevent indefinitely waiting upon thread pool destruction, a
 number of \emph{``dummy''} empty tasks are spawned to wake up the
 waiting workers:
@@ -4258,15 +4258,15 @@ and inner parallelism:
 
 The waiting conditions are very simple and can easily and efficiently be
 implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::condition_variable}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::atomic}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
 counters. ECST provides a convenient and safe waiting interface,
 obtained by wrapping the aforementioned synchronization primitives
 alongside an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::mutex}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::mutex}
 in a data structure called
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct counter_blocker
@@ -4283,7 +4283,7 @@ struct counter_blocker
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
 can be used as follows:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -4300,7 +4300,7 @@ execute_and_wait_until_counter_zero(cb, [&]
 \end{minted}
 
 Here's a possible implementation for
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{spawn_tasks}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{spawn_tasks}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 void spawn_tasks(counter_blocker& cb, int n)
@@ -4324,7 +4324,7 @@ inner parallelism and in the refresh stage.
 
 The synchronization operations are hidden behind an interface that takes
 a reference to a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 void decrement_cv_counter_and_notify_one(counter_blocker&);
@@ -4335,12 +4335,12 @@ void execute_and_wait_until_counter_zero(counter_blocker&, TF&&);
 \end{minted}
 
 The functions above call implementation functions by explicitly passing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
 members. The most primitive implementation function is
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{access_cv_counter},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{access_cv_counter},
 which calls a passed function after safely accessing the counter inside
 a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TF>
@@ -4369,11 +4369,11 @@ void decrement_cv_counter_and_notify_one(
 \end{minted}
 
 The \emph{``execute and wait''} functions are implemented using an
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::unique_lock}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::unique_lock}
 waiting on a generic predicate through the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::condition_variable}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
 stored in the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TPredicate, typename TF>
@@ -4424,12 +4424,12 @@ ctx.step([&](auto& proxy)
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::s0}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::s0}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::s1}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::s1}
 system types need to be independent of each other \emph{(a compile-time
 error will occur otherwise)}. After calling
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{proxy.execute_systems_from},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{proxy.execute_systems_from},
 the \protect\hyperlink{architecture_system_mgr}{system manager} inside
 the context will instantiate a system scheduler and begin execution:
 
@@ -4452,16 +4452,16 @@ void system_manager<TSettings>::execute_systems_impl(
 \end{minted}
 
 The current only default system scheduler type is called
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter}
 - it
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
 instances to wait for system dependencies' execution completion.
 
 \hypertarget{mt_ac_scheduler}{\subsection{Atomic counter
 scheduler}\label{mt_ac_scheduler}}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter}
 scheduler keeps count of the remaining systems \emph{(yet to be
 executed)} and assigns a \textbf{task} to every system. Every task keeps
 count of its \textbf{remaining dependencies}. Tasks are executed
@@ -4596,14 +4596,14 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
 }
 \end{minted}
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter::start_execution}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter::start_execution}
 will begin the recursive task execution.
 
 \hypertarget{multithreading_recursive_task_execution}{\subsubsection{Recursive
 task execution}\label{multithreading_recursive_task_execution}}
 
 Every system in the context has an assigned task, which has a unique ID.
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter::start_execution}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter::start_execution}
 retrieves the tasks of the starting systems and executes them
 recursively:
 
@@ -4629,7 +4629,7 @@ void atomic_counter::start_execution(
 \end{minted}
 
 After retrieving a task by ID,
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter::task::run}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter::task::run}
 will effectively execute the overloaded user-provided processing
 function on the system and recursively run children tasks with no
 remaining dependencies:
@@ -4704,7 +4704,7 @@ constexpr auto ss_acceleration =
 \end{minted}
 
 The code snippet above configures
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::acceleration}
 to run in a single thread if its subscriber count is less than
 \(10000\), otherwise it will be evenly split across the available CPU
 cores.
@@ -4713,7 +4713,7 @@ System instances invoke the parallel executor by passing a reference to
 the parent context, a \textbf{subtask adapter} function, and the
 overloaded user-provided processing function. The subtask adapter binds
 a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker},
 the context and the processing function to a new function which will
 \emph{slice} the subscribed entity range depending on parameters
 provided by the inner parallelism strategy:
@@ -4771,9 +4771,9 @@ void split_every_n</* ... */>::execute(
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{instance::prepare_and_wait_n_subtasks}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance::prepare_and_wait_n_subtasks}
 method takes care of initializing the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
 with the number of produced subtasks and of starting the subtask
 execution:
 
@@ -4795,7 +4795,7 @@ void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
 \hypertarget{inner_par_slicing}{\subsubsection{Slicing}\label{inner_par_slicing}}
 
 The implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{make_bound_slice_executor}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{make_bound_slice_executor}
 creates a \emph{nullary\footnote{that takes no arguments.} function}
 that can be executed in a separate thread by binding all required
 parameters. The function instantiates a \textbf{data proxy} that is used
@@ -4854,7 +4854,7 @@ reference in the following cases:
   \emph{system chain execution}, a \textbf{step proxy} object must be
   used. Step proxies are created from the context and accessed through
   the
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context::step}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context::step}
   method.
 
   \begin{itemize}
@@ -4868,9 +4868,9 @@ reference in the following cases:
 \end{itemize}
 
 All proxies are implemented as template classes containing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{private}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{private}
 callable objects \emph{(and additional data)}, with a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{public}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{public}
 interface that invokes the stored callables.
 
 \section{Data proxies}\label{data-proxies}
@@ -4958,7 +4958,7 @@ ctx.step([&](auto& proxy)
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{data}
 arguments shown above are created during
 \protect\hyperlink{inner_par_slicing}{\emph{inner parallelism slicing}}
 and automatically passed to the overloaded processing functions by the
@@ -5059,10 +5059,10 @@ auto execute_systems();
 \end{minted}
 
 These functions are accessed through the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context::step}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context::step}
 method, which creates a step proxy and passes it to an user-defined
 function. The method also accepts a variadic number of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{fs_refresh...}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{fs_refresh...}
 refresh event handler functions: the feature will be covered in
 \protect\hyperlink{chap_advfeats}{Chapter 12, Section 12.1}.
 
@@ -5111,7 +5111,7 @@ ctx.step([&](auto& proxy)
 used to execute system processing functions. They allow more
 fine-grained control over system execution and can only be accessed in a
 \emph{step}, using the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.detailed}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.detailed}
 method of any \emph{system execution adapter}. Here's a usage example:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5135,7 +5135,7 @@ ctx.step([](auto& proxy)
 
 Normally, executor proxies are hidden behind the more convenient
 \emph{(yet more limited)} \emph{system execution adapter}
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{.for_subtasks}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{.for_subtasks}
 method interface.
 
 \hypertarget{chap_advfeats}{\chapter{Advanced
@@ -5154,7 +5154,7 @@ subscribing/unsubscribing entities to systems. These operations produce
 \textbf{refresh event handling}.
 
 When calling the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context::step}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context::step}
 method, a variadic number of functions can be passed that will be
 overloaded to \emph{catch} refresh events and execute code:
 
@@ -5201,7 +5201,7 @@ auto context::step(TFStep&& f_step, TFsRefresh&&... fs_refresh)
 \end{minted}
 
 Every event has a unique type and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 variable:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5267,19 +5267,19 @@ using enable_matching_instance =
     std::enable_if_t<check_tag<TInstance, TSystemTag>()>;
 \end{minted}
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{impl::enable_matching_instance}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{impl::enable_matching_instance}
 is a type alias that makes use of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::enable_if_t}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::enable_if_t}
 \emph{(see {[}\protect\hyperlink{ref-cppreference_enable_if}{26}{]})},
 which prevents functions from participating in \textbf{overload
 resolution} \emph{(see
 {[}\protect\hyperlink{ref-cppreference_overload_resolution}{27}{]})} if
 the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{check_tag<TInstance, TSystemTag>()}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{check_tag<TInstance, TSystemTag>()}
 expression evaluates to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{false}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{false}.
 Here is the implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{check_tag}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{check_tag}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 // Returns `true` if `TInstance` is the system instance with
@@ -5307,7 +5307,7 @@ constexpr auto check_tag()
 systems} of user-defined \emph{system processing functions} during a
 \protect\hyperlink{step_stage}{step}. Users can match zero or more
 systems depending on their tags or custom
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{constexpr}
 predicate functions. All systems can also be conveniently matched. Here
 is an example of system execution adapters in use:
 
@@ -5350,10 +5350,10 @@ different systems.
 The implementation of system execution adapters is conceptually similar
 to the one for \protect\hyperlink{advf_refresh_event_handling}{refresh
 event handling}: all interface functions in the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_execution_adapter}
 namespace will return SFINAE-restricted functions that will be linearly
 overloaded by the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{proxy.execute_systems}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{proxy.execute_systems}
 call. The resultant function will then be called with every system
 during
 \protect\hyperlink{multithreading_recursive_task_execution}{system
@@ -5361,21 +5361,21 @@ recursive task execution} - only the matching overloads \emph{(depending
 on tags or user-provided predicates)} will be invoked.
 
 Every adapter is implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter::matching}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_execution_adapter::matching}
 as a building block:
 
 \begin{itemize}
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter::all}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_execution_adapter::all}
   returns a
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sea::matching}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sea::matching}
   with a \emph{tautology predicate};
 \item
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter::t(...)}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_execution_adapter::t(...)}
   returns a
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sea::matching}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sea::matching}
   that uses a predicate very similar to the previously analyzed
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{check_tag}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{check_tag}
   function to restrict systems depending on their tags.
 \end{itemize}
 
@@ -5432,13 +5432,13 @@ struct handle
 
 A special entity ID, equal to maximum finite value representable by the
 underlying numeric type, is the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{invalid_id}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{invalid_id}.
 Handles pointing to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{invalid_id}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{invalid_id}
 are considered \textbf{null} or \textbf{invalid} handles -
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{valid_handle}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{valid_handle}
 returns
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{false}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{false}
 for them.
 
 Accessing entity metadata through an handle consists of the following
@@ -5490,7 +5490,7 @@ operations.
 
 \protect\hyperlink{flow_exec_dfuncs}{\emph{Deferred functions}} are
 implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<std::function>}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector<std::function>}
 in the current version of ECST, introducing unnecessary run-time
 overhead due to dynamic allocation and polymorphism.
 
@@ -5663,7 +5663,7 @@ number of contained integers.
 bitset creation}\label{appendix_component_bitset_creation}}
 
 \textbf{Component bitsets} are \emph{dense bitsets} implemented with
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::bitset}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::bitset}
 used to keep track of an entity's components and to efficiently check
 whether or not an entity belongs to a system. Every component type is
 represented by a unique bit.
@@ -5696,15 +5696,15 @@ auto make_from_system_signature(TSettings s, TSystemSignature ss)
 \end{minted}
 
 Tags are values, and that type lists are
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::tuple}
 instances. Boost.Hana provides a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::for_each}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::for_each}
 function that can be used to \emph{``iterate''} over the elements of a
 tuple at compile-time. Building the bitset simply consists in iterating
 over
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{ctag_list}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{ctag_list}
 and setting the corresponding component bits to
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{1}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{1}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TSettings, typename TComponentTagList>
@@ -5740,16 +5740,16 @@ compile-time choices regarding data structures. It is used to avoid
 unnecessary overhead depending on user-specified context settings. An
 example use case can be found in the implementation of
 \protect\hyperlink{storage_entity}{entity metadata storage}:
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::array}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::array}
 or
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector}
 will be used to store metadata depending on the
 \emph{fixed}/\emph{dynamic} entity limit choice made by the user.
 
 \subsection{Implementation details}\label{implementation-details-5}
 
 Most occurrences of static dispatching are implemented using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{static_if},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if},
 available in \textbf{vrm\_core} \emph{(see
 {[}\protect\hyperlink{ref-github_vrmcore}{32}{]})}. A compile-time
 branching construct is not yet part of the standard, but it has been
@@ -5759,7 +5759,7 @@ proposed several times \emph{(see
 {[}\protect\hyperlink{ref-isocpp_sif2}{35}{]} and
 {[}\protect\hyperlink{ref-isocpp_sif3}{36}{]})} and it's likely to be
 introduced in C++17. Nevertheless, a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{static_if}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if}
 construct that's more convienient and localized than \emph{explicit
 template specialization}
 {[}\protect\hyperlink{ref-cppreference_ets}{37}{]} can be implemented
@@ -5768,9 +5768,9 @@ using C++14 features \emph{(see {[}\protect\hyperlink{ref-sif0}{38}{]},
 {[}\protect\hyperlink{ref-sif2}{40}{]})}.
 
 Using
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{static_if},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if},
 implementing static dispatching becomes straightforward. An auxiliary
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{dispatch_on_storage_type}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{dispatch_on_storage_type}
 function executes one of the passed callable objects depending on the
 user-specified storage limitations:
 
@@ -5792,7 +5792,7 @@ auto dispatch_on_storage_type(
 \end{minted}
 
 Using the function above, data structures wrapped in
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html\#ae35139e732c4b75e91061513cf445628}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::type_c}}
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html\#ae35139e732c4b75e91061513cf445628}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::type_c}}
 can be returned and later instantiated. Here is the implementation of
 the function statically dispatching entity metadata storage types:
 
@@ -5865,21 +5865,21 @@ mutating the structure in-place.
 \begin{itemize}
 \item
   Nodes are compile-time numerical IDs
-  \emph{(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}})};
+  \emph{(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::integral_constant}})};
 \item
   The BFT queue is a
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}};
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::tuple}};
 \item
   Nodes are \emph{``marked as visited''} by storing their ID in a
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}};
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::tuple}};
 \item
   Both the queue and the \emph{``visited nodes tuple''} are stored in a
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1pair.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::pair}}.
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1pair.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::pair}}.
   The pair is referred to as the \textbf{BFT context}.
 \end{itemize}
 
 All operations are defined inside the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bf_traversal}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bf_traversal}
 namespace. The data structures can be initialized and accessed with the
 following functions:
 
@@ -5939,16 +5939,16 @@ namespace bf_traversal
 \end{minted}
 
 The algorithm is executed through the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bf_traversal::execute}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bf_traversal::execute}
 function, which takes a list of starting nodes and the complete system
 signature list as parameters. A
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{step}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{step}
 lambda, which repeatedly yields updated BFT context instances, is
 executed recursively until the traversal is completed by using
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-functional.html\#ga1393f40da2e8da6e0c12fce953e56a6c}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::fix}},
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-functional.html\#ga1393f40da2e8da6e0c12fce953e56a6c}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::fix}},
 which is an implementation of the \textbf{``Y-combinator''}
 \emph{(a.k.a. ``fixed-point combinator'')}.
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bf_traversal::execute}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bf_traversal::execute}
 returns a list of the traversed node IDs.
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5989,7 +5989,7 @@ auto execute(TStartNodeList&& snl, TSSL ssl)
 \end{minted}
 
 The core of the algorithm resides in the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bf_traversal::step_forward}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bf_traversal::step_forward}
 function:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6024,11 +6024,11 @@ auto step_forward(TBFTContext&& c, TSSL ssl) noexcept
 \end{minted}
 
 The last missing piece is the implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{dependent_ids_list},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{dependent_ids_list},
 which returns a list of nodes that depend on the passed \emph{``parent
 node''}. It is implemented by iterating over the complete system
 signature list \emph{(using
-\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/fold__right_8hpp.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::fold_right}})},
+\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/fold__right_8hpp.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{boost::hana::fold_right}})},
 gathering all nodes that have the \emph{``parent node''} as one of their
 dependencies:
 
@@ -6066,11 +6066,11 @@ auto dependent_ids_list(
 
 \protect\hyperlink{mt_s_sce}{The algorithm is used in the implementation
 of the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{atomic_counter::execute}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{atomic_counter::execute}
 scheduler function}, under the name
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{chain_size},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{chain_size},
 in order to instantiate a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{counter_blocker}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
 that will block the calling thread until all systems belonging to a
 particular connected component of the dependency DAG have been executed.
 
@@ -6118,7 +6118,7 @@ Every particle is composed of the following component types:
 \begin{itemize}
 \item
   \textbf{Position}: 2D
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{float}
   vector;
 
   \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6126,7 +6126,7 @@ Every particle is composed of the following component types:
   \end{minted}
 \item
   \textbf{Velocity}: 2D
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{float}
   vector;
 
   \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6134,7 +6134,7 @@ Every particle is composed of the following component types:
   \end{minted}
 \item
   \textbf{Acceleration}: 2D
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{float}
   vector;
 
   \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6165,9 +6165,9 @@ Every particle is composed of the following component types:
 \begin{itemize}
 \item
   \textbf{Acceleration}: increments each particle's
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{velocity}
   vector by its
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{acceleration}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{acceleration}
   vector;
 
   \begin{itemize}
@@ -6177,9 +6177,9 @@ Every particle is composed of the following component types:
   \end{itemize}
 \item
   \textbf{Velocity}: increments each particle's
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{position}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{position}
   vector by its
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{velocity}
   vector;
 
   \begin{itemize}
@@ -6205,13 +6205,13 @@ Every particle is composed of the following component types:
     Multithreading is enabled;
   \item
     Produces
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<sp_data>}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector<sp_data>}
     outputs.
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sp_data}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sp_data}
     is a lightweight
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
     holding an
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{entity_id}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{entity_id}
     and a pair of 2D cells coordinates. The produced vectors will be
     read from the context step in order to fill the stored 2D grid data
     structure.
@@ -6226,23 +6226,23 @@ Every particle is composed of the following component types:
     Multithreading is enabled;
   \item
     Produces
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<contact>}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector<contact>}
     outputs.
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contact}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contact}
     is a lightweight
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{struct}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{struct}
     holding
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{entity_id}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{entity_id}
     instances of two colliding particles. The contacts sequentially read
     from the
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{solve_contacts}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{solve_contacts}
     system to solve penetration between particles.
   \end{itemize}
 \item
   \textbf{Solve contacts}: reads
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{collision}'s
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{collision}'s
   produced
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contact}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contact}
   outputs and sequentially solves penetration between particles;
 
   \begin{itemize}
@@ -6258,13 +6258,13 @@ Every particle is composed of the following component types:
     Multithreading is enabled;
   \item
     Produces
-    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<sf::Vertex>}
+    \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector<sf::Vertex>}
     outputs. The vertices are used to render the circles using SFML.
   \end{itemize}
 \item
   \textbf{Life}: deals with particle lifetime. Continuously decreases
   every particle's
-  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{life}
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{life}
   value and marks particles as dead when their lifetime is over;
 
   \begin{itemize}
@@ -6293,12 +6293,12 @@ The implicitly generated depedency DAG is shown below:
 \subsection{System implementations}\label{system-implementations}
 
 Most of the system implementations are straightforward:
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::acceleration}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::velocity}
 simply iterate over their subscribed entities, mutating the values of
 the targeted components. Here is the implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::acceleration}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct acceleration
@@ -6316,23 +6316,23 @@ struct acceleration
 };
 \end{minted}
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::fade},
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::life}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::fade},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::life}
 and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::keep_in_bounds}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::keep_in_bounds}
 are implemented in a similar way.
 
 \subsubsection{Spatial partition}\label{spatial-partition}
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::spatial_parititon}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::spatial_parititon}
 is a stateful system: it stores a 2D grid used to speed-up broadphase
 collisions and produces outputs later read in \emph{step stage} to
 mutate the stored grid.
 
 The grid is implemented with two nested
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::array}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::array}
 of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<entity_id>}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::vector<entity_id>}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct spatial_partition
@@ -6343,11 +6343,11 @@ struct spatial_partition
 \end{minted}
 
 At the beginning of every step stage
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{_grid}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_grid}
 is cleared. The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{process}
 method of the system iterates over the subscribed entities and produces
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sp_data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sp_data}
 instances:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6376,7 +6376,7 @@ void process(TData& data)
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sp_data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sp_data}
 struct is defined as follows:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6388,9 +6388,9 @@ struct sp_data
 \end{minted}
 
 Every subtask of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::spatial_partition}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::spatial_partition}
 will produce
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sp_data}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{sp_data}
 instances in parallel. They will be sequentially read in the step stage
 to fill the 2D grid:
 
@@ -6423,16 +6423,16 @@ sea::t(st::spatial_partition).detailed_instance(
 \subsubsection{Collision}\label{collision}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::collision}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::collision}
 system will iterate over unique pairs of particles in the same spatial
 partitioning cell and produce
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contact}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contact}
 instances in parallel that will be sequentially processed by the
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::solve_contacts}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::solve_contacts}
 system.
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contact}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{contact}
 struct is defined as follows:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -6447,11 +6447,11 @@ struct contact
 \end{minted}
 
 As
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::spatial_parititon}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::spatial_parititon}
 is a dependency of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::collision},
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::collision},
 its state can be safely accessed in
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::collision::process}:
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::collision::process}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TData>
@@ -6527,9 +6527,9 @@ The simulation was executed on a system with
 operating system, using \(8\) worker threads. Rendering was disabled for
 the benchmarks.
 
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{g++}
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{g++}
 version 6.1.1 was used, with the following compiler flags:\\
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{-Ofast -march=native -ffast-math -ftree-vectorize}.
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{-Ofast -march=native -ffast-math -ftree-vectorize}.
 
 The error bars in the following graphs represent the \emph{standard
 deviation}.

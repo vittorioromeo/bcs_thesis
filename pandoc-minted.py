@@ -83,7 +83,7 @@ def minted(key, value, format, meta):
         )
         Element = RawBlock
     elif key == 'Code':
-        template = Template('\\mintinline[$attributes]{$language}{$contents}')
+        template = Template('\\mintinline[$attributes, bgcolor=codebg]{$language}{$contents}')
         Element = RawInline
     else:
         return
