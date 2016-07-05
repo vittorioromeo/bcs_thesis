@@ -364,16 +364,16 @@ logic}.
 \begin{itemize}
 \item
   Entities\footnote{core building blocks of an application.} can be
-  composed of small, reusable, and generic components.
+  composed of small, reusable, and generic components;
 \item
   Components can be stored in contiguous memory areas, thus improving
-  \textbf{data locality} and \textbf{cache-friendliness}.
+  \textbf{data locality} and \textbf{cache-friendliness};
 \item
   Application logic can be \textbf{easily parallelized} and abstracted
-  away from the objects themselves and their storage policies.
+  away from the objects themselves and their storage policies;
 \item
   The state of the application can be serialized and shared over the
-  network with less effort.
+  network with less effort;
 \item
   A more modular, generic and easily-testable codebase.
 \end{itemize}
@@ -509,12 +509,12 @@ author:
 \item
   \href{https://github.com/SuperV1234/SSVEntitySystem}{SSVEntitySystem},
   a naive implementation of a single-threaded ECS making use of run-time
-  polymorphism, was released as open-source in 2012.
+  polymorphism, was released as an open-source library in 2012;
 \item
   A singlethreaded compile-time Entity-Component-System implementation
   tutorial talk was presented at \href{http://cppcon.org}{CppCon 2015}.
   All material used during the talk is available in the following GitHub
-  repository: \url{https://github.com/SuperV1234/cppcon2015}.
+  repository: \url{https://github.com/SuperV1234/cppcon2015};
 \item
   Development of ECST started in December 2015. An earlier version of
   the library was presented in May 2016 at
@@ -634,11 +634,11 @@ of entity} can be listed:
 
 \begin{itemize}
 \item
-  An entity is something closely related to a specific concept.
+  An entity is something closely related to a specific concept;
 \item
-  Entities have related data and related logic.
+  Entities have related data and related logic;
 \item
-  Entities are stored, managed and processed in large quantities.
+  Entities are stored, managed and processed in large quantities;
 
   \begin{itemize}
   \tightlist
@@ -662,12 +662,12 @@ Examples of entities include:
 \begin{itemize}
 \item
   \textbf{Game objects}, like \textbf{projectiles}, \textbf{walls}, and
-  \textbf{power-ups}.
+  \textbf{power-ups};
 \item
-  \textbf{Widgets} in a GUI framework: \textbf{buttons},
-  \textbf{textboxes}, etc\ldots{}
+  \textbf{Widgets} in a GUI framework, like \textbf{buttons} and
+  \textbf{textboxes};
 \item
-  \textbf{Client states} in a server.
+  \textbf{Client states} in a server;
 \item
   \textbf{Particles} and \textbf{lights} in VFX creation software.
 \end{itemize}
@@ -705,9 +705,9 @@ The designed imaginary RPG will have the following \textbf{NPCs}
 \begin{itemize}
 \item
   A \textbf{warrior}, that can be unarmed or wield any combination of
-  \textbf{sword} and \textbf{bow}.
+  \textbf{sword} and \textbf{bow};
 \item
-  A \textbf{skeleton}.
+  A \textbf{skeleton};
 \item
   A flying \textbf{dragon}.
 \end{itemize}
@@ -723,7 +723,7 @@ types:
 
 \begin{itemize}
 \item
-  A \textbf{textbox}, which supports keyboard input.
+  A \textbf{textbox}, which supports keyboard input;
 \item
   A \textbf{button}, which supports mouse input.
 \end{itemize}
@@ -1237,12 +1237,12 @@ following characteristics:
 
 \begin{itemize}
 \item
-  Behaviors \textbf{store data} and \textbf{handle logic}.
+  Behaviors \textbf{store data} and \textbf{handle logic};
 \item
   Behavior types \textbf{conform to the same interface} and
   polymorphically inherit from a base
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
-  class.
+  class;
 \item
   Behaviors can be added and removed from entities at run-time.
 \end{itemize}
@@ -1478,9 +1478,9 @@ data-oriented composition:
 
 \begin{itemize}
 \item
-  No separation of data and logic is present.
+  No separation of data and logic is present;
 \item
-  There is a significant overhead due to run-time polymorphism.
+  There is a significant overhead due to run-time polymorphism;
 \item
   It's still impossible to take advantage of the CPU cache.
 \end{itemize}
@@ -1507,13 +1507,13 @@ be used:
 
 \begin{itemize}
 \item
-  Entity instances will be simple \textbf{numerical IDs}.
+  Entity instances will be simple \textbf{numerical IDs};
 \item
-  \textbf{Component types} will be simple, small and logic-less.
+  \textbf{Component types} will be simple, small and logic-less;
 \item
-  Component data will be \textbf{stored separately} from entities.
+  Component data will be \textbf{stored separately} from entities;
 \item
-  Logic will be separately handled by \textbf{systems}.
+  Logic will be separately handled by \textbf{systems};
 
   \begin{itemize}
   \tightlist
@@ -1708,7 +1708,7 @@ All the leftover details can be implemented in multiple ways:
 \begin{itemize}
 \item
   Components can be bound to entities by using a \textbf{dense bitset},
-  where every bit corresponds to a component type.
+  where every bit corresponds to a component type;
 
   \begin{itemize}
   \tightlist
@@ -1720,7 +1720,7 @@ All the leftover details can be implemented in multiple ways:
   \end{itemize}
 \item
   Systems can keep track of the subscribed entities by storing their IDs
-  in an appropriate data structures.
+  in an appropriate data structures;
 
   \begin{itemize}
   \tightlist
@@ -1987,15 +1987,15 @@ composition are maintained, but several new advantages are achieved:
 
 \begin{itemize}
 \item
-  Data and logic \textbf{are separated}.
+  Data and logic \textbf{are separated};
 \item
-  The code becomes \textbf{more modular}, easier to maintain and extend.
+  The code becomes \textbf{more modular}, easier to maintain and extend;
 \item
   Entities are more easily \textbf{serializable} and
-  \textbf{synchronizable} over the network.
+  \textbf{synchronizable} over the network;
 \item
   Entities can be processed in terms of \textbf{chained data
-  transformations}, allowing parallelization and cache-friendliness.
+  transformations}, allowing parallelization and cache-friendliness;
 \item
   No unnecessary run-time polymorphism overhead.
 \end{itemize}
@@ -2071,7 +2071,7 @@ library\footnote{ECST can be used to implement engine-level components
 
 \begin{itemize}
 \item
-  All component and system types must be known at compile-time.
+  All component and system types must be known at compile-time;
 \item
   Entities can be created, destroyed, tracked and mutated at run-time.
 \end{itemize}
@@ -2080,7 +2080,7 @@ Some disadvantages of this approach include:
 
 \begin{itemize}
 \item
-  Longer and potentially-unreadable errors.
+  Longer and potentially-unreadable errors;
 \item
   Increased compilation times.
 \end{itemize}
@@ -2291,7 +2291,7 @@ will be used to \textbf{generate} the following elements at
 \item
   Storage for \protect\hyperlink{storage_entity}{\textbf{entity
   metadata}}, \protect\hyperlink{storage_component}{\textbf{component
-  data}}, and \protect\hyperlink{storage_system}{\textbf{systems}}.
+  data}}, and \protect\hyperlink{storage_system}{\textbf{systems}};
 \item
   An implicit \textbf{system dependency graph}, which is used to
   automatically run different systems in parallel.
@@ -2361,7 +2361,7 @@ discussions:
   attributed to the abuse of OOP techniques, such as run-time
   polymorphism and encapsulation, which tend to increase the level of
   abstraction, with the side-effect of harming data locality and leading
-  to suboptimal memory layouts.
+  to suboptimal memory layouts;
 \item
   Every abstraction has an intrinsic cost \emph{(``there is no such
   thing as cost-free abstractions'')}.
@@ -2379,14 +2379,14 @@ data-oriented ECS library include:
 \item
   \textbf{User-friendly} and \textbf{transparent} syntax. No explicit
   storage or pointer management is required, and application code is
-  independent of user-defined settings and policies.
+  independent of user-defined settings and policies;
 \item
   Higher \textbf{safety}, as many development mistakes regarding
-  dependencies and data access can be caught at compile-time.
+  dependencies and data access can be caught at compile-time;
 \item
   Easier \textbf{testability}, due to the fact that abstracting settings
   and policies allows tests to run comprehensively over a wide set of
-  option combinations.
+  option combinations;
 
   \begin{itemize}
   \tightlist
@@ -2486,13 +2486,13 @@ proxy. Other things to take notice of are:
   could be stored in the same contiguous buffer, or one of them could be
   in an hash-map while the other one is in a machine on the other side
   of the world \emph{(storing a component in a different continent could
-  slightly affect the performance of your application)}.
+  slightly affect the performance of your application)};
 \item
   Getting a mutable or
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{const}
   reference to a component is \textbf{statically checked} at
   compile-time, producing an error in case the component access does not
-  fulfill what was specified in the system signature.
+  fulfill what was specified in the system signature;
 \item
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
   is not special, and not limited to a single argument - additional data
@@ -2566,9 +2566,9 @@ The DAG now shows three separate dependency chains:
 
 \begin{itemize}
 \item
-  Rendering → Velocity → Acceleration.
+  Rendering → Velocity → Acceleration;
 \item
-  Rendering → Growth → Shape.
+  Rendering → Growth → Shape;
 \item
   Rendering → Rotation.
 \end{itemize}
@@ -2646,7 +2646,7 @@ are:
 \begin{itemize}
 \item
   Providing a \textbf{friendly interface} between the user and the
-  library.
+  library;
 \item
   \textbf{Decoupling} entities, components, and systems.
 \end{itemize}
@@ -2681,7 +2681,7 @@ instances for every entity, which are used to:
 
 \begin{itemize}
 \item
-  Keep track of the component types an entity possesses.
+  Keep track of the component types an entity possesses;
 \item
   Map entities to handles and check their validity.
 \end{itemize}
@@ -2719,7 +2719,7 @@ The system manager contains:
   A
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{thread_pool}
   instance, used to efficiently execute system logic in separate
-  threads.
+  threads;
 \item
   A
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_storage},
@@ -2752,7 +2752,7 @@ Instances wrap user-provided systems, storing an instance of the
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{state_manager},
   containing
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{state}
-  instances.
+  instances;
 
   \begin{itemize}
   \tightlist
@@ -2770,7 +2770,7 @@ Instances wrap user-provided systems, storing an instance of the
     efficient data structures for the management of entity IDs. They are
     covered in \protect\hyperlink{appendix_sparse_integer_sets}{Chapter
     14, Section 14.1}.} tracking the entity IDs subscribed to the
-  instance.
+  instance;
 \item
   A \emph{dense bitset}\footnote{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::bitset}.}
   representing the set of component types required for system
@@ -3092,11 +3092,11 @@ with the following settings, known at \textbf{compile-time}:
 \item
   Use the
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{split_evenly_per_core}
-  \emph{inner parallelism strategy}.
+  \emph{inner parallelism strategy};
 \item
   Use the
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::acceleration}
-  component (read-only).
+  component (read-only);
 \item
   Use the
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{c::velocity}
@@ -3125,7 +3125,7 @@ the following properties:
   \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Comparable.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{Comparable}}
   and
   \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Hashable.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{Hashable}}
-  concepts.
+  concept;
 
   \begin{itemize}
   \tightlist
@@ -3142,7 +3142,7 @@ the following properties:
 
   \begin{itemize}
   \item
-    The user-defined type is option-specific.
+    The user-defined type is option-specific;
   \item
     The boolean integral constant is used to mark the option as
     \emph{``already set''}, in order to prevent accidental multiple
@@ -3205,9 +3205,9 @@ chaining requires the following elements:
 \item
   A class that contains an
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{option_map}
-  instance and provides a clean method chaining interface.
+  instance and provides a clean method chaining interface;
 \item
-  A set of keys representing the available options.
+  A set of keys representing the available options;
 \item
   An initial set of default options.
 \end{itemize}
@@ -3313,13 +3313,13 @@ are used throughout ECST:
   A \textbf{breadth-first traversal} algorithm is used to find and count
   dependencies in isolated system chains - it is covered in
   \protect\hyperlink{appendix_compiletime_bfs}{Chapter 14, Section
-  14.4}.
+  14.4};
 \item
   Compile-time \textbf{tuple element iteration} is used to build
   \emph{component type bitsets}, to start parallel system execution and
   to run tests with various combinations of settings. See
   \protect\hyperlink{appendix_component_bitset_creation}{Chapter 14,
-  Section 14.2} for more details.
+  Section 14.2} for more details;
 \item
   \textbf{SFINAE},
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::enable_if_t},
@@ -3428,16 +3428,16 @@ settings:
 \item
   \textbf{Inner parallelism policy}: either allows the system to run in
   multiple threads \emph{(subtasks)} using a specific strategy or forces
-  the system to run in a single thread.
+  the system to run in a single thread;
 \item
   \textbf{List of dependencies}: list of systems whose execution needs
   to be completed before allowing the current one to run. Used to build
   the \protect\hyperlink{overview_outer_parallelism_dag}{previously
-  mentioned} outer parallelism DAG.
+  mentioned} outer parallelism DAG;
 \item
   \textbf{Accessed component types}: components types mutated or read by
   the system. Used to subscribe matching entities to the system and to
-  allow and verify component access in system implementation.
+  allow and verify component access in system implementation;
 \item
   \textbf{Output type}: type of data produced by every subtask, if any.
 \end{itemize}
@@ -3503,10 +3503,10 @@ context needs to be aware of:
 \item
   All the previously defined \emph{component signatures}, and
   \emph{system signatures}. These will be passed to the settings as
-  \emph{signature lists}.
+  \emph{signature lists};
 \item
   The chosen \textbf{multithreading policy} and \textbf{system
-  scheduling strategy}.
+  scheduling strategy};
 \item
   The desired \textbf{entity storage policy}, which can be
   \emph{dynamic} or \emph{fixed}.
@@ -3558,9 +3558,9 @@ Critical operations include:
 
 \begin{itemize}
 \item
-  Creating or destroying an entity.
+  Creating or destroying an entity;
 \item
-  Adding or removing a component to/from an entity.
+  Adding or removing a component to/from an entity;
 \item
   Starting the execution of a system chain.
 \end{itemize}
@@ -3569,9 +3569,9 @@ Non-critical operations include:
 
 \begin{itemize}
 \item
-  Using a system's output data.
+  Using a system's output data;
 \item
-  Marking an entity as \emph{``dead''}.
+  Marking an entity as \emph{``dead''};
 \item
   Accessing or mutating existing component data.
 \end{itemize}
@@ -3629,11 +3629,11 @@ They:
 
 \begin{itemize}
 \item
-  Allow immediate execution of \emph{non-critical operations}.
+  Allow immediate execution of \emph{non-critical operations};
 \item
-  Allow immediate execution of \emph{critical operations}.
+  Allow immediate execution of \emph{critical operations};
 \item
-  Allow execution of system chains.
+  Allow execution of system chains;
 \item
   Execute a \textbf{refresh} after completion.
 \end{itemize}
@@ -3692,7 +3692,7 @@ They:
 
 \begin{itemize}
 \item
-  Allow immediate execution of \emph{non-critical operations}.
+  Allow immediate execution of \emph{non-critical operations};
 \item
   Allow deferred execution of \emph{critical operations}.
 \end{itemize}
@@ -3916,7 +3916,7 @@ it satisfies the following requirements:
   \begin{itemize}
   \item
     \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{component_tag_list_type}:
-    a \emph{type list} containing all the tags of components stored.
+    a \emph{type list} containing all the tags of components stored;
   \item
     \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{metadata_type}:
     storage-specific metadata that will be \emph{injected} in entity
@@ -4080,20 +4080,20 @@ A \textbf{system instance} is composed of the following members:
 \item
   An instance of the user-defined system type - systems can be stateful
   \emph{(e.g.~for caching reasons or to store a data structure)} and may
-  require storage.
+  require storage;
 \item
   A \protect\hyperlink{appendix_sparse_integer_sets}{\emph{sparse
-  integer set}} of the currently subscribed entity IDs.
+  integer set}} of the currently subscribed entity IDs;
 \item
   A \emph{dense bitset} of the component types required for system
   subscription \emph{(see
   \protect\hyperlink{appendix_component_bitset_creation}{Chapter 14,
-  Section 14.2} for details)}.
+  Section 14.2} for details)};
 \item
   A \protect\hyperlink{multithreading_par_executor}{\textbf{parallel
   executor}} object that implements
   \protect\hyperlink{multithreading_inner_par}{\emph{inner
-  parallelism}}.
+  parallelism}};
 \item
   A \textbf{state manager} object that binds a \textbf{state} to every
   \emph{subtask}.
@@ -4106,11 +4106,11 @@ the following elements:
 
 \begin{itemize}
 \item
-  \emph{Output data} optionally generated from the subtask.
+  \emph{Output data} optionally generated from the subtask;
 
   \begin{itemize}
   \item
-    The data is set during subtask execution.
+    The data is set during subtask execution;
   \item
     The data can be read from dependent systems or during a \emph{step}.
   \end{itemize}
@@ -4118,11 +4118,11 @@ the following elements:
   A
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{to_kill}
   sparse integer set, that keeps track of the entities marked as dead
-  during subtask execution.
+  during subtask execution;
 
   \begin{itemize}
   \item
-    The set is filled during subtask execution.
+    The set is filled during subtask execution;
   \item
     The entities are reclaimed during a \emph{refresh}.
   \end{itemize}
@@ -4133,7 +4133,7 @@ the following elements:
 
   \begin{itemize}
   \item
-    The vector is filled during subtask execution.
+    The vector is filled during subtask execution;
   \item
     The functions are sequentially executed during a \emph{refresh}.
   \end{itemize}
@@ -4147,11 +4147,11 @@ potentially increase the run-time performance of user applications:
 \begin{itemize}
 \item
   \textbf{Outer parallelism}: system chains independent from each other
-  can run in parallel. Implemented with \textbf{system scheduling}.
+  can run in parallel. Implemented with \textbf{system scheduling};
 \item
   \textbf{Inner parallelism}: system execution can be split over
   multiple \emph{subtasks}. Implemented with \textbf{inner parallelism
-  strategies} and \textbf{slicing}.
+  strategies} and \textbf{slicing};
 \item
   \textbf{Refresh}: some operations in the
   \protect\hyperlink{flow_refresh}{refresh stage} can run in parallel.
@@ -5359,7 +5359,7 @@ as a building block:
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter::all}
   returns a
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{sea::matching}
-  with a \emph{tautology predicate}.
+  with a \emph{tautology predicate};
 \item
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{system_execution_adapter::t(...)}
   returns a
@@ -5561,7 +5561,7 @@ following elements:
 \begin{itemize}
 \item
   An unordered \textbf{dense array} \(D\), which contiguously stores all
-  integers present in the set.
+  integers present in the set;
 \item
   A \textbf{sparse array} \(S\), containing indices to the elements of
   \(D\), or special null \(\emptyset\) values.
@@ -5833,7 +5833,7 @@ structures:
 
 \begin{itemize}
 \item
-  A queue is used to keep track of the nodes that need to be explored.
+  A queue is used to keep track of the nodes that need to be explored;
 
   \begin{itemize}
   \tightlist
@@ -5855,13 +5855,13 @@ mutating the structure in-place.
 \begin{itemize}
 \item
   Nodes are compile-time numerical IDs
-  \emph{(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}})}.
+  *(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}});
 \item
   The BFT queue is a
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}}.
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}};
 \item
   Nodes are \emph{``marked as visited''} by storing their ID in a
-  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}}.
+  \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}};
 \item
   Both the queue and the \emph{``visited nodes tuple''} are stored in a
   \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1pair.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::pair}}.
@@ -6089,9 +6089,9 @@ following compile-time options and parameters:
 
 \begin{itemize}
 \item
-  Entity count: \(50000\), \(100000\) and \(150000\).
+  Entity count: \(50000\), \(100000\) and \(150000\);
 \item
-  Inner parallelism: \textbf{enabled} or \textbf{disabled}.
+  Inner parallelism: \textbf{enabled} or \textbf{disabled};
 \item
   Entity storage strategy: \textbf{fixed} or \textbf{dynamic}.
 \end{itemize}
@@ -6109,7 +6109,7 @@ Every particle is composed of the following component types:
 \item
   \textbf{Position}: 2D
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
-  vector.
+  vector;
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   struct position { sf::Vector2f _v; };
@@ -6117,7 +6117,7 @@ Every particle is composed of the following component types:
 \item
   \textbf{Velocity}: 2D
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
-  vector.
+  vector;
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   struct velocity { sf::Vector2f _v; };
@@ -6125,19 +6125,19 @@ Every particle is composed of the following component types:
 \item
   \textbf{Acceleration}: 2D
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{float}
-  vector.
+  vector;
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   struct acceleration { sf::Vector2f _v; };
   \end{minted}
 \item
-  \textbf{Color}: used for SFML rendering.
+  \textbf{Color}: used for SFML rendering;
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   struct color { sf::Color _v; };
   \end{minted}
 \item
-  \textbf{Circle}: shape of the particle, controls its radius.
+  \textbf{Circle}: shape of the particle, controls its radius;
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
   struct circle { float _radius; };
@@ -6158,7 +6158,7 @@ Every particle is composed of the following component types:
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
   vector by its
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{acceleration}
-  vector.
+  vector;
 
   \begin{itemize}
   \tightlist
@@ -6170,7 +6170,7 @@ Every particle is composed of the following component types:
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{position}
   vector by its
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{velocity}
-  vector.
+  vector;
 
   \begin{itemize}
   \tightlist
@@ -6179,7 +6179,7 @@ Every particle is composed of the following component types:
   \end{itemize}
 \item
   \textbf{Keep in bounds}: keeps every particle inside the boundaries of
-  the simulation.
+  the simulation;
 
   \begin{itemize}
   \tightlist
@@ -6188,11 +6188,11 @@ Every particle is composed of the following component types:
   \end{itemize}
 \item
   \textbf{Spatial partition}: stores the 2D spatial partitioning grid
-  and manages it.
+  and manages it;
 
   \begin{itemize}
   \item
-    Multithreading is enabled.
+    Multithreading is enabled;
   \item
     Produces
     \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<sp_data>}
@@ -6209,11 +6209,11 @@ Every particle is composed of the following component types:
 \item
   \textbf{Collision detection}: detects collisions between particles
   \emph{(filtered by the broadphase spartial partitioning system)}. The
-  detected collisions are resolved by a subsequent system.
+  detected collisions are resolved by a subsequent system;
 
   \begin{itemize}
   \item
-    Multithreading is enabled.
+    Multithreading is enabled;
   \item
     Produces
     \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<contact>}
@@ -6233,7 +6233,7 @@ Every particle is composed of the following component types:
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{collision}'s
   produced
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contact}
-  outputs and sequentially solves penetration between particles.
+  outputs and sequentially solves penetration between particles;
 
   \begin{itemize}
   \tightlist
@@ -6241,11 +6241,11 @@ Every particle is composed of the following component types:
     Multithreading is disabled.
   \end{itemize}
 \item
-  \textbf{Render colored circle}: deals with particle rendering.
+  \textbf{Render colored circle}: deals with particle rendering;
 
   \begin{itemize}
   \item
-    Multithreading is enabled.
+    Multithreading is enabled;
   \item
     Produces
     \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector<sf::Vertex>}
@@ -6255,7 +6255,7 @@ Every particle is composed of the following component types:
   \textbf{Life}: deals with particle lifetime. Continuously decreases
   every particle's
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{life}
-  value and marks particles as dead when their lifetime is over.
+  value and marks particles as dead when their lifetime is over;
 
   \begin{itemize}
   \tightlist
@@ -6502,10 +6502,10 @@ hardware specifications:
 \item
   CPU:
   \href{http://ark.intel.com/products/61275/Intel-Core-i7-2700K-Processor-8M-Cache-up-to-3_90-GHz}{\textbf{Intel®
-  Core™ i7-2700K Processor} \emph{(8M Cache, up to 3.90 GHz)}}.
+  Core™ i7-2700K Processor} \emph{(8M Cache, up to 3.90 GHz)}};
 \item
   RAM: \href{http://www.hyperxgaming.com/us/memory/beast}{\textbf{HyperX
-  Beast 16GB DDR3-2400MHz}}.
+  Beast 16GB DDR3-2400MHz}};
 \item
   Motherboard:
   \href{http://www.asrock.com/mb/intel/z77\%20extreme4-m/}{\textbf{ASRock
