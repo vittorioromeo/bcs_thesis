@@ -24,10 +24,10 @@ def unpack_code(value, language):
     if len(classes) > 0:
         language = classes[0]
 
-    attributes.append(["frame", "lines"])
-    attributes.append(["bgcolor", "codebg"])
+    # attributes.append(["frame", "lines"])
+    # attributes.append(["bgcolor", "codebg"])    
+    # attributes.append(["framesep", "1mm"])
     
-    attributes.append(["framesep", "1mm"])
     attributes.append(["numbersep", "12pt"])
     attributes.append(["fontsize", "\\footnotesize"])
     attributes.append(["xleftmargin", "17pt"])

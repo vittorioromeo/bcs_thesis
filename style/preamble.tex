@@ -22,7 +22,7 @@
 \usepackage{etoolbox}
 \usepackage[style=ieee]{biblatex}
 \usepackage{appendix}
-
+\usepackage{mdframed}
 
 % Table of contents formatting
 \renewcommand{\contentsname}{Table of Contents}
@@ -52,12 +52,16 @@
 
 
 % Code and pseudocode
-\usepackage[draft=false]{minted}
+\usepackage[final]{minted}
 \definecolor{codebg}{rgb}{0.975,0.975,0.975}
+
+\mdfsetup{skipabove=0.75mm,skipbelow=0.75mm}
+\BeforeBeginEnvironment{minted}{\singlespacing\begin{mdframed}[backgroundcolor=codebg, innertopmargin=1mm, frametitlebelowskip=0pt, frametitleaboveskip=0pt, splittopskip=0pt,linewidth=0.75pt]}
+\AfterEndEnvironment{minted}{\end{mdframed}\onehalfspacing}
 
 % Boxed code
 % \usepackage[draft=true]{minted}
-% \BeforeBeginEnvironment{minted}{\singlespacing\begin{tcolorbox}[arc=0mm, colback=codebg]}%
+% \BeforeBeginEnvironment{minted}{\singlespacing\begin{tcolorbox}[breakable][arc=0mm, colback=codebg]}%
 % \AfterEndEnvironment{minted}{\end{tco\UrlBreaks}{\do\/\do\-\do\_\do\.\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z}lorbox}\onehalfspacing}%
 
 % Algorithm2e style

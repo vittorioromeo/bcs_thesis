@@ -35,9 +35,6 @@ Examples of entities include:
 
 It is also important to distinguish between **entity types**[^entity_types] and **entity instances**. The former is the set of properties, behaviors, aspects and ideas that all instances of a particular entity type share - like a *blueprint*. The latter refers to single instantiations of particular entity types, that can be created, tracked, destroyed, inspected and modified.
 
-<!-- for print -->
-\newpage
-
 ## Example use cases
 
 To compare the aforementioned entity encoding approaches as fairly as possible, two extremely simple hypothetical application designs will be provided in this section. A possible implementation of both designs will be shown in the following sections, in order to provide readers with example code and diagrams roughly resembling real-world applications.

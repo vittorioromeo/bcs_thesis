@@ -383,8 +383,6 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
 
 `atomic_counter::start_execution` will begin the recursive task execution.
 
-
-
 #### Recursive task execution {#multithreading_recursive_task_execution}
 
 Every system in the context has an assigned task, which has a unique ID. `atomic_counter::start_execution` retrieves the tasks of the starting systems and executes them recursively:
