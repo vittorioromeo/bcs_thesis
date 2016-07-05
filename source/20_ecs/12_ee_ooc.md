@@ -5,9 +5,9 @@
 
 A flexible way of solving the aforementioned *repetition* and *diamond* issues requires a point-of-view shift from a hierarchical approach to a **composition-based** one. Entities will be defined as containers of small reusable **behaviors**[^behaviors_vs_components], with the following characteristics:
 
-* Behaviors **store data** and **handle logic**.
+* Behaviors **store data** and **handle logic**;
 
-* Behavior types **conform to the same interface** and polymorphically inherit from a base `behavior` class.
+* Behavior types **conform to the same interface** and polymorphically inherit from a base `behavior` class;
 
 * Behaviors can be added and removed from entities at run-time.
 
@@ -283,9 +283,9 @@ Similarly to the object-oriented approach, using lightweight messages and a medi
 
 Object-oriented composition is easy to implement and much more flexible than the hierarchical approach, but it's still suboptimal compared to data-oriented composition:
 
-* No separation of data and logic is present.
+* No separation of data and logic is present;
 
-* There is a significant overhead due to run-time polymorphism.
+* There is a significant overhead due to run-time polymorphism;
 
 * It's still impossible to take advantage of the CPU cache.
 

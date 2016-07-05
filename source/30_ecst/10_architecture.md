@@ -32,7 +32,7 @@ digraph
 
 By looking at the diagram, it is obvious that the roles of the context are:
 
-* Providing a **friendly interface** between the user and the library.
+* Providing a **friendly interface** between the user and the library;
 
 * **Decoupling** entities, components, and systems.
 
@@ -63,7 +63,7 @@ system_manager *-- "1" thread_pool
 
 The **entity metadata storage** contains `metadata` instances for every entity, which are used to:
 
-* Keep track of the component types an entity possesses.
+* Keep track of the component types an entity possesses;
 
 * Map entities to handles and check their validity.
 
@@ -134,7 +134,7 @@ chunk *-- "1" container
 
 The system manager contains:
 
-* A `thread_pool` instance, used to efficiently execute system logic in separate threads.
+* A `thread_pool` instance, used to efficiently execute system logic in separate threads;
 
 * A `system_storage`, which stores an `instance` for every system signature type.
 
@@ -171,11 +171,11 @@ system_storage o-- "many" instance
 
 Instances wrap user-provided systems, storing an instance of the "real" system type and additional metadata:
 
-* A `state_manager`, containing `state` instances.
+* A `state_manager`, containing `state` instances;
 
     * Every subtask executed by an `instance` has its own `state`, which contains eventual *system output*, *deferred functions*[^deferred_functions], and IDs of entities to reclaim.
 
-* A *sparse integer set*[^sparse_set] tracking the entity IDs subscribed to the instance.
+* A *sparse integer set*[^sparse_set] tracking the entity IDs subscribed to the instance;
 
 * A *dense bitset*[^dense_bitset] representing the set of component types required for system subscription.
 

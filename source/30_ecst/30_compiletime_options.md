@@ -173,11 +173,11 @@ digraph
 
 **System signatures** are used to define the following system settings:
 
-* **Inner parallelism policy**: either allows the system to run in multiple threads *(subtasks)* using a specific strategy or forces the system to run in a single thread.
+* **Inner parallelism policy**: either allows the system to run in multiple threads *(subtasks)* using a specific strategy or forces the system to run in a single thread;
 
-* **List of dependencies**: list of systems whose execution needs to be completed before allowing the current one to run. Used to build the [previously mentioned](#overview_outer_parallelism_dag) outer parallelism DAG.
+* **List of dependencies**: list of systems whose execution needs to be completed before allowing the current one to run. Used to build the [previously mentioned](#overview_outer_parallelism_dag) outer parallelism DAG;
 
-* **Accessed component types**: components types mutated or read by the system. Used to subscribe matching entities to the system and to allow and verify component access in system implementation.
+* **Accessed component types**: components types mutated or read by the system. Used to subscribe matching entities to the system and to allow and verify component access in system implementation;
 
 * **Output type**: type of data produced by every subtask, if any.
 
@@ -231,9 +231,9 @@ constexpr auto make_ssl()
 
 **Context settings** are mandatory options that need to be defined prior to `context` instantiation, implemented using [option maps](#metaprogramming_option_maps). The context needs to be aware of:
 
-* All the previously defined *component signatures*, and *system signatures*. These will be passed to the settings as *signature lists*.
+* All the previously defined *component signatures*, and *system signatures*. These will be passed to the settings as *signature lists*;
 
-* The chosen **multithreading policy** and **system scheduling strategy**.
+* The chosen **multithreading policy** and **system scheduling strategy**;
 
 * The desired **entity storage policy**, which can be *dynamic* or *fixed*.
 

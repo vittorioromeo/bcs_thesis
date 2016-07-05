@@ -21,7 +21,7 @@ A **component storage strategy** is a class designed to store component data. An
 
 * It needs to provide two nested type names:
 
-    * `component_tag_list_type`: a *type list* containing all the tags of components stored.
+    * `component_tag_list_type`: a *type list* containing all the tags of components stored;
 
     * `metadata_type`: storage-specific metadata that will be *injected* in entity metadata. Can be used to store additional data required to retrieve components directly in the entities. Usually an empty class.
 
@@ -118,13 +118,13 @@ User-defined systems are stored inside **system instances**. Every system type h
 ### Instance
 A **system instance** is composed of the following members:
 
-* An instance of the user-defined system type - systems can be stateful *(e.g. for caching reasons or to store a data structure)* and may require storage.
+* An instance of the user-defined system type - systems can be stateful *(e.g. for caching reasons or to store a data structure)* and may require storage;
 
-* A [*sparse integer set*](#appendix_sparse_integer_sets) of the currently subscribed entity IDs.
+* A [*sparse integer set*](#appendix_sparse_integer_sets) of the currently subscribed entity IDs;
 
-* A *dense bitset* of the component types required for system subscription *(see [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for details)*.
+* A *dense bitset* of the component types required for system subscription *(see [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for details)*;
 
-* A [**parallel executor**](#multithreading_par_executor) object that implements [*inner parallelism*](#multithreading_inner_par).
+* A [**parallel executor**](#multithreading_par_executor) object that implements [*inner parallelism*](#multithreading_inner_par);
 
 * A **state manager** object that binds a **state** to every *subtask*.
 
@@ -132,21 +132,21 @@ A **system instance** is composed of the following members:
 
 Every *subtask* has a corresponding **state**, which stores the following elements:
 
-* *Output data* optionally generated from the subtask.
+* *Output data* optionally generated from the subtask;
 
-    * The data is set during subtask execution.
+    * The data is set during subtask execution;
 
     * The data can be read from dependent systems or during a *step*.
 
-* A `to_kill` sparse integer set, that keeps track of the entities marked as dead during subtask execution.
+* A `to_kill` sparse integer set, that keeps track of the entities marked as dead during subtask execution;
 
-    * The set is filled during subtask execution.
+    * The set is filled during subtask execution;
 
     * The entities are reclaimed during a *refresh*.
 
 * A `std::vector` of **deferred functions**.
 
-    * The vector is filled during subtask execution.
+    * The vector is filled during subtask execution;
 
     * The functions are sequentially executed during a *refresh*.
 

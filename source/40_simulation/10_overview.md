@@ -12,9 +12,9 @@ The simulation consists in a number of **rigid-body circular particles** of vari
 
 Multiple simulations are executed and benchmarked, combining the following compile-time options and parameters:
 
-* Entity count: $50000$, $100000$ and $150000$.
+* Entity count: $50000$, $100000$ and $150000$;
 
-* Inner parallelism: **enabled** or **disabled**.
+* Inner parallelism: **enabled** or **disabled**;
 
 * Entity storage strategy: **fixed** or **dynamic**.
 
@@ -28,31 +28,31 @@ The [SFML](http://sfml-dev.org) library is used for rendering and math utilities
 
 Every particle is composed of the following component types:
 
-* **Position**: 2D `float` vector.
+* **Position**: 2D `float` vector;
 
     ```cpp
     struct position { sf::Vector2f _v; };
     ```
 
-* **Velocity**: 2D `float` vector.
+* **Velocity**: 2D `float` vector;
 
     ```cpp
     struct velocity { sf::Vector2f _v; };
     ```
 
-* **Acceleration**: 2D `float` vector.
+* **Acceleration**: 2D `float` vector;
 
     ```cpp
     struct acceleration { sf::Vector2f _v; };
     ```
 
-* **Color**: used for SFML rendering.
+* **Color**: used for SFML rendering;
 
     ```cpp
     struct color { sf::Color _v; };
     ```
 
-* **Circle**: shape of the particle, controls its radius.
+* **Circle**: shape of the particle, controls its radius;
 
     ```cpp
     struct circle { float _radius; };
@@ -67,41 +67,41 @@ Every particle is composed of the following component types:
 
 ## Systems
 
-* **Acceleration**: increments each particle's `velocity` vector by its `acceleration` vector.
+* **Acceleration**: increments each particle's `velocity` vector by its `acceleration` vector;
 
     * Multithreading is enabled.
 
-* **Velocity**: increments each particle's `position` vector by its `velocity` vector.
+* **Velocity**: increments each particle's `position` vector by its `velocity` vector;
 
     * Multithreading is enabled.
 
-* **Keep in bounds**: keeps every particle inside the boundaries of the simulation.
+* **Keep in bounds**: keeps every particle inside the boundaries of the simulation;
 
     * Multithreading is enabled.
 
-* **Spatial partition**: stores the 2D spatial partitioning grid and manages it.
+* **Spatial partition**: stores the 2D spatial partitioning grid and manages it;
 
-    * Multithreading is enabled.
+    * Multithreading is enabled;
 
     * Produces `std::vector<sp_data>` outputs. `sp_data` is a lightweight `struct` holding an `entity_id` and a pair of 2D cells coordinates. The produced vectors will be read from the context step in order to fill the stored 2D grid data structure.
 
-* **Collision detection**: detects collisions between particles *(filtered by the broadphase spartial partitioning system)*. The detected collisions are resolved by a subsequent system.
+* **Collision detection**: detects collisions between particles *(filtered by the broadphase spartial partitioning system)*. The detected collisions are resolved by a subsequent system;
 
-    * Multithreading is enabled.
+    * Multithreading is enabled;
 
     * Produces `std::vector<contact>` outputs. `contact` is a lightweight `struct` holding `entity_id` instances of two colliding particles. The contacts sequentially read from the `solve_contacts` system to solve penetration between particles.
 
-* **Solve contacts**: reads `collision`'s produced `contact` outputs and sequentially solves penetration between particles.
+* **Solve contacts**: reads `collision`'s produced `contact` outputs and sequentially solves penetration between particles;
 
     * Multithreading is disabled.
 
-* **Render colored circle**: deals with particle rendering.
+* **Render colored circle**: deals with particle rendering;
 
-    * Multithreading is enabled.
+    * Multithreading is enabled;
 
     * Produces `std::vector<sf::Vertex>` outputs. The vertices are used to render the circles using SFML.
 
-* **Life**: deals with particle lifetime. Continuously decreases every particle's `life` value and marks particles as dead when their lifetime is over.
+* **Life**: deals with particle lifetime. Continuously decreases every particle's `life` value and marks particles as dead when their lifetime is over;
 
     * Multithreading is enabled.
 

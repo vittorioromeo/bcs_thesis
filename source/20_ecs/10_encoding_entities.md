@@ -11,11 +11,11 @@ After trying to define the term *"entity"*, multiple entity encoding techniques 
 
 Finding a formal and universal definition for the term *"entity"* in the context of application and game development is not an easy task. Nevertheless, a number of properties closely related to the *idea of entity* can be listed:
 
-* An entity is something closely related to a specific concept.
+* An entity is something closely related to a specific concept;
 
-* Entities have related data and related logic.
+* Entities have related data and related logic;
 
-* Entities are stored, managed and processed in large quantities.
+* Entities are stored, managed and processed in large quantities;
 
     * In addition, some particular entity instances may need to be tracked.
 
@@ -25,17 +25,18 @@ Theoretically speaking, entities could be thought of as the **fundamental buildi
 
 Examples of entities include:
 
-* **Game objects**, like **projectiles**, **walls**, and **power-ups**.
+* **Game objects**, like **projectiles**, **walls**, and **power-ups**;
 
-* **Widgets** in a GUI framework: **buttons**, **textboxes**, etc...
+* **Widgets** in a GUI framework, like **buttons** and **textboxes**;
 
-* **Client states** in a server.
+* **Client states** in a server;
 
 * **Particles** and **lights** in VFX creation software.
 
 It is also important to distinguish between **entity types**[^entity_types] and **entity instances**. The former is the set of properties, behaviors, aspects and ideas that all instances of a particular entity type share - like a *blueprint*. The latter refers to single instantiations of particular entity types, that can be created, tracked, destroyed, inspected and modified.
 
-
+<!-- for print -->
+\newpage
 
 ## Example use cases
 
@@ -47,9 +48,9 @@ Minimal designs for a fantasy **role-playing game** and a bare-bones **GUI frame
 
 The designed imaginary RPG will have the following **NPCs** *(non-playing characters)*:
 
-* A **warrior**, that can be unarmed or wield any combination of **sword** and **bow**.
+* A **warrior**, that can be unarmed or wield any combination of **sword** and **bow**;
 
-* A **skeleton**.
+* A **skeleton**;
 
 * A flying **dragon**.
 
@@ -61,7 +62,7 @@ Giving the warrior the possibility of wielding a combination of weapons *(or of 
 
 This hypothetical GUI framework will have the following **widget** types:
 
-* A **textbox**, which supports keyboard input.
+* A **textbox**, which supports keyboard input;
 
 * A **button**, which supports mouse input.
 

@@ -13,17 +13,17 @@ Some of the actions that can be executed in specific stages of the execution flo
 
 Critical operations include:
 
-* Creating or destroying an entity.
+* Creating or destroying an entity;
 
-* Adding or removing a component to/from an entity.
+* Adding or removing a component to/from an entity;
 
 * Starting the execution of a system chain.
 
 Non-critical operations include:
 
-* Using a system's output data.
+* Using a system's output data;
 
-* Marking an entity as *"dead"*.
+* Marking an entity as *"dead"*;
 
 * Accessing or mutating existing component data.
 
@@ -74,11 +74,11 @@ ECST's execution flow is composed of the following stages: **step**, **system ex
 
 They:
 
-* Allow immediate execution of *non-critical operations*.
+* Allow immediate execution of *non-critical operations*;
 
-* Allow immediate execution of *critical operations*.
+* Allow immediate execution of *critical operations*;
 
-* Allow execution of system chains.
+* Allow execution of system chains;
 
 * Execute a **refresh** after completion.
 
@@ -171,7 +171,7 @@ context.step([&](auto& proxy)
 
 They:
 
-* Allow immediate execution of *non-critical operations*.
+* Allow immediate execution of *non-critical operations*;
 
 * Allow deferred execution of *critical operations*.
 

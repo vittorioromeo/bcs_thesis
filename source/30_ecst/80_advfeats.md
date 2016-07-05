@@ -175,7 +175,7 @@ The implementation of system execution adapters is conceptually similar to the o
 
 Every adapter is implemented using `system_execution_adapter::matching` as a building block:
 
-* `system_execution_adapter::all` returns a `sea::matching` with a *tautology predicate*.
+* `system_execution_adapter::all` returns a `sea::matching` with a *tautology predicate*;
 
 * `system_execution_adapter::t(...)` returns a `sea::matching` that uses a predicate very similar to the previously analyzed `check_tag` function to restrict systems depending on their tags.
 

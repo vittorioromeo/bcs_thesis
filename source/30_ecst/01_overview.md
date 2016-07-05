@@ -17,13 +17,13 @@ Every feature offered by ECST requires the instantiation of a **context** templa
 
 Due to these factors, ECST is **not a data-driven** Entity-Component-System library. If the target application domain requires dynamic run-time composition and flexibility, it is sensible *(and recommended)* to use ECST with an additional data-driven ECS library[^runtime_features].
 
-* All component and system types must be known at compile-time.
+* All component and system types must be known at compile-time;
 
 * Entities can be created, destroyed, tracked and mutated at run-time.
 
 Some disadvantages of this approach include:
 
-* Longer and potentially-unreadable errors.
+* Longer and potentially-unreadable errors;
 
 * Increased compilation times.
 
@@ -171,7 +171,7 @@ auto context =
 
 Note that this example skipped many possible configuration options and implementation and design details for the current settings definition approach: the goal of the code snippets above is to clarify that component and system types *need* to be known at compile-time and *how* that information is passed to an ECST context. The knowledge provided by `context_settings` will be used to **generate** the following elements at **compile-time**:
 
-* Storage for [**entity metadata**](#storage_entity), [**component data**](#storage_component), and [**systems**](#storage_system).
+* Storage for [**entity metadata**](#storage_entity), [**component data**](#storage_component), and [**systems**](#storage_system);
 
 * An implicit **system dependency graph**, which is used to automatically run different systems in parallel.
 
@@ -210,7 +210,7 @@ The approach also favours **test-driven-development** and application code **tra
 
 A common misconception regarding **data-oriented design** is that it's necessary to sacrifice **encapsulation** and to **reduce the level of abstraction** in order to achieve performance and cache-friendliness. The following beliefs are commonly found in online discussions:
 
-* High-level multi-paradigm languages like **C++14** or **D** are not suitable for high-performance DOD because they inherently drive programmers to design highly-abstracted code that is not closely mapped to the machine hardware. The origin of this belief can be attributed to the abuse of OOP techniques, such as run-time polymorphism and encapsulation, which tend to increase the level of abstraction, with the side-effect of harming data locality and leading to suboptimal memory layouts.
+* High-level multi-paradigm languages like **C++14** or **D** are not suitable for high-performance DOD because they inherently drive programmers to design highly-abstracted code that is not closely mapped to the machine hardware. The origin of this belief can be attributed to the abuse of OOP techniques, such as run-time polymorphism and encapsulation, which tend to increase the level of abstraction, with the side-effect of harming data locality and leading to suboptimal memory layouts;
 
 * Every abstraction has an intrinsic cost *("there is no such thing as cost-free abstractions")*.
 
@@ -218,11 +218,11 @@ These misbeliefs may result in the fallacy that performant DOD code must be devo
 
 ECST aims to *counter this fallacy* by providing a high-level interface that does not sacrifice run-time performance thanks to C++14 **cost-free abstractions**. Benefits of a highly-abstracted data-oriented ECS library include:
 
-* **User-friendly** and **transparent** syntax. No explicit storage or pointer management is required, and application code is independent of user-defined settings and policies.
+* **User-friendly** and **transparent** syntax. No explicit storage or pointer management is required, and application code is independent of user-defined settings and policies;
 
-* Higher **safety**, as many development mistakes regarding dependencies and data access can be caught at compile-time.
+* Higher **safety**, as many development mistakes regarding dependencies and data access can be caught at compile-time;
 
-* Easier **testability**, due to the fact that abstracting settings and policies allows tests to run comprehensively over a wide set of option combinations.
+* Easier **testability**, due to the fact that abstracting settings and policies allows tests to run comprehensively over a wide set of option combinations;
 
     * Closely related, the possibility of quickly **experimenting** with different strategies is also a major benefit of a higher abstraction level.
 
@@ -264,9 +264,9 @@ By invoking the `data.for_entities` method with a callable object, it is possibl
 
 The interesting thing is that this syntax is **completely independent** of the system settings and execution policies - the system's dependencies or parallelism policies do not matter to the data proxy. Other things to take notice of are:
 
-* The storage policy of the components is irrelevant. `c::position` and `c::velocity` could be stored in the same contiguous buffer, or one of them could be in an hash-map while the other one is in a machine on the other side of the world *(storing a component in a different continent could slightly affect the performance of your application)*.
+* The storage policy of the components is irrelevant. `c::position` and `c::velocity` could be stored in the same contiguous buffer, or one of them could be in an hash-map while the other one is in a machine on the other side of the world *(storing a component in a different continent could slightly affect the performance of your application)*;
 
-* Getting a mutable or `const` reference to a component is **statically checked** at compile-time, producing an error in case the component access does not fulfill what was specified in the system signature.
+* Getting a mutable or `const` reference to a component is **statically checked** at compile-time, producing an error in case the component access does not fulfill what was specified in the system signature;
 
 * `process` is not special, and not limited to a single argument - additional data could be passed to the method and captured in the lambda. This will be covered in detail in [Chapter 8](#chap_flow) - here's a possible way of invoking `s::velocity::process`:
 
@@ -325,9 +325,9 @@ digraph
 
 The DAG now shows three separate dependency chains:
 
-* Rendering → Velocity → Acceleration.
+* Rendering → Velocity → Acceleration;
 
-* Rendering → Growth → Shape.
+* Rendering → Growth → Shape;
 
 * Rendering → Rotation.
 

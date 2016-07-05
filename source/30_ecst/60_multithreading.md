@@ -5,9 +5,9 @@
 
 Multithreading is used in ECST in the following situations, to potentially increase the run-time performance of user applications:
 
-* **Outer parallelism**: system chains independent from each other can run in parallel. Implemented with **system scheduling**.
+* **Outer parallelism**: system chains independent from each other can run in parallel. Implemented with **system scheduling**;
 
-* **Inner parallelism**: system execution can be split over multiple *subtasks*. Implemented with **inner parallelism strategies** and **slicing**.
+* **Inner parallelism**: system execution can be split over multiple *subtasks*. Implemented with **inner parallelism strategies** and **slicing**;
 
 * **Refresh**: some operations in the [refresh stage](#flow_refresh) can run in parallel.
 

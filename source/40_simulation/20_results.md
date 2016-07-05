@@ -21,9 +21,9 @@ The second one shows one of the cells of the spatial partitioning 2D grid - all 
 
 The computer used to benchmark the particle simulation has the following hardware specifications:
 
-* CPU: [**Intel® Core™ i7-2700K Processor** *(8M Cache, up to 3.90 GHz)*](http://ark.intel.com/products/61275/Intel-Core-i7-2700K-Processor-8M-Cache-up-to-3_90-GHz).
+* CPU: [**Intel® Core™ i7-2700K Processor** *(8M Cache, up to 3.90 GHz)*](http://ark.intel.com/products/61275/Intel-Core-i7-2700K-Processor-8M-Cache-up-to-3_90-GHz);
 
-* RAM: [**HyperX Beast 16GB DDR3-2400MHz**](http://www.hyperxgaming.com/us/memory/beast).
+* RAM: [**HyperX Beast 16GB DDR3-2400MHz**](http://www.hyperxgaming.com/us/memory/beast);
 
 * Motherboard: [**ASRock Z77 Extreme4-M**](http://www.asrock.com/mb/intel/z77%20extreme4-m/).
 

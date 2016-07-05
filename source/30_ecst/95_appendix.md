@@ -27,7 +27,7 @@ Sparse integers sets are perfect for entity ID management, as the complexity of 
 
 Sparse integer sets are implemented in **vrm_core** *(see [@github_vrmcore])*, which is a dependency of ECST. The used storage types depend on context settings *([static dispatching](#appendix_static_dispatching))*, but conceptually every implementation is composed of the following elements:
 
-* An unordered **dense array** $D$, which contiguously stores all integers present in the set.
+* An unordered **dense array** $D$, which contiguously stores all integers present in the set;
 
 * A **sparse array** $S$, containing indices to the elements of $D$, or special null $\emptyset$ values.
 
@@ -229,7 +229,7 @@ Graph traversal algorithms provide a straightforward way of counting the number 
 
 Breadth-first traversal is easy to implement using mutable data structures:
 
-* A queue is used to keep track of the nodes that need to be explored.
+* A queue is used to keep track of the nodes that need to be explored;
 
     * Unmarked neighbors of the node currently being explored are enqueued for future traversal.
 
@@ -237,11 +237,11 @@ Breadth-first traversal is easy to implement using mutable data structures:
 
 Similarly to the implementation of [option maps](#metaprogramming_option_maps), the required state is implemented using immutable Boost.Hana data structures whose operations yield a new *(copy)* updated structure instead of mutating the structure in-place.
 
-* Nodes are compile-time numerical IDs *([`boost::hana::integral_constant`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html))*.
+* Nodes are compile-time numerical IDs *([`boost::hana::integral_constant`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html));
 
-* The BFT queue is a [`boost::hana::tuple`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html).
+* The BFT queue is a [`boost::hana::tuple`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html);
 
-* Nodes are *"marked as visited"* by storing their ID in a [`boost::hana::tuple`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html).
+* Nodes are *"marked as visited"* by storing their ID in a [`boost::hana::tuple`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html);
 
 * Both the queue and the *"visited nodes tuple"* are stored in a [`boost::hana::pair`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1pair.html). The pair is referred to as the **BFT context**.
 

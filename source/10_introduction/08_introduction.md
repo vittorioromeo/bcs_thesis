@@ -7,13 +7,13 @@ Successful development of complex real-time applications and games requires a fl
 
 The **Entity-Component-System** architectural pattern was designed to achieve the aforementioned benefits, by **separating data from logic**.
 
-* Entities[^entities] can be composed of small, reusable, and generic components.
+* Entities[^entities] can be composed of small, reusable, and generic components;
 
-* Components can be stored in contiguous memory areas, thus improving **data locality** and **cache-friendliness**.
+* Components can be stored in contiguous memory areas, thus improving **data locality** and **cache-friendliness**;
 
-* Application logic can be **easily parallelized** and abstracted away from the objects themselves and their storage policies.
+* Application logic can be **easily parallelized** and abstracted away from the objects themselves and their storage policies;
 
-* The state of the application can be serialized and shared over the network with less effort.
+* The state of the application can be serialized and shared over the network with less effort;
 
 * A more modular, generic and easily-testable codebase.
 
@@ -65,9 +65,9 @@ ECST's source code can be found in the following GitHub repository under the *Ac
 
 Research on the Entity-Component-System pattern and its possible implementations has been a long-term personal project for the thesis author:
 
-* [SSVEntitySystem](https://github.com/SuperV1234/SSVEntitySystem), a naive implementation of a single-threaded ECS making use of run-time polymorphism, was released as open-source in 2012.
+* [SSVEntitySystem](https://github.com/SuperV1234/SSVEntitySystem), a naive implementation of a single-threaded ECS making use of run-time polymorphism, was released as an open-source library in 2012;
 
-* A singlethreaded compile-time Entity-Component-System implementation tutorial talk was presented at [CppCon 2015](http://cppcon.org). All material used during the talk is available in the following GitHub repository: [https://github.com/SuperV1234/cppcon2015](https://github.com/SuperV1234/cppcon2015).
+* A singlethreaded compile-time Entity-Component-System implementation tutorial talk was presented at [CppCon 2015](http://cppcon.org). All material used during the talk is available in the following GitHub repository: [https://github.com/SuperV1234/cppcon2015](https://github.com/SuperV1234/cppcon2015);
 
 * Development of ECST started in December 2015. An earlier version of the library was presented in May 2016 at [C++Now 2016](http://cppnow.org) *(Aspen, CO)*. The material used during the presentation is available in the following GitHub repository: [https://github.com/SuperV1234/cppnow2016](https://github.com/SuperV1234/cppnow2016).
 

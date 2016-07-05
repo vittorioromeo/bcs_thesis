@@ -216,9 +216,9 @@ constexpr auto ss_acceleration =
 
 The code snippet above defines `ss_acceleration` to be a system signature for `s::acceleration` with the following settings, known at **compile-time**:
 
-* Use the `split_evenly_per_core` *inner parallelism strategy*.
+* Use the `split_evenly_per_core` *inner parallelism strategy*;
 
-* Use the `c::acceleration` component (read-only).
+* Use the `c::acceleration` component (read-only);
 
 * Use the `c::velocity` component (mutable).
 
@@ -232,13 +232,13 @@ Defining settings using the pattern above is possible thanks to the `ecst::mp::o
 
 Conceptually, an option map is a compile-time associative container with the following properties:
 
-* Keys are values fulfilling the Boost.Hana [`Comparable`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Comparable.html) and [`Hashable`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Hashable.html) concepts.
+* Keys are values fulfilling the Boost.Hana [`Comparable`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Comparable.html) and [`Hashable`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/group__group-Hashable.html) concept;
 
     * A set of keys is composed by `constexpr` [`boost::hana::integral_constant`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html) instances, with incrementing values.
 
 * The keys are associated with compile-time pairs of an user-defined type and [`boost::hana::bool_c`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html#aa301b96de91d665fdc846bde4659b0d3).
 
-    * The user-defined type is option-specific.
+    * The user-defined type is option-specific;
 
     * The boolean integral constant is used to mark the option as *"already set"*, in order to prevent accidental multiple method calls.
 
@@ -267,9 +267,9 @@ The `_map` field is a [`boost::hana::map`](http://www.boost.org/doc/libs/1_61_0/
 
 Using an option map to implement compile-time settings with method chaining requires the following elements:
 
-* A class that contains an `option_map` instance and provides a clean method chaining interface.
+* A class that contains an `option_map` instance and provides a clean method chaining interface;
 
-* A set of keys representing the available options.
+* A set of keys representing the available options;
 
 * An initial set of default options.
 
@@ -353,9 +353,9 @@ Upon passing the final customized system signature to the context, ECST can retr
 
 A number of other metaprogramming techniques and compile-time algorithms are used throughout ECST:
 
-* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [Chapter 14, Section 14.4](#appendix_compiletime_bfs).
+* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [Chapter 14, Section 14.4](#appendix_compiletime_bfs);
 
-* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for more details.
+* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for more details;
 
 * **SFINAE**, `std::enable_if_t`, and generic lambdas with trailing return types are used together with [`boost::hana::overload`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html) to implement *system execution adapters*, *refresh event handling*, and *generic system execution*. These techniques will be covered in [Chapter 8](#chap_flow) and [Chapter 12](#chap_advfeats).
 

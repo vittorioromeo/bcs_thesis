@@ -7,7 +7,7 @@ I would like to express my utmost appreciation to the following people for their
 
 * Prof. **Giacomo Fiumara**, my research supervisor, whose constant involvement and advice were vital to accomplish this paper.
 
-* **Adam Martin**, founder of [t-machine.org](http://t-machine.org/) and of the [Entity Systems wiki](http://entity-systems.wikidot.com/), who reviewed *part 1* of this thesis. His articles and his feedback have been extremely valuable.
+* **Adam Martin**, founder of [t-machine.org](http://t-machine.org/) and of the [Entity Systems wiki](http://entity-systems.wikidot.com/), who reviewed *Part 1* of this thesis. His articles and his feedback have been extremely valuable.
 
 * **Tom Pollard**, creator of [the Markdown template](https://github.com/tompollard/phd_thesis_markdown) used for this document.
 

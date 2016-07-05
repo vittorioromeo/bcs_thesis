@@ -246,7 +246,7 @@
 \chapter*{Abstract}\label{abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-Complex real-time games and applications need to deal with enormous
+Complex real-time games and applications have to deal with enormous
 amounts of entities that greatly vary in behavior and constantly
 communicate with each other. Finding an elegant design for entity
 management that allows developers to quickly build applications from
@@ -260,13 +260,13 @@ data-oriented composition. The Entity-Component-System architectural
 pattern is described and implemented in ECST, a multithreaded
 compile-time C++14 library. The design and implementation of the library
 are examined in detail, using a large number of code snippets and
-diagrams to aid the readers in understanding the underlying concepts and
+diagrams to aid the readers in appreciating the underlying concepts and
 architecture.
 
 ECST's objective is to let developers conveniently use the
 Entity-Component-System pattern at compile-time, striving for maximum
 performance and a friendly, transparent syntax. Programmers define the
-high-level program logic declaratively, using a dataflow-oriented
+high-level program logic in a declarative way, using a dataflow-oriented
 approach, connecting systems together to generate an implicit dependency
 directed acyclic graph that is automatically parallelized where
 possible.
@@ -291,7 +291,7 @@ for their support:
   \textbf{Adam Martin}, founder of
   \href{http://t-machine.org/}{t-machine.org} and of the
   \href{http://entity-systems.wikidot.com/}{Entity Systems wiki}, who
-  reviewed \emph{part 1} of this thesis. His articles and his feedback
+  reviewed \emph{Part 1} of this thesis. His articles and his feedback
   have been extremely valuable.
 \item
   \textbf{Tom Pollard}, creator of
@@ -429,12 +429,12 @@ benefits those techniques aim to achieve.
   \item
     A \emph{by-example} examination of a gradual approach shift (from
     object-oriented inheritance to data-oriented composition) will be
-    presented in \protect\hyperlink{ecs_part_overview}{part 1}.
+    presented in \protect\hyperlink{ecs_part_overview}{Part 1}.
   \end{itemize}
 \item
   Analyze the design, architecture and implementation of \textbf{ECST},
   a C++14 compile-time Entity-Component-System library, developed as the
-  thesis project, in \protect\hyperlink{part2_ecst}{part 2}.
+  thesis project, in \protect\hyperlink{part2_ecst}{Part 2}.
 
   \begin{itemize}
   \tightlist
@@ -448,7 +448,7 @@ benefits those techniques aim to achieve.
 \item
   Examine the design and implementation of a simple \textbf{real-time
   particle simulation} developed using ECST in
-  \protect\hyperlink{part3_sim}{part 3}.
+  \protect\hyperlink{part3_sim}{Part 3}.
 
   \begin{itemize}
   \tightlist
@@ -460,9 +460,9 @@ benefits those techniques aim to achieve.
 
 \section{Related literature}\label{related-literature}
 
-While literature on the Entity-Component-System pattern is limited and
-hard to find, entity management, especially in the context of game
-development, has been extensively covered: see
+Literature on the Entity-Component-System pattern is limited and hard to
+find. On the contrary, entity management, especially in the context of
+game development, has been extensively covered: see
 {[}\protect\hyperlink{ref-gregory2014game}{1}, Ch. 14{]},
 {[}\protect\hyperlink{ref-game_programming_gems_4}{2}, Sec. 1.8{]},
 {[}\protect\hyperlink{ref-game_programming_gems_5}{3}, Sec. 1.3{]},
@@ -496,7 +496,7 @@ are simplified in order to make them more easily understandable and less
 cluttered. Features like
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{noexcept}
 and boilerplate code like repeated \emph{ref-qualified} member functions
-are intentionally not included. From {[}part 2{]} onwards, the reader is
+are intentionally not included. From {[}Part 2{]} onwards, the reader is
 expected to be familiar with advanced C++11 and C++14 features.
 
 \section{Long-term research}\label{long-term-research}
@@ -539,10 +539,10 @@ The pattern consists of three elements that interact with each other:
 
 \begin{itemize}
 \item
-  \textbf{Entities}: defined by Adam Martin as ``fundamental conceptual
-  building blocks'' in
-  {[}\protect\hyperlink{ref-tmachine_esmmogfuturep2_2007}{10}{]} of a
-  system, which represent concrete application objects. They have no
+  \textbf{Entities}: defined by Adam Martin in
+  {[}\protect\hyperlink{ref-tmachine_esmmogfuturep2_2007}{10}{]} as
+  ``fundamental conceptual building blocks'' of a system, which
+  represent concrete application objects. They have no
   application-specific data or logic.
 \item
   \textbf{Components}: small, reusable, types that compose entities.
@@ -558,7 +558,7 @@ The pattern consists of three elements that interact with each other:
 
 In this chapter, the history and some use-cases of the
 Entity-Component-System pattern will be briefly explored. Afterwards, in
-\protect\hyperlink{chapter_encoding_entities}{chapter 2}, a gradual
+\protect\hyperlink{chapter_encoding_entities}{Chapter 3}, a gradual
 transition of \textbf{entity encoding} techniques, from
 \emph{``traditional'' object-oriented inheritance} to a
 \emph{data-oriented}\footnote{\textbf{data-oriented} design is a
@@ -618,8 +618,8 @@ entities}\label{chapter_encoding_entities}}
 The \emph{essence} of the problem that ECS solves is finding an
 efficient and flexible way of \textbf{encoding entities}.
 
-After trying to define the term \emph{``entity''}, this chapter will
-cover multiple entity encoding techniques, starting from
+After trying to define the term \emph{``entity''}, multiple entity
+encoding techniques will be covered in this chapter, starting from
 \textbf{object-oriented inheritance} and gradually moving to
 \textbf{data-oriented composition}. To fairly compare the approaches,
 two example application designs will be illustrated beforehand, and then
@@ -672,7 +672,7 @@ Examples of entities include:
   \textbf{Particles} and \textbf{lights} in VFX creation software.
 \end{itemize}
 
-It's also important to distinguish between \textbf{entity
+It is also important to distinguish between \textbf{entity
 types}\footnote{the word \emph{``type''} does not necessarily refer to
   types in programming languages - many engines with typeless entities
   \emph{(data-driven)} do exist. The intended meaning is ``class of
@@ -681,7 +681,9 @@ and \textbf{entity instances}. The former is the set of properties,
 behaviors, aspects and ideas that all instances of a particular entity
 type share - like a \emph{blueprint}. The latter refers to single
 instantiations of particular entity types, that can be created, tracked,
-destroyed, inspected and mutated.
+destroyed, inspected and modified.
+
+\newpage
 
 \section{Example use cases}\label{example-use-cases}
 
@@ -939,7 +941,7 @@ Or in the following way:
 \caption{OOP encoding issue: repetition \#2}
 \end{figure}
 
-As the graphs show, \textbf{there always is some form of repetition in
+As the graphs show, \textbf{there is always some form of repetition in
 one way or another}:
 
 \begin{itemize}
@@ -1006,9 +1008,9 @@ reasons, including:
 
 Since entities are dynamically allocated, their location in memory does
 not change during program execution. Senders that are \textbf{aware of
-their listeners' lifetimes} can effectively store pointers \emph{(or
-references)} to them, in order to directly execute some of their methods
-or mutate their
+the lifetimes of their listeners} can effectively store pointers
+\emph{(or references)} to them, in order to directly execute some of
+their methods or mutate their
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{public}
 fields.
 
@@ -1033,9 +1035,9 @@ If senders are not aware of how long their receivers will live, or if
 senders need to conditionally execute code depending on whether or not a
 specific receiver is alive, this approach fails. Additional drawbacks
 include harder networking and serialization, tightly coupled code which
-is hard to reason about, lack of flexibility. A possible alternative is
-introducing a \emph{mediator} class that deals with entity creation and
-destruction, keeping track of entity states.
+is hard to reason about, and lack of flexibility. A possible alternative
+given by the introduction of a \emph{mediator} class that deals with
+entity creation and destruction, keeping track of entity states.
 
 The mediator could generate \textbf{handles} that, similarly to
 pointers, would allow access to entities' memory locations, but also add
@@ -1264,7 +1266,7 @@ behavior type, not an entity type.
 
 \subsubsection{Role-playing game}\label{role-playing-game-2}
 
-Here's an example on how the
+Here is an example on how the
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{skeleton}
 and
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{dragon}
@@ -1313,7 +1315,7 @@ class bow : behavior { /* ... */ };
 The implementation of
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{entity}
 provides an interface to manipulate behaviors at run-time, and stores
-the behaviors in an
+the behaviors in a
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
 of
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::unique_ptr<behavior>},
@@ -1400,10 +1402,9 @@ framework.
 \subsection{Communication}\label{communication}
 
 While entities still need to communicate with each other for the reasons
-described in the
-\protect\hyperlink{chapter_oop_communication}{object-oriented
-inheritance communication section}, this technique also may require
-behaviors to ``talk'' to one another.
+described in \protect\hyperlink{chapter_oop_communication}{Chapter 3,
+Subsection 3.3.2}, this technique also may require that behaviors
+``talk'' to one another.
 
 Imagine implementing a
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{clickable}
@@ -1428,10 +1429,9 @@ behavior whether or not they need to handle a mouse click.
 
 \subsubsection{Address-based}\label{address-based-1}
 
-One possible approach would be either checking or asserting the
-existence of a behavior and then access it directly through the entity.
-A requirement is having behaviors store a reference to their parent
-entity:
+A possible approach would be either checking or asserting the existence
+of a behavior and then access it directly through the entity. A
+requirement is that behaviors store a reference to their parent entity:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 class behavior
@@ -1463,7 +1463,7 @@ and a mediator
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{message_queue}
 class can reduce coupling and make communication between behaviors much
 easier to manage. The implementation is essentially equivalent to the
-previously shown one: the base
+one previously shown: the base
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{behavior}
 type will provide a
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{virtual handle_message(const message&)}
@@ -1486,10 +1486,10 @@ data-oriented composition:
 \end{itemize}
 
 A crucial piece of the ECS pattern, the \textbf{system}, is still
-missing from this technique. Introducing it will allow a clean
+missing from this technique. Its introduction will allow a clean
 separation of data and logic, that will lead to parallelization
 opportunities and possible cache-friendliness. The introduction of the
-system will allow us to replace behaviors with logic-less
+system will allow to replace behaviors with logic-less
 \textbf{components}.
 
 \section{Data-oriented composition}\label{data-oriented-composition}
@@ -1550,8 +1550,8 @@ Entity \#2 & X & & X\tabularnewline
 
 The table above shows how component types can be bound and unbound from
 entity instances. The previously mentioned \textbf{context} object will
-keep track of component availability in entity instances, providing an
-interface roughly similar to
+keep track of component availability in entity instances, thus providing
+an interface roughly similar to
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{bool context::has_component<...>(entity_id)}.
 
 \begin{figure}[htbp]
@@ -1594,7 +1594,7 @@ with an interface like
 context object}
 \end{figure}
 
-Here's a user-code example system implementation:
+Here is a user-code example system implementation:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 void example_system(context& c)
@@ -1641,8 +1641,8 @@ using entity_id = std::size_t;
 If all component types and system types are supposed to be known at
 compile-time, it is unnecessary to define base classes for them.
 Implementing component storage can be done in multiple ways: the most
-simple and straightforward way is using a separate array per component
-type:
+simple and straightforward way consists in using a separate array per
+component type:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct component_a { /* ... */ };
@@ -1668,7 +1668,7 @@ The
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
 will take care of retrieving data from
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{component_storage},
-making the implementation of system types extremely simple:
+thus making the implementation of system types extremely simple:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct system_ac
@@ -1771,7 +1771,7 @@ namespace s
 
 Entity creation and mutation are delegated to the
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context},
-which takes care of bookkeeping and of binding all elements together:
+which takes care of bookkeeping and binding all elements together:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 auto make_skeleton(context& c, /* ... */)
@@ -1840,7 +1840,7 @@ animations. If an entity has the
 component, the logic will depend on the other components the entity has,
 making it easy to define widget-specific animation behavior.
 
-All that's left is instantiating the
+All that is left is instantiating the
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context}
 and the system types, then execute application-specific logic:
 
@@ -1868,7 +1868,7 @@ int main()
 
 The boilerplate code shown in the code snippet above can be avoided by
 using advanced metaprogramming techniques. In
-\protect\hyperlink{part2_ecst}{part 2}, the way \textbf{ECST} avoids
+\protect\hyperlink{part2_ecst}{Part 2}, the way \textbf{ECST} avoids
 similar bookkeeping code will be analyzed.
 
 \subsection{Communication}\label{communication-1}
@@ -1954,7 +1954,7 @@ There are various ways of solving this problem:
 
 \subsubsection{Inter-entity}\label{inter-entity}
 
-Inter-entity communication isn't as useful as in the previous encoding
+Inter-entity communication is not as useful as in the previous encoding
 techniques, but some particular situations may require specific entity
 instances to share data. \emph{``Inter-entity''} is a misnomer, as
 logic-less entities cannot directly communicate together - specialized
@@ -1975,9 +1975,9 @@ can be achieved in multiple ways:
 \end{itemize}
 
 Having two tightly coupled entity instances when using the
-Entity-Component-System pattern is a red flag: it's very likely that the
-coupling can be avoided by introducing new components and/or systems, or
-by modifying the design of the application.
+Entity-Component-System pattern is a red flag: it is very likely that
+the coupling can be avoided by introducing new components and/or
+systems, or by modifying the design of the application.
 
 \subsection{Advantages and
 disadvantages}\label{advantages-and-disadvantages-2}
@@ -2051,9 +2051,9 @@ supported component and system types at compile-time.
 \subsection{Compile-time ECS}\label{compile-time-ecs}
 
 Every feature offered by ECST requires the instantiation of a
-\textbf{context} template class \emph{(whose role is managing the entire
-pattern)} which provides the user with a high-level interface to
-interact with entities, components and systems. The context object
+\textbf{context} template class \emph{(whose role is the management of
+the entire pattern)} which provides the user with a high-level interface
+to interact with entities, components and systems. The context object
 requires \textbf{prior knowledge} of all \textbf{component types} and
 \textbf{system types} at compile-time. Additionally, options regarding
 multithreading support, system scheduling and entity limits can be
@@ -2086,12 +2086,12 @@ Some disadvantages of this approach include:
 \end{itemize}
 
 The implementation details regarding the definition and usage of
-compile-time settings will be explored in the
-\protect\hyperlink{chap_ecst_metaprogramming}{metaprogramming} and in
-the \protect\hyperlink{chap_ecst_compilemtime}{settings} chapters. To
-make the following points simpler to understand and to give the readers
-an idea of the previously mentioned limitations and features, the code
-snippet below will illustrate how context objects are configured and
+compile-time settings will be explored in
+\protect\hyperlink{chap_ecst_metaprogramming}{Chapter 6} and
+\protect\hyperlink{chap_ecst_compilemtime}{Chapter 7}. To make the
+following points simpler to understand and to give the readers an idea
+of the previously mentioned limitations and features, the code snippet
+below will illustrate how context objects are configured and
 instantiated in the user code.
 
 \hypertarget{code_example_settings_definition}{\subsubsection{Code
@@ -2192,10 +2192,9 @@ in defining \emph{signatures}:
   policies}.
 \item
   \textbf{System signatures} bind system tags to multiple settings which
-  will be analyzed in depth in the
-  \protect\hyperlink{system_sigs}{settings} chapter:
-  \textbf{parallelization policies} and \textbf{dependencies} can be
-  found among them.
+  will be analyzed in depth in \protect\hyperlink{system_sigs}{Chapter
+  7, Subsection 7.1.2}: \textbf{parallelization policies} and
+  \textbf{dependencies} can be found among them.
 \end{itemize}
 
 Signatures are stored in compile-time type lists called
@@ -2310,8 +2309,8 @@ the \emph{``pay for what you use''} C++ philosophy, the specified
 policies are taken into account in various ways to optimize run-time
 performance and memory usage.
 
-All featured options will be analyzed in the
-\protect\hyperlink{chap_ecst_compiletime}{settings chapter}. As a simple
+All featured options will be analyzed in
+\protect\hyperlink{chap_ecst_compiletime}{Chapter 7}. As a simple
 example, the following code snippet that generates two different context
 instances can help understand the power of policy-based settings:
 
@@ -2414,9 +2413,9 @@ is a \textbf{syntax-level transparency} that allows the application code
 to be completely independent of compile-time policies/strategies.
 
 Proxies and transparency implementation details will be covered in
-\protect\hyperlink{chap_proxies}{the ``proxy objects'' chapter} - a
-simple code example will illustrate one possible use of syntax-level
-transparency through proxies.
+\protect\hyperlink{chap_proxies}{Chapter 11} - a simple code example
+will illustrate one possible use of syntax-level transparency through
+proxies.
 
 \subsubsection{Code example: transparency through
 proxies}\label{code-example-transparency-through-proxies}
@@ -2424,8 +2423,7 @@ proxies}\label{code-example-transparency-through-proxies}
 Here's a possible implementation of the
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity}
 system declared in
-\protect\hyperlink{code_example_settings_definition}{the previous
-settings definition subsection}:
+\protect\hyperlink{code_example_settings_definition}{Subsection 4.1.1}:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 struct velocity
@@ -2499,8 +2497,8 @@ proxy. Other things to take notice of are:
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{process}
   is not special, and not limited to a single argument - additional data
   could be passed to the method and captured in the lambda. This will be
-  covered in detail in \protect\hyperlink{chap_flow}{the ``execution
-  flow'' chapter} - here's a possible way of invoking
+  covered in detail in \protect\hyperlink{chap_flow}{Chapter 8} - here's
+  a possible way of invoking
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity::process}:
 
   \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -2536,11 +2534,11 @@ parallelism}\label{overview_outer_parallelism_dag}}
 \textbf{``Outer parallelism''} is the term used in ECST which defines
 the concept of running multiple systems that do not depend on each other
 in parallel. Its implementation details will be analyzed in
-\protect\hyperlink{multithreading_system_scheduling}{the multithreading
-chapter}. Conceptually, an \textbf{implicit directed acyclic graph} is
-created at compile-time thanks to the knowledge of system dependencies.
-The execution of the implicit DAG is handled by a \textbf{system
-scheduler} type specified during settings definition.
+\protect\hyperlink{multithreading_system_scheduling}{Chapter 10}.
+Conceptually, an \textbf{implicit directed acyclic graph} is created at
+compile-time thanks to the knowledge of system dependencies. The
+execution of the implicit DAG is handled by a \textbf{system scheduler}
+type specified during settings definition.
 
 Consider the previously defined system signatures - an implicit DAG
 isomorphic to the one below will be generated by ECST \emph{(arrows
@@ -2770,9 +2768,9 @@ Instances wrap user-provided systems, storing an instance of the
 \item
   A \emph{sparse integer set}\footnote{``sparse integer sets'' are very
     efficient data structures for the management of entity IDs. They are
-    covered in \protect\hyperlink{appendix_sparse_integer_sets}{the
-    ``miscellaneous'' chapter}.} tracking the entity IDs subscribed to
-  the instance.
+    covered in \protect\hyperlink{appendix_sparse_integer_sets}{Chapter
+    14, Section 14.1}.} tracking the entity IDs subscribed to the
+  instance.
 \item
   A \emph{dense bitset}\footnote{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::bitset}.}
   representing the set of component types required for system
@@ -2849,8 +2847,8 @@ template disambiguation syntax\footnote{such syntax negatively impacts
   \href{http://en.cppreference.com/w/cpp/language/dependent_name\#The_template_disambiguator_for_dependent_names}{on
   cppreference}.}. \textbf{Tags} are designed to solve this problem.
 
-Examples will be used in order to easily explain the role of tags.
-Here's an hypotetical set of component and system types:
+Examples will be used in order to easily explain the role of tags. Here
+is an hypotetical set of component and system types:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 namespace c
@@ -3072,7 +3070,7 @@ User-provided compile-time settings are a vital part of ECST: in order
 to allow users to set options in a convenient and clear way,
 \textbf{option maps} were implemented using
 \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::map}}
-instances and method chaining. Here's an example of user code that
+instances and method chaining. Here is an example of user code that
 creates a \emph{system signature} for
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}:
 
@@ -3307,21 +3305,21 @@ This pattern is currently used to implement \textbf{system signatures},
 \section{Other techniques and
 algorithms}\label{other-techniques-and-algorithms}
 
-Many other metaprogramming techniques and compile-time algorithms are
-used throughout ECST:
+A number of other metaprogramming techniques and compile-time algorithms
+are used throughout ECST:
 
 \begin{itemize}
 \item
   A \textbf{breadth-first traversal} algorithm is used to find and count
   dependencies in isolated system chains - it is covered in
-  \protect\hyperlink{appendix_compiletime_bfs}{the ``miscellaneous''
-  chapter}.
+  \protect\hyperlink{appendix_compiletime_bfs}{Chapter 14, Section
+  14.4}.
 \item
   Compile-time \textbf{tuple element iteration} is used to build
   \emph{component type bitsets}, to start parallel system execution and
   to run tests with various combinations of settings. See
-  \protect\hyperlink{appendix_component_bitset_creation}{the
-  ``miscellaneous'' chapter} for more details.
+  \protect\hyperlink{appendix_component_bitset_creation}{Chapter 14,
+  Section 14.2} for more details.
 \item
   \textbf{SFINAE},
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::enable_if_t},
@@ -3329,8 +3327,8 @@ used throughout ECST:
   \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::overload}}
   to implement \emph{system execution adapters}, \emph{refresh event
   handling}, and \emph{generic system execution}. These techniques will
-  be covered in the \protect\hyperlink{chap_flow}{``execution flow''}
-  and \protect\hyperlink{chap_advfeats}{``advanced features''} chapters.
+  be covered in \protect\hyperlink{chap_flow}{Chapter 8} and
+  \protect\hyperlink{chap_advfeats}{Chapter 12}.
 \end{itemize}
 
 \hypertarget{chap_ecst_compiletime}{\chapter{Compile-time
@@ -3346,8 +3344,8 @@ settings, required to instantiate a
 \caption{ECST compile-time settings: mandatory options}
 \end{figure}
 
-Tag definition was described in
-\protect\hyperlink{metaprogramming_tags}{the previous chapter}.
+Tag definition was previously described in
+\protect\hyperlink{metaprogramming_tags}{Chapter 6, Section 6.2}.
 \textbf{Signatures} and \textbf{context settings} will be covered in the
 following sections.
 
@@ -3357,9 +3355,9 @@ following sections.
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
 values containing compile-time options. They are implemented using
 option maps, covered in
-\protect\hyperlink{metaprogramming_option_maps}{the metaprogramming
-chapter}. There are two kinds of signatures: \textbf{component
-signatures} and \textbf{system signatures}.
+\protect\hyperlink{metaprogramming_option_maps}{Chapter 6, Section 6.3}.
+There are two kinds of signatures: \textbf{component signatures} and
+\textbf{system signatures}.
 
 \subsection{Component signatures}\label{component-signatures}
 
@@ -3367,8 +3365,8 @@ signatures} and \textbf{system signatures}.
 with component types. Multiple component tags can be bound to a specific
 storage strategy. Users can implement their own storage strategies
 \emph{(briefly explained in
-\protect\hyperlink{storage_comp_strategy}{the ``storage'' chapter})}.
-The
+\protect\hyperlink{storage_comp_strategy}{Chapter 9, Subsection
+9.1.1})}. The
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{contiguous_buffer}
 strategy is available by default and allows users to store components in
 contiguous memory locations.
@@ -3444,7 +3442,7 @@ settings:
   \textbf{Output type}: type of data produced by every subtask, if any.
 \end{itemize}
 
-An example of a system signature definition is below:
+An example of a system signature definition is given below:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 constexpr auto ss_collision =
@@ -3521,7 +3519,8 @@ context needs to be aware of:
   \end{itemize}
 \end{itemize}
 
-Here's an example context settings definition and context instantiation:
+Here is an example context settings definition and context
+instantiation:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 constexpr auto context_settings =
@@ -3537,14 +3536,13 @@ auto context = ecst::context::make(context_settings);
 \hypertarget{chap_flow}{\chapter{Execution flow}\label{chap_flow}}
 
 Using ECST requires the user to follow a particular \textbf{execution
-flow}, composed of different stages. The execution flows allow and
-restricts possible operations \emph{(using
-\protect\hyperlink{chap_proxies}{proxy objects})}, in order to keep the
-state of the application consistent and to avoid a set of race
-conditions.
+flow}, composed of different stages. The execution flow restricts
+possible operations \emph{(using \protect\hyperlink{chap_proxies}{proxy
+objects})} in order to keep the state of the application consistent and
+to avoid a set of race conditions.
 
 Before examining the execution flow, \textbf{critical operations} will
-be defined in the section below.
+be defined in the following section.
 
 \section{Critical operations}\label{critical-operations}
 
@@ -3650,9 +3648,9 @@ They:
 
 A step can be defined in user code by calling
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{context::step(...)}
-with a function that accepts a \emph{step proxy}. The example below
-shows a code snippet where the user, inside of a step stage, prepares a
-rendering system, executes a system chain that processes physics and
+with a function that accepts a \emph{step proxy}. The following example
+shows a code snippet in which the user, inside of a step stage, prepares
+a rendering system, executes a system chain that processes physics and
 generates vertices, and finally renders the generated vertices to the
 window.
 
@@ -3885,8 +3883,8 @@ ECST stores \textbf{entity metadata}, \textbf{component data}, and
 \textbf{system instances} inside the context object. To optimize
 performance depending on user-defined settings, \emph{static
 dispatching} \emph{(see
-\protect\hyperlink{appendix_static_dispatching}{the ``miscellaneous''
-chapter})} techniques are used. This chapter will cover the design and
+\protect\hyperlink{appendix_static_dispatching}{Chapter 14, Section
+14.3})} techniques are used. This chapter will cover the design and
 implementation of the aforementioned storage types.
 
 \hypertarget{storage_component}{\section{Component
@@ -4061,8 +4059,8 @@ growth \emph{(reallocation)} have to be performed.
 
 \textbf{Sparse integer sets} are data structures extremely efficient for
 the management of entity IDs. They are analyzed in
-\protect\hyperlink{appendix_sparse_integer_sets}{the ``miscellaneous''
-chapter}.
+\protect\hyperlink{appendix_sparse_integer_sets}{Chapter 14, Section
+14.1}.
 
 \hypertarget{storage_system}{\section{Instances and
 systems}\label{storage_system}}
@@ -4089,8 +4087,8 @@ A \textbf{system instance} is composed of the following members:
 \item
   A \emph{dense bitset} of the component types required for system
   subscription \emph{(see
-  \protect\hyperlink{appendix_component_bitset_creation}{the
-  ``miscellaneous'' chapter} for details)}.
+  \protect\hyperlink{appendix_component_bitset_creation}{Chapter 14,
+  Section 14.2} for details)}.
 \item
   A \protect\hyperlink{multithreading_par_executor}{\textbf{parallel
   executor}} object that implements
@@ -4129,7 +4127,7 @@ the following elements:
     The entities are reclaimed during a \emph{refresh}.
   \end{itemize}
 \item
-  An
+  A
   \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{std::vector}
   of \textbf{deferred functions}.
 
@@ -4676,7 +4674,7 @@ executor}\label{multithreading_par_executor}}
 
 Every \emph{system instance} stores a \textbf{parallel executor}.
 Parallel executors wrap inner parallelism strategies composed at
-compile-time by library users. Here's an example definition of an inner
+compile-time by library users. Here is an example definition of an inner
 parallelism strategy:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5017,7 +5015,7 @@ operations that will be executed during a
   \end{minted}
 \end{itemize}
 
-Here's an example of a defer proxy in use:
+Here is an example of a defer proxy in use:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 data.for_entities([&](auto eid)
@@ -5056,7 +5054,7 @@ method, which creates a step proxy and passes it to an user-defined
 function. The method also accepts a variadic number of
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{fs_refresh...}
 refresh event handler functions: the feature will be covered in
-\protect\hyperlink{chap_advfeats}{the ``advanced features'' chapter}.
+\protect\hyperlink{chap_advfeats}{Chapter 12, Section 12.1}.
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TFStep, typename... TFsRefresh>
@@ -5082,7 +5080,7 @@ auto context::step(TFStep&& f_step, TFsRefresh&&... fs_refresh)
 }
 \end{minted}
 
-Here's an example usage of a step proxy:
+Here is an example usage of a step proxy:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 ctx.step([&](auto& proxy)
@@ -5211,7 +5209,7 @@ namespace impl
 
 Refresh implementation stages invoke the created overloaded function
 using the types defined above, in order to trigger the correct overload.
-Here's an example:
+Here is an example:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 void context::refresh_impl_kill_entities(
@@ -5270,7 +5268,7 @@ the
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{check_tag<TInstance, TSystemTag>()}
 expression evaluates to
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{false}.
-Here's the implementation of
+Here is the implementation of
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{check_tag}:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5300,8 +5298,8 @@ systems} of user-defined \emph{system processing functions} during a
 \protect\hyperlink{step_stage}{step}. Users can match zero or more
 systems depending on their tags or custom
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{constexpr}
-predicate functions. All systems can also be conveniently matched.
-Here's an example of system execution adapters in use:
+predicate functions. All systems can also be conveniently matched. Here
+is an example of system execution adapters in use:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 namespace sea = ecst::system_execution_adapter;
@@ -5411,7 +5409,7 @@ if(context.alive(h))
 
 \subsection{Implementation details}\label{implementation-details-3}
 
-Handles are simple structs with two fields: the entity ID they're
+Handles are simple structs with two fields: the entity ID they are
 pointing to and a validity counter.
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -5785,8 +5783,8 @@ auto dispatch_on_storage_type(
 
 Using the function above, data structures wrapped in
 \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html\#ae35139e732c4b75e91061513cf445628}{\mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::type_c}}
-can be returned and later instantiated. Here's the implementation of the
-function statically dispatching entity metadata storage types:
+can be returned and later instantiated. Here is the implementation of
+the function statically dispatching entity metadata storage types:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TSettings>
@@ -6289,7 +6287,7 @@ Most of the system implementations are straightforward:
 and
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::velocity}
 simply iterate over their subscribed entities, mutating the values of
-the targeted components. Here's the implementation of
+the targeted components. Here is the implementation of
 \mintinline[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{s::acceleration}:
 
 \begin{minted}[frame=lines, bgcolor=codebg, framesep=1mm, numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}

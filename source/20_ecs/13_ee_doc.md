@@ -7,13 +7,13 @@ In order to make the most of a machine's hardware, a major development paradigm 
 
 To achieve all the aforementioned advantages, the following design will be used:
 
-* Entity instances will be simple **numerical IDs**.
+* Entity instances will be simple **numerical IDs**;
 
-* **Component types** will be simple, small and logic-less.
+* **Component types** will be simple, small and logic-less;
 
-* Component data will be **stored separately** from entities.
+* Component data will be **stored separately** from entities;
 
-* Logic will be separately handled by **systems**.
+* Logic will be separately handled by **systems**;
 
     * Entities will subscribe to systems depending on their current active component types.
 
@@ -182,11 +182,11 @@ int main()
 
 All the leftover details can be implemented in multiple ways:
 
-* Components can be bound to entities by using a **dense bitset**, where every bit corresponds to a component type.
+* Components can be bound to entities by using a **dense bitset**, where every bit corresponds to a component type;
 
     * The bitsets and additional metadata can be stored in various ways - the `context` will take care of providing access to them.
 
-* Systems can keep track of the subscribed entities by storing their IDs in an appropriate data structures.
+* Systems can keep track of the subscribed entities by storing their IDs in an appropriate data structures;
 
     * The `context` can take care of matching entities to systems when a new entity is created or its components are changed.
 
@@ -408,13 +408,13 @@ Having two tightly coupled entity instances when using the Entity-Component-Syst
 
 Using data-oriented composition, all the benefits of object-oriented composition are maintained, but several new advantages are achieved:
 
-* Data and logic **are separated**.
+* Data and logic **are separated**;
 
-* The code becomes **more modular**, easier to maintain and extend.
+* The code becomes **more modular**, easier to maintain and extend;
 
-* Entities are more easily **serializable** and **synchronizable** over the network.
+* Entities are more easily **serializable** and **synchronizable** over the network;
 
-* Entities can be processed in terms of **chained data transformations**, allowing parallelization and cache-friendliness.
+* Entities can be processed in terms of **chained data transformations**, allowing parallelization and cache-friendliness;
 
 * No unnecessary run-time polymorphism overhead.
 
