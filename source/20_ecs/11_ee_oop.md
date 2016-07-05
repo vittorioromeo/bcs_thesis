@@ -26,7 +26,7 @@ This approach does not require any technique-specific implementation detail. Sin
 
 To simulate the implementation of the example RPG, a hypothetical class hierarchy is shown below:
 
-\dot(source/figures/generated/ecs/overview/oop/example_hierarchy_rpg { width=75% })
+\dot(source/figures/generated/ecs/overview/oop/example_hierarchy_rpg { width=70% })
 (Object-oriented inheritance: RPG entity hierarchy)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 digraph

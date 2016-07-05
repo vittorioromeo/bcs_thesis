@@ -15,7 +15,9 @@ I would like to express my utmost appreciation to the following people for their
 
 In addition, I would like to extend very warm thanks to my collegues whom I've shared three amazing years of study with.
 
-
+<!-- (?) 
+: Marco Castano, Salvatore Gangemi, Francesco Pafumi, Giuseppe Attanasio, Nazzareno Di Pietro, Davide Iuffrida, Gianluca Materia, Sergio Zavettieri, Salvatore Bertoncini.
+-->
 
 # Colophon {.unnumbered}
 

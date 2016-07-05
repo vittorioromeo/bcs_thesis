@@ -769,7 +769,7 @@ hierarchy is shown below:
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/oop/example_hierarchy_rpg.png}
+\includegraphics[width=0.70000\textwidth]{source/figures/generated/ecs/overview/oop/example_hierarchy_rpg.png}
 \caption{Object-oriented inheritance: RPG entity hierarchy}
 \end{figure}
 
@@ -1252,7 +1252,7 @@ this:
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85000\textwidth]{source/figures/generated/ecs/overview/oop_composition/example.png}
+\includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/oop_composition/example.png}
 \caption{Object-oriented composition: hypotetical entity hierarchy}
 \end{figure}
 
@@ -1991,8 +1991,10 @@ composition are maintained, but several new advantages are achieved:
 \item
   The code becomes \textbf{more modular}, easier to maintain and extend;
 \item
-  Entities are more easily \textbf{serializable} and
-  \textbf{synchronizable} over the network;
+  Entities are more easily \textbf{serializable}\footnote{the use of
+    numerical IDs instead of pointers and the separation of data and
+    logic make serialization trivial.} and \textbf{synchronizable} over
+  the network;
 \item
   Entities can be processed in terms of \textbf{chained data
   transformations}, allowing parallelization and cache-friendliness;

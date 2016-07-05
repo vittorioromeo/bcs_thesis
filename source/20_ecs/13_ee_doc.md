@@ -412,7 +412,7 @@ Using data-oriented composition, all the benefits of object-oriented composition
 
 * The code becomes **more modular**, easier to maintain and extend;
 
-* Entities are more easily **serializable** and **synchronizable** over the network;
+* Entities are more easily **serializable**[^easier_serialization] and **synchronizable** over the network;
 
 * Entities can be processed in terms of **chained data transformations**, allowing parallelization and cache-friendliness;
 
@@ -427,3 +427,5 @@ In addition, data-oriented composition lends itself very nicely to multi-machine
 [^return_set_of_matching_entities]: in a real implementation, systems will efficiently cache the set of entities they match - the `context` will not have to continuously iterate over all existing entities.
 
 [^dataflow_programming]: "dataflow programming".
+
+[^easier_serialization]: the use of numerical IDs instead of pointers and the separation of data and logic make serialization trivial.
