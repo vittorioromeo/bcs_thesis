@@ -227,7 +227,7 @@ digraph
 
 ### Communication
 
-While entities still need to communicate with each other for the reasons described in the [object-oriented inheritance communication section](#chapter_oop_communication), this technique also may require that behaviors "talk" to one another.
+While entities still need to communicate with each other for the reasons described in [Chapter 3, Subsection 3.3.2](#chapter_oop_communication), this technique also may require that behaviors "talk" to one another.
 
 Imagine implementing a `clickable` behavior for widgets:
 

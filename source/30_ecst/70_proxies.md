@@ -178,7 +178,7 @@ auto execute_systems_from(TStartSystemTags... sts);
 auto execute_systems();
 ```
 
-These functions are accessed through the `context::step` method, which creates a step proxy and passes it to an user-defined function. The method also accepts a variadic number of `fs_refresh...` refresh event handler functions: the feature will be covered in [Chapter 12](#chap_advfeats).
+These functions are accessed through the `context::step` method, which creates a step proxy and passes it to an user-defined function. The method also accepts a variadic number of `fs_refresh...` refresh event handler functions: the feature will be covered in [Chapter 12, Section 12.1](#chap_advfeats).
 
 ```cpp
 template <typename TFStep, typename... TFsRefresh>

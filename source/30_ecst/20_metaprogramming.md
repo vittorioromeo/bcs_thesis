@@ -353,9 +353,9 @@ Upon passing the final customized system signature to the context, ECST can retr
 
 A number of other metaprogramming techniques and compile-time algorithms are used throughout ECST:
 
-* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [Chapter 14](#appendix_compiletime_bfs).
+* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [Chapter 14, Section 14.4](#appendix_compiletime_bfs).
 
-* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [Chapter 14](#appendix_component_bitset_creation) for more details.
+* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for more details.
 
 * **SFINAE**, `std::enable_if_t`, and generic lambdas with trailing return types are used together with [`boost::hana::overload`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html) to implement *system execution adapters*, *refresh event handling*, and *generic system execution*. These techniques will be covered in [Chapter 8](#chap_flow) and [Chapter 12](#chap_advfeats).
 

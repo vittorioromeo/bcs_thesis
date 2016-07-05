@@ -99,7 +99,7 @@ Having defined all required types and tags, the next step will consist in defini
 
 * **Component signatures** bind component tags to **storage policies**.
 
-* **System signatures** bind system tags to multiple settings which will be analyzed in depth in [Chapter 7](#system_sigs): **parallelization policies** and **dependencies** can be found among them.
+* **System signatures** bind system tags to multiple settings which will be analyzed in depth in [Chapter 7, Subsection 7.1.2](#system_sigs): **parallelization policies** and **dependencies** can be found among them.
 
 Signatures are stored in compile-time type lists called **signature lists**, which must be forwarded to the context creation, in order to instantiate a context object.
 
@@ -236,7 +236,7 @@ Proxies and transparency implementation details will be covered in [Chapter 11](
 
 #### Code example: transparency through proxies
 
-Here's a possible implementation of the `s::velocity` system declared in [the previous settings definition subsection](#code_example_settings_definition):
+Here's a possible implementation of the `s::velocity` system declared in [Subsection 4.1.1](#code_example_settings_definition):
 
 ```cpp
 struct velocity

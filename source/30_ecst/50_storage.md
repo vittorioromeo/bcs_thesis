@@ -3,7 +3,7 @@
 
 # Storage
 
-ECST stores **entity metadata**, **component data**, and **system instances** inside the context object. To optimize performance depending on user-defined settings, *static dispatching* *(see [Chapter 14](#appendix_static_dispatching))* techniques are used. This chapter will cover the design and implementation of the aforementioned storage types.
+ECST stores **entity metadata**, **component data**, and **system instances** inside the context object. To optimize performance depending on user-defined settings, *static dispatching* *(see [Chapter 14, Section 14.3](#appendix_static_dispatching))* techniques are used. This chapter will cover the design and implementation of the aforementioned storage types.
 
 
 
@@ -105,7 +105,7 @@ All entity metadata instances, along with available entity IDs, are stored in ei
 
 The dynamic storage uses an `std::vector` to store metadata and a *dynamic sparse integer set* to store available IDs. The fixed storage uses an `std::array` to store metadata and a *fixed sparse integer set* to store available IDs - it is faster than the dynamic one as no checks for growth *(reallocation)* have to be performed.
 
-**Sparse integer sets** are data structures extremely efficient for the management of entity IDs. They are analyzed in [Chapter 14](#appendix_sparse_integer_sets).
+**Sparse integer sets** are data structures extremely efficient for the management of entity IDs. They are analyzed in [Chapter 14, Section 14.1](#appendix_sparse_integer_sets).
 
 
 
@@ -122,7 +122,7 @@ A **system instance** is composed of the following members:
 
 * A [*sparse integer set*](#appendix_sparse_integer_sets) of the currently subscribed entity IDs.
 
-* A *dense bitset* of the component types required for system subscription *(see [Chapter 14](#appendix_component_bitset_creation) for details)*.
+* A *dense bitset* of the component types required for system subscription *(see [Chapter 14, Section 14.2](#appendix_component_bitset_creation) for details)*.
 
 * A [**parallel executor**](#multithreading_par_executor) object that implements [*inner parallelism*](#multithreading_inner_par).
 
