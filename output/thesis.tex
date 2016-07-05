@@ -142,7 +142,7 @@
 \usepackage[final]{minted}
 \definecolor{codebg}{rgb}{0.975,0.975,0.975}
 
-\mdfsetup{skipabove=0.75mm,skipbelow=0.75mm}
+\mdfsetup{skipabove=0.4mm,skipbelow=0.4mm}
 \BeforeBeginEnvironment{minted}{\singlespacing\begin{mdframed}[backgroundcolor=codebg, innertopmargin=1mm, frametitlebelowskip=0pt, frametitleaboveskip=0pt, splittopskip=0pt,linewidth=0.75pt]}
 \AfterEndEnvironment{minted}{\end{mdframed}\onehalfspacing}
 
@@ -686,6 +686,8 @@ behaviors, aspects and ideas that all instances of a particular entity
 type share - like a \emph{blueprint}. The latter refers to single
 instantiations of particular entity types, that can be created, tracked,
 destroyed, inspected and modified.
+
+\newpage
 
 \section{Example use cases}\label{example-use-cases}
 
@@ -5859,7 +5861,7 @@ mutating the structure in-place.
 \begin{itemize}
 \item
   Nodes are compile-time numerical IDs
-  *(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}});
+  \emph{(\href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::integral_constant}})};
 \item
   The BFT queue is a
   \href{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html}{\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{text}{boost::hana::tuple}};

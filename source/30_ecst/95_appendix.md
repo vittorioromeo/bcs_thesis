@@ -237,7 +237,7 @@ Breadth-first traversal is easy to implement using mutable data structures:
 
 Similarly to the implementation of [option maps](#metaprogramming_option_maps), the required state is implemented using immutable Boost.Hana data structures whose operations yield a new *(copy)* updated structure instead of mutating the structure in-place.
 
-* Nodes are compile-time numerical IDs *([`boost::hana::integral_constant`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html));
+* Nodes are compile-time numerical IDs *([`boost::hana::integral_constant`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1integral__constant.html))*;
 
 * The BFT queue is a [`boost::hana::tuple`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1tuple.html);
 
