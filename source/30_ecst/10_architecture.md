@@ -218,6 +218,6 @@ state_manager o-- "many" state
 
 [^deferred_functions]: used to delay the execution of functions in a later synchronous step.
 
-[^sparse_set]: "sparse integer sets" are very efficient data structures for the management of entity IDs. They are covered in [the "miscellaneous" chapter](#appendix_sparse_integer_sets).
+[^sparse_set]: "sparse integer sets" are very efficient data structures for the management of entity IDs. They are covered in [Chapter 14](#appendix_sparse_integer_sets).
 
 [^dense_bitset]: `std::bitset`.

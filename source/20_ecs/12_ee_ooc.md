@@ -41,7 +41,7 @@ As with the previous approach, a base class containing an application-specific `
 
 #### Role-playing game
 
-Here's an example on how the `skeleton` and `dragon` entities could be encoded using object-oriented composition:
+Here is an example on how the `skeleton` and `dragon` entities could be encoded using object-oriented composition:
 
 \dot(source/figures/generated/ecs/overview/oop_composition/example_rpg_0)
 (Object-oriented composition: RPG - skeleton and dragon)
@@ -118,7 +118,7 @@ class sword : behavior { /* ... */ };
 class bow : behavior { /* ... */ };
 ```
 
-The implementation of `entity` provides an interface to manipulate behaviors at run-time, and stores the behaviors in an `std::vector` of `std::unique_ptr<behavior>`, in order to enable polymorphism to correctly take place:
+The implementation of `entity` provides an interface to manipulate behaviors at run-time, and stores the behaviors in a `std::vector` of `std::unique_ptr<behavior>`, in order to enable polymorphism to correctly take place:
 
 
 ```cpp
@@ -227,7 +227,7 @@ digraph
 
 ### Communication
 
-While entities still need to communicate with each other for the reasons described in the [object-oriented inheritance communication section](#chapter_oop_communication), this technique also may require behaviors to "talk" to one another.
+While entities still need to communicate with each other for the reasons described in the [object-oriented inheritance communication section](#chapter_oop_communication), this technique also may require that behaviors "talk" to one another.
 
 Imagine implementing a `clickable` behavior for widgets:
 
@@ -248,7 +248,7 @@ Buttons and textboxes need to "ask" the `clickable` behavior whether or not they
 
 #### Address-based
 
-One possible approach would be either checking or asserting the existence of a behavior and then access it directly through the entity. A requirement is having behaviors store a reference to their parent entity:
+A possible approach would be either checking or asserting the existence of a behavior and then access it directly through the entity. A requirement is that behaviors store a reference to their parent entity:
 
 ```cpp
 class behavior
@@ -275,7 +275,7 @@ This communication method quickly becomes hard to maintain due to heavy coupling
 
 #### Message-based
 
-Similarly to the object-oriented approach, using lightweight messages and a mediator `message_queue` class can reduce coupling and make communication between behaviors much easier to manage. The implementation is essentially equivalent to the previously shown one: the base `behavior` type will provide a `virtual handle_message(const message&)` function that derived behavior types can override.
+Similarly to the object-oriented approach, using lightweight messages and a mediator `message_queue` class can reduce coupling and make communication between behaviors much easier to manage. The implementation is essentially equivalent to the one previously shown: the base `behavior` type will provide a `virtual handle_message(const message&)` function that derived behavior types can override.
 
 
 
@@ -289,7 +289,7 @@ Object-oriented composition is easy to implement and much more flexible than the
 
 * It's still impossible to take advantage of the CPU cache.
 
-A crucial piece of the ECS pattern, the **system**, is still missing from this technique. Introducing it will allow a clean separation of data and logic, that will lead to parallelization opportunities and possible cache-friendliness. The introduction of the system will allow us to replace behaviors with logic-less **components**.
+A crucial piece of the ECS pattern, the **system**, is still missing from this technique. Its introduction will allow a clean separation of data and logic, that will lead to parallelization opportunities and possible cache-friendliness. The introduction of the system will allow to replace behaviors with logic-less **components**.
 
 
 

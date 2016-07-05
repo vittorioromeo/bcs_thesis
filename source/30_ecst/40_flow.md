@@ -3,9 +3,9 @@
 
 # Execution flow {#chap_flow}
 
-Using ECST requires the user to follow a particular **execution flow**, composed of different stages. The execution flows allow and restricts possible operations *(using [proxy objects](#chap_proxies))*, in order to keep the state of the application consistent and to avoid a set of race conditions.
+Using ECST requires the user to follow a particular **execution flow**, composed of different stages. The execution flow restricts possible operations *(using [proxy objects](#chap_proxies))* in order to keep the state of the application consistent and to avoid a set of race conditions.
 
-Before examining the execution flow, **critical operations** will be defined in the section below.
+Before examining the execution flow, **critical operations** will be defined in the following section.
 
 ## Critical operations
 
@@ -132,7 +132,7 @@ digraph
 
 #### User code
 
-A step can be defined in user code by calling `context::step(...)` with a function that accepts a *step proxy*. The example below shows a code snippet where the user, inside of a step stage, prepares a rendering system, executes a system chain that processes physics and generates vertices, and finally renders the generated vertices to the window.
+A step can be defined in user code by calling `context::step(...)` with a function that accepts a *step proxy*. The following example shows a code snippet in which the user, inside of a step stage, prepares a rendering system, executes a system chain that processes physics and generates vertices, and finally renders the generated vertices to the window.
 
 ```cpp
 namespace sea = ::ecst::system_execution_adapter;

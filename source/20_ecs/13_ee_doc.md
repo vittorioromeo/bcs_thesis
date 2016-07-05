@@ -29,7 +29,7 @@ An intuition for this technique is thinking about **relational database manageme
 | Entity #1 |            |      X     |            |
 | Entity #2 |      X     |            |      X     |
 
-The table above shows how component types can be bound and unbound from entity instances. The previously mentioned **context** object will keep track of component availability in entity instances, providing an interface roughly similar to `bool context::has_component<...>(entity_id)`.
+The table above shows how component types can be bound and unbound from entity instances. The previously mentioned **context** object will keep track of component availability in entity instances, thus providing an interface roughly similar to `bool context::has_component<...>(entity_id)`.
 
 \uml(source/figures/generated/ecs/overview/dod_composition/uml_context_has_component { width=65% })
 (DOD: checking component type availability through context object)
@@ -70,7 +70,7 @@ cache --> context
 context --> User: higher-order processing function
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here's a user-code example system implementation:
+Here is a user-code example system implementation:
 
 ```cpp
 void example_system(context& c)
@@ -123,7 +123,7 @@ There are some implementation details inherently related to the approach. Since 
 using entity_id = std::size_t;
 ```
 
-If all component types and system types are supposed to be known at compile-time, it is unnecessary to define base classes for them. Implementing component storage can be done in multiple ways: the most simple and straightforward way is using a separate array per component type:
+If all component types and system types are supposed to be known at compile-time, it is unnecessary to define base classes for them. Implementing component storage can be done in multiple ways: the most simple and straightforward way consists in using a separate array per component type:
 
 ```cpp
 struct component_a { /* ... */ };
@@ -145,7 +145,7 @@ public:
 };
 ```
 
-The `context` will take care of retrieving data from `component_storage`, making the implementation of system types extremely simple:
+The `context` will take care of retrieving data from `component_storage`, thus making the implementation of system types extremely simple:
 
 ```cpp
 struct system_ac
@@ -223,7 +223,7 @@ namespace s
 }
 ```
 
-Entity creation and mutation are delegated to the `context`, which takes care of bookkeeping and of binding all elements together:
+Entity creation and mutation are delegated to the `context`, which takes care of bookkeeping and binding all elements together:
 
 ```cpp
 auto make_skeleton(context& c, /* ... */)
@@ -278,7 +278,7 @@ namespace s
 
 As seen from the above component and system definitions, the existence of an `animation` component in an entity will either enable or disable optional animations. If an entity has the `animation` component, the logic will depend on the other components the entity has, making it easy to define widget-specific animation behavior.
 
-All that's left is instantiating the `context` and the system types, then execute application-specific logic:
+All that is left is instantiating the `context` and the system types, then execute application-specific logic:
 
 ```cpp
 int main()
@@ -302,7 +302,7 @@ int main()
 }
 ```
 
-The boilerplate code shown in the code snippet above can be avoided by using advanced metaprogramming techniques. In [part 2](#part2_ecst), the way **ECST** avoids similar bookkeeping code will be analyzed.
+The boilerplate code shown in the code snippet above can be avoided by using advanced metaprogramming techniques. In [Part 2](#part2_ecst), the way **ECST** avoids similar bookkeeping code will be analyzed.
 
 ### Communication
 
@@ -395,13 +395,13 @@ There are various ways of solving this problem:
 
 #### Inter-entity
 
-Inter-entity communication isn't as useful as in the previous encoding techniques, but some particular situations may require specific entity instances to share data. *"Inter-entity"* is a misnomer, as logic-less entities cannot directly communicate together - specialized systems will have to initiate and resolve inter-entity messages. This can be achieved in multiple ways:
+Inter-entity communication is not as useful as in the previous encoding techniques, but some particular situations may require specific entity instances to share data. *"Inter-entity"* is a misnomer, as logic-less entities cannot directly communicate together - specialized systems will have to initiate and resolve inter-entity messages. This can be achieved in multiple ways:
 
 * Systems can produce special outputs containing the IDs of the entities that intend to communicate and a particular message. Subsequent systems will take care of processing those outputs and performing actions depending on the type/contents of the messages.
 
 * A thread-safe queue can be accessed by systems during execution to enqueue messages. Subsequent systems can sequentially dequeue all messages and directly act upon entity instances depending on the type/contents of the messages.
 
-Having two tightly coupled entity instances when using the Entity-Component-System pattern is a red flag: it's very likely that the coupling can be avoided by introducing new components and/or systems, or by modifying the design of the application.
+Having two tightly coupled entity instances when using the Entity-Component-System pattern is a red flag: it is very likely that the coupling can be avoided by introducing new components and/or systems, or by modifying the design of the application.
 
 
 ### Advantages and disadvantages

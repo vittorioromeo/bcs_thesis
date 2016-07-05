@@ -193,7 +193,7 @@ auto dispatch_on_storage_type(
 }
 ```
 
-Using the function above, data structures wrapped in [`boost::hana::type_c`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html#ae35139e732c4b75e91061513cf445628) can be returned and later instantiated. Here's the implementation of the function statically dispatching entity metadata storage types:
+Using the function above, data structures wrapped in [`boost::hana::type_c`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1type.html#ae35139e732c4b75e91061513cf445628) can be returned and later instantiated. Here is the implementation of the function statically dispatching entity metadata storage types:
 
 ```cpp
 template <typename TSettings>

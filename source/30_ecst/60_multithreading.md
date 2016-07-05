@@ -454,7 +454,7 @@ void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
 
 
 ### Parallel executor {#multithreading_par_executor}
-Every *system instance* stores a **parallel executor**. Parallel executors wrap inner parallelism strategies composed at compile-time by library users. Here's an example definition of an inner parallelism strategy:
+Every *system instance* stores a **parallel executor**. Parallel executors wrap inner parallelism strategies composed at compile-time by library users. Here is an example definition of an inner parallelism strategy:
 
 ```cpp
 namespace ips = ecst::inner_parallelism::strategy;

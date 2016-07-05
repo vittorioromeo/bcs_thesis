@@ -13,7 +13,7 @@ The library was designed to allow users to safely implement the ECS pattern usin
 
 ### Compile-time ECS
 
-Every feature offered by ECST requires the instantiation of a **context** template class *(whose role is managing the entire pattern)* which provides the user with a high-level interface to interact with entities, components and systems. The context object requires **prior knowledge** of all **component types** and **system types** at compile-time. Additionally, options regarding multithreading support, system scheduling and entity limits can be specified before the instantiation of a context.
+Every feature offered by ECST requires the instantiation of a **context** template class *(whose role is the management of the entire pattern)* which provides the user with a high-level interface to interact with entities, components and systems. The context object requires **prior knowledge** of all **component types** and **system types** at compile-time. Additionally, options regarding multithreading support, system scheduling and entity limits can be specified before the instantiation of a context.
 
 Due to these factors, ECST is **not a data-driven** Entity-Component-System library. If the target application domain requires dynamic run-time composition and flexibility, it is sensible *(and recommended)* to use ECST with an additional data-driven ECS library[^runtime_features].
 
@@ -27,7 +27,7 @@ Some disadvantages of this approach include:
 
 * Increased compilation times.
 
-The implementation details regarding the definition and usage of compile-time settings will be explored in the [metaprogramming](#chap_ecst_metaprogramming) and in the [settings](#chap_ecst_compilemtime) chapters. To make the following points simpler to understand and to give the readers an idea of the previously mentioned limitations and features, the code snippet below will illustrate how context objects are configured and instantiated in the user code.
+The implementation details regarding the definition and usage of compile-time settings will be explored in [Chapter 6](#chap_ecst_metaprogramming) and [Chapter 7](#chap_ecst_compilemtime). To make the following points simpler to understand and to give the readers an idea of the previously mentioned limitations and features, the code snippet below will illustrate how context objects are configured and instantiated in the user code.
 
 #### Code example: settings definition {#code_example_settings_definition}
 
@@ -99,7 +99,7 @@ Having defined all required types and tags, the next step will consist in defini
 
 * **Component signatures** bind component tags to **storage policies**.
 
-* **System signatures** bind system tags to multiple settings which will be analyzed in depth in the [settings](#system_sigs) chapter: **parallelization policies** and **dependencies** can be found among them.
+* **System signatures** bind system tags to multiple settings which will be analyzed in depth in [Chapter 7](#system_sigs): **parallelization policies** and **dependencies** can be found among them.
 
 Signatures are stored in compile-time type lists called **signature lists**, which must be forwarded to the context creation, in order to instantiate a context object.
 
@@ -183,7 +183,7 @@ Easily interchangeable compile-time options also allow developers to experiment 
 
 The compile-time-driven nature of the library lends itself to **policy-based design** for user-configurable options. In line with the *"pay for what you use"* C++ philosophy, the specified policies are taken into account in various ways to optimize run-time performance and memory usage.
 
-All featured options will be analyzed in the [settings chapter](#chap_ecst_compiletime). As a simple example, the following code snippet that generates two different context instances can help understand the power of policy-based settings:
+All featured options will be analyzed in [Chapter 7](#chap_ecst_compiletime). As a simple example, the following code snippet that generates two different context instances can help understand the power of policy-based settings:
 
 #### Code example: policy-based customization
 
@@ -232,7 +232,7 @@ ECST aims to *counter this fallacy* by providing a high-level interface that doe
 
 One important design goal of ECST is allowing the user to experiment with different policies, schedulers and execution methods **without having to explicitly change the application code**. This objective is achieved through the use of **proxy** objects and heavily-templatized type-value-encoding implementation code. The result is a **syntax-level transparency** that allows the application code to be completely independent of compile-time policies/strategies.
 
-Proxies and transparency implementation details will be covered in [the "proxy objects" chapter](#chap_proxies) - a simple code example will illustrate one possible use of syntax-level transparency through proxies.
+Proxies and transparency implementation details will be covered in [Chapter 11](#chap_proxies) - a simple code example will illustrate one possible use of syntax-level transparency through proxies.
 
 #### Code example: transparency through proxies
 
@@ -268,7 +268,7 @@ The interesting thing is that this syntax is **completely independent** of the s
 
 * Getting a mutable or `const` reference to a component is **statically checked** at compile-time, producing an error in case the component access does not fulfill what was specified in the system signature.
 
-* `process` is not special, and not limited to a single argument - additional data could be passed to the method and captured in the lambda. This will be covered in detail in [the "execution flow" chapter](#chap_flow) - here's a possible way of invoking `s::velocity::process`:
+* `process` is not special, and not limited to a single argument - additional data could be passed to the method and captured in the lambda. This will be covered in detail in [Chapter 8](#chap_flow) - here's a possible way of invoking `s::velocity::process`:
 
     ```cpp
     namespace sea = ecst::system_execution_adapter;
@@ -293,7 +293,7 @@ Multithreading support is enabled by default, but can be switched off completely
 
 #### Outer parallelism {#overview_outer_parallelism_dag}
 
-**"Outer parallelism"** is the term used in ECST which defines the concept of running multiple systems that do not depend on each other in parallel. Its implementation details will be analyzed in [the multithreading chapter](#multithreading_system_scheduling). Conceptually, an **implicit directed acyclic graph** is created at compile-time thanks to the knowledge of system dependencies. The execution of the implicit DAG is handled by a **system scheduler** type specified during settings definition.
+**"Outer parallelism"** is the term used in ECST which defines the concept of running multiple systems that do not depend on each other in parallel. Its implementation details will be analyzed in [Chapter 10](#multithreading_system_scheduling). Conceptually, an **implicit directed acyclic graph** is created at compile-time thanks to the knowledge of system dependencies. The execution of the implicit DAG is handled by a **system scheduler** type specified during settings definition.
 
 Consider the previously defined system signatures - an implicit DAG isomorphic to the one below will be generated by ECST *(arrows between nodes should be read as "depends on")*:
 

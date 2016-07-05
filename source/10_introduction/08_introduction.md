@@ -34,20 +34,20 @@ One common complaint regarding the *DOD + composition* approach is that it seems
 
 * Objectively analyze **object-oriented design** techniques versus **data-oriented design** + **composition**.
 
-    * A *by-example* examination of a gradual approach shift (from object-oriented inheritance to data-oriented composition) will be presented in [part 1](#ecs_part_overview).
+    * A *by-example* examination of a gradual approach shift (from object-oriented inheritance to data-oriented composition) will be presented in [Part 1](#ecs_part_overview).
 
-* Analyze the design, architecture and implementation of **ECST**, a C++14 compile-time Entity-Component-System library, developed as the thesis project, in [part 2](#part2_ecst).
+* Analyze the design, architecture and implementation of **ECST**, a C++14 compile-time Entity-Component-System library, developed as the thesis project, in [Part 2](#part2_ecst).
 
     * Prove that it's not necessary to sacrifice typical OOP advantages (like encapsulation or code reusability), thanks to C++14 **cost-free abstractions** that make use of compile-time knowledge to increase productivity, safety, maintainability and code quality.
 
-* Examine the design and implementation of a simple **real-time particle simulation** developed using ECST in [part 3](#part3_sim).
+* Examine the design and implementation of a simple **real-time particle simulation** developed using ECST in [Part 3](#part3_sim).
 
     * Various combination multithreading compile-time options will be compared through benchmarks.
 
 
 ## Related literature
 
-While literature on the Entity-Component-System pattern is limited and hard to find, entity management, especially in the context of game development, has been extensively covered: see [@gregory2014game, chapters 14 and 15], [@game_programming_gems_4, section 1.8], [@game_programming_gems_5, section 1.3], [@game_programming_gems_6, section 4.6], and [@doherty2003software]. Heavily composition-based approaches can be found in [@Wiebusch:2012] and in[@6658092]
+Literature on the Entity-Component-System pattern is limited and hard to find. On the contrary, entity management, especially in the context of game development, has been extensively covered: see [@gregory2014game, chapters 14 and 15], [@game_programming_gems_4, section 1.8], [@game_programming_gems_5, section 1.3], [@game_programming_gems_6, section 4.6], and [@doherty2003software]. Heavily composition-based approaches can be found in [@Wiebusch:2012] and in[@6658092]
 
 Countless online articles and blog posts on the ECS pattern and on data-oriented design have been written - AAA projects postmortems, presentations, well-documented libraries and other kind of valuable resources can be easily found. An excellent introduction to composition can be found in [@robertnystorm_gpp_component]. One of the most comprehensive sets of articles on entity systems was written by Adam Martin, and can be found in [@tmachine_es_category].
 
@@ -57,7 +57,7 @@ Countless online articles and blog posts on the ECS pattern and on data-oriented
 
 ECST's source code can be found in the following GitHub repository under the *Academic Free License ("AFL") v. 3.0*: [https://github.com/SuperV1234/ecst](https://github.com/SuperV1234/ecst). The source code for the thesis and for the example particle simulation can be found in the following GitHub repository under the *Academic Free License ("AFL") v. 3.0*: [https://github.com/SuperV1234/bcs_thesis](https://github.com/SuperV1234/bcs_thesis).
 
-*Note to readers:* most of the code snippets included in the thesis are simplified in order to make them more easily understandable and less cluttered. Features like `noexcept` and boilerplate code like repeated *ref-qualified* member functions are intentionally not included. From [part 2] onwards, the reader is expected to be familiar with advanced C++11 and C++14 features.
+*Note to readers:* most of the code snippets included in the thesis are simplified in order to make them more easily understandable and less cluttered. Features like `noexcept` and boilerplate code like repeated *ref-qualified* member functions are intentionally not included. From [Part 2] onwards, the reader is expected to be familiar with advanced C++11 and C++14 features.
 
 
 

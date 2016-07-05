@@ -35,7 +35,7 @@ As an example, component and system signature lists are implemented as [`boost::
 
 A very large number of methods in the library is parametrized on component types and system types. User code calling those methods would normally require the constant and inelegant use of the `instance.template method<...>(...)` template disambiguation syntax[^annoying_syntax]. **Tags** are designed to solve this problem.
 
-Examples will be used in order to easily explain the role of tags. Here's an hypotetical set of component and system types:
+Examples will be used in order to easily explain the role of tags. Here is an hypotetical set of component and system types:
 
 ```cpp
 namespace c
@@ -204,7 +204,7 @@ constexpr auto is_list(T x)
 
 ### Motivation and usage
 
-User-provided compile-time settings are a vital part of ECST: in order to allow users to set options in a convenient and clear way, **option maps** were implemented using [`boost::hana::map`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html) instances and method chaining. Here's an example of user code that creates a *system signature* for `s::acceleration`:
+User-provided compile-time settings are a vital part of ECST: in order to allow users to set options in a convenient and clear way, **option maps** were implemented using [`boost::hana::map`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/structboost_1_1hana_1_1map.html) instances and method chaining. Here is an example of user code that creates a *system signature* for `s::acceleration`:
 
 ```cpp
 constexpr auto ss_acceleration =
@@ -351,13 +351,13 @@ Upon passing the final customized system signature to the context, ECST can retr
 
 ## Other techniques and algorithms
 
-Many other metaprogramming techniques and compile-time algorithms are used throughout ECST:
+A number of other metaprogramming techniques and compile-time algorithms are used throughout ECST:
 
-* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [the "miscellaneous" chapter](#appendix_compiletime_bfs).
+* A **breadth-first traversal** algorithm is used to find and count dependencies in isolated system chains - it is covered in [Chapter 14](#appendix_compiletime_bfs).
 
-* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [the "miscellaneous" chapter](#appendix_component_bitset_creation) for more details.
+* Compile-time **tuple element iteration** is used to build *component type bitsets*, to start parallel system execution and to run tests with various combinations of settings. See [Chapter 14](#appendix_component_bitset_creation) for more details.
 
-* **SFINAE**, `std::enable_if_t`, and generic lambdas with trailing return types are used together with [`boost::hana::overload`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html) to implement *system execution adapters*, *refresh event handling*, and *generic system execution*. These techniques will be covered in the ["execution flow"](#chap_flow) and ["advanced features"](#chap_advfeats) chapters.
+* **SFINAE**, `std::enable_if_t`, and generic lambdas with trailing return types are used together with [`boost::hana::overload`](http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/overload_8hpp.html) to implement *system execution adapters*, *refresh event handling*, and *generic system execution*. These techniques will be covered in [Chapter 8](#chap_flow) and [Chapter 12](#chap_advfeats).
 
 
 

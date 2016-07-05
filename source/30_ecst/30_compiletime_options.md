@@ -20,17 +20,17 @@ left to right direction
 
 <!-- * -->
 
-Tag definition was described in [the previous chapter](#metaprogramming_tags). **Signatures** and **context settings** will be covered in the following sections.
+Tag definition was previously described in [Chapter 6](#metaprogramming_tags). **Signatures** and **context settings** will be covered in the following sections.
 
 
 
 ## Signatures
 
-**Signatures** are `constexpr` values containing compile-time options. They are implemented using option maps, covered in [the metaprogramming chapter](#metaprogramming_option_maps). There are two kinds of signatures: **component signatures** and **system signatures**.
+**Signatures** are `constexpr` values containing compile-time options. They are implemented using option maps, covered in [Chapter 6](#metaprogramming_option_maps). There are two kinds of signatures: **component signatures** and **system signatures**.
 
 ### Component signatures
 
-**Component signatures** are used to *bind* storage strategies with component types. Multiple component tags can be bound to a specific storage strategy. Users can implement their own storage strategies *(briefly explained in [the "storage" chapter](#storage_comp_strategy))*. The `contiguous_buffer` strategy is available by default and allows users to store components in contiguous memory locations.
+**Component signatures** are used to *bind* storage strategies with component types. Multiple component tags can be bound to a specific storage strategy. Users can implement their own storage strategies *(briefly explained in [Chapter 9](#storage_comp_strategy))*. The `contiguous_buffer` strategy is available by default and allows users to store components in contiguous memory locations.
 
 #### SoA
 
@@ -181,7 +181,7 @@ digraph
 
 * **Output type**: type of data produced by every subtask, if any.
 
-An example of a system signature definition is below:
+An example of a system signature definition is given below:
 
 ```cpp
 constexpr auto ss_collision =
@@ -239,7 +239,7 @@ constexpr auto make_ssl()
 
     * Entity and component insertion will be faster with a fixed limit, as no checks for possible reallocations are required.
 
-Here's an example context settings definition and context instantiation:
+Here is an example context settings definition and context instantiation:
 
 ```cpp
 constexpr auto context_settings =

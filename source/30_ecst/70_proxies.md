@@ -148,7 +148,7 @@ struct s0
     decltype(auto) for_system_outputs(TSystemTag, TF&& f);
     ```
 
-Here's an example of a defer proxy in use:
+Here is an example of a defer proxy in use:
 
 ```cpp
 data.for_entities([&](auto eid)
@@ -178,7 +178,7 @@ auto execute_systems_from(TStartSystemTags... sts);
 auto execute_systems();
 ```
 
-These functions are accessed through the `context::step` method, which creates a step proxy and passes it to an user-defined function. The method also accepts a variadic number of `fs_refresh...` refresh event handler functions: the feature will be covered in [the "advanced features" chapter](#chap_advfeats).
+These functions are accessed through the `context::step` method, which creates a step proxy and passes it to an user-defined function. The method also accepts a variadic number of `fs_refresh...` refresh event handler functions: the feature will be covered in [Chapter 12](#chap_advfeats).
 
 ```cpp
 template <typename TFStep, typename... TFsRefresh>
@@ -204,7 +204,7 @@ auto context::step(TFStep&& f_step, TFsRefresh&&... fs_refresh)
 }
 ```
 
-Here's an example usage of a step proxy:
+Here is an example usage of a step proxy:
 
 ```cpp
 ctx.step([&](auto& proxy)

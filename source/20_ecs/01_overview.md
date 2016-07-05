@@ -7,13 +7,13 @@
 
 The pattern consists of three elements that interact with each other:
 
-* **Entities**: defined by Adam Martin as "fundamental conceptual building blocks" in [@tmachine_esmmogfuturep2_2007] of a system, which represent concrete application objects. They have no application-specific data or logic.
+* **Entities**: defined by Adam Martin in [@tmachine_esmmogfuturep2_2007] as "fundamental conceptual building blocks" of a system, which represent concrete application objects. They have no application-specific data or logic.
 
 * **Components**: small, reusable, types that compose entities. Again, citing Adam Martin in [@tmachine_esmmogfuturep2_2007], a component type "labels an entity as possessing a particular aspect". Components store data but do not contain any logic.
 
 * **Systems**[^systems_processors]: providers of implementation logic for entities possessing a specific set of component types.
 
-In this chapter, the history and some use-cases of the Entity-Component-System pattern will be briefly explored. Afterwards, in [chapter 2](#chapter_encoding_entities), a gradual transition of **entity encoding** techniques, from *"traditional" object-oriented inheritance* to a *data-oriented*[^data_oriented_vs_data_driven] approach, will be shown and analyzed.
+In this chapter, the history and some use-cases of the Entity-Component-System pattern will be briefly explored. Afterwards, in [Chapter 3](#chapter_encoding_entities), a gradual transition of **entity encoding** techniques, from *"traditional" object-oriented inheritance* to a *data-oriented*[^data_oriented_vs_data_driven] approach, will be shown and analyzed.
 
 
 

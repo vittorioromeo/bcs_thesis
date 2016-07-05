@@ -65,7 +65,7 @@ namespace impl
 }
 ```
 
-Refresh implementation stages invoke the created overloaded function using the types defined above, in order to trigger the correct overload. Here's an example:
+Refresh implementation stages invoke the created overloaded function using the types defined above, in order to trigger the correct overload. Here is an example:
 
 ```cpp
 void context::refresh_impl_kill_entities(
@@ -111,7 +111,7 @@ using enable_matching_instance =
     std::enable_if_t<check_tag<TInstance, TSystemTag>()>;
 ```
 
-`impl::enable_matching_instance` is a type alias that makes use of `std::enable_if_t` *(see [@cppreference_enable_if])*, which prevents functions from participating in **overload resolution** *(see [@cppreference_overload_resolution])* if the `check_tag<TInstance, TSystemTag>()` expression evaluates to `false`. Here's the implementation of `check_tag`:
+`impl::enable_matching_instance` is a type alias that makes use of `std::enable_if_t` *(see [@cppreference_enable_if])*, which prevents functions from participating in **overload resolution** *(see [@cppreference_overload_resolution])* if the `check_tag<TInstance, TSystemTag>()` expression evaluates to `false`. Here is the implementation of `check_tag`:
 
 ```cpp
 // Returns `true` if `TInstance` is the system instance with
@@ -136,7 +136,7 @@ constexpr auto check_tag()
 
 
 ## System execution adapters
-**System execution adapters** are used to define the *target systems* of user-defined *system processing functions* during a [step](#step_stage). Users can match zero or more systems depending on their tags or custom `constexpr` predicate functions. All systems can also be conveniently matched. Here's an example of system execution adapters in use:
+**System execution adapters** are used to define the *target systems* of user-defined *system processing functions* during a [step](#step_stage). Users can match zero or more systems depending on their tags or custom `constexpr` predicate functions. All systems can also be conveniently matched. Here is an example of system execution adapters in use:
 
 ```cpp
 namespace sea = ecst::system_execution_adapter;
@@ -215,7 +215,7 @@ if(context.alive(h))
 
 ### Implementation details
 
-Handles are simple structs with two fields: the entity ID they're pointing to and a validity counter.
+Handles are simple structs with two fields: the entity ID they are pointing to and a validity counter.
 
 ```cpp
 struct handle

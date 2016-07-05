@@ -189,7 +189,7 @@ digraph
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the graphs show, **there always is some form of repetition in one way or another**:
+As the graphs show, **there is always some form of repetition in one way or another**:
 
 * In the first hierarchy, the widget data/logic for `textbox` and `button` has to be repeated for the `static_widget` and `animated_widget` branches of the hierarchies.
 
@@ -214,7 +214,7 @@ Entity communication in this approach may need to occur for several reasons, inc
 
 #### Address-based
 
-Since entities are dynamically allocated, their location in memory does not change during program execution. Senders that are **aware of their listeners' lifetimes** can effectively store pointers *(or references)* to them, in order to directly execute some of their methods or mutate their `public` fields.
+Since entities are dynamically allocated, their location in memory does not change during program execution. Senders that are **aware of the lifetimes of their listeners** can effectively store pointers *(or references)* to them, in order to directly execute some of their methods or mutate their `public` fields.
 
 ```cpp
 class window : widget { /* ... */ };
@@ -233,7 +233,7 @@ private:
 };
 ```
 
-If senders are not aware of how long their receivers will live, or if senders need to conditionally execute code depending on whether or not a specific receiver is alive, this approach fails. Additional drawbacks include harder networking and serialization, tightly coupled code which is hard to reason about, lack of flexibility. A possible alternative is introducing a *mediator* class that deals with entity creation and destruction, keeping track of entity states.
+If senders are not aware of how long their receivers will live, or if senders need to conditionally execute code depending on whether or not a specific receiver is alive, this approach fails. Additional drawbacks include harder networking and serialization, tightly coupled code which is hard to reason about, and lack of flexibility. A possible alternative given by the introduction of a *mediator* class that deals with entity creation and destruction, keeping track of entity states.
 
 The mediator could generate **handles** that, similarly to pointers, would allow access to entities' memory locations, but also add an additional layer of indirection where the validity of the entity pointed to by the handle can be checked.
 

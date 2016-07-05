@@ -5,7 +5,7 @@
 
 The *essence* of the problem that ECS solves is finding an efficient and flexible way of **encoding entities**.
 
-After trying to define the term *"entity"*, this chapter will cover multiple entity encoding techniques, starting from **object-oriented inheritance** and gradually moving to **data-oriented composition**. To fairly compare the approaches, two example application designs will be illustrated beforehand, and then implemented with every analyzed technique.
+After trying to define the term *"entity"*, multiple entity encoding techniques will be covered in this chapter, starting from **object-oriented inheritance** and gradually moving to **data-oriented composition**. To fairly compare the approaches, two example application designs will be illustrated beforehand, and then implemented with every analyzed technique.
 
 ## Definition of entity
 
@@ -33,7 +33,7 @@ Examples of entities include:
 
 * **Particles** and **lights** in VFX creation software.
 
-It's also important to distinguish between **entity types**[^entity_types] and **entity instances**. The former is the set of properties, behaviors, aspects and ideas that all instances of a particular entity type share - like a *blueprint*. The latter refers to single instantiations of particular entity types, that can be created, tracked, destroyed, inspected and mutated.
+It is also important to distinguish between **entity types**[^entity_types] and **entity instances**. The former is the set of properties, behaviors, aspects and ideas that all instances of a particular entity type share - like a *blueprint*. The latter refers to single instantiations of particular entity types, that can be created, tracked, destroyed, inspected and modified.
 
 
 

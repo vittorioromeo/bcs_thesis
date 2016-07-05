@@ -141,7 +141,7 @@ digraph
 
 ### System implementations
 
-Most of the system implementations are straightforward: `s::acceleration` and `s::velocity` simply iterate over their subscribed entities, mutating the values of the targeted components. Here's the implementation of `s::acceleration`:
+Most of the system implementations are straightforward: `s::acceleration` and `s::velocity` simply iterate over their subscribed entities, mutating the values of the targeted components. Here is the implementation of `s::acceleration`:
 
 ```cpp
 struct acceleration
