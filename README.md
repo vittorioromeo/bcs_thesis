@@ -47,3 +47,5 @@ Instructions:
 
 * **C++Now 2016** repository *(contains presentation material on ECST)*:
 [https://github.com/SuperV1234/cppnow2016](https://github.com/SuperV1234/cppnow2016)
+
+* Pandoc template repository: [https://github.com/tompollard/phd_thesis_markdown](https://github.com/tompollard/phd_thesis_markdown)
