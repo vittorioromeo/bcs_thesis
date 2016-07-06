@@ -42,8 +42,8 @@ Instructions:
 
 ## Links
 
-* **ECST** repository: \
+* **ECST** repository:
 [https://github.com/SuperV1234/ecst](https://github.com/SuperV1234/ecst)
 
-* **C++Now 2016** repository *(contains presentation material on ECST)*: \
+* **C++Now 2016** repository *(contains presentation material on ECST)*:
 [https://github.com/SuperV1234/cppnow2016](https://github.com/SuperV1234/cppnow2016)
