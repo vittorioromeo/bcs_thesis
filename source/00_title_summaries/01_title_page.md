@@ -1,6 +1,28 @@
 
 
 
+<!-- TODO:
+
+* Clarify thesis objectives in abstract.
+* Clarify how cache benefits from DOD.
+    * Maybe some cache-usage diagram?
+    * http://harmful.cat-v.org/software/OO_programming/_pdf/Pitfalls_of_Object_Oriented_Programming_GCAP_09.pdf
+    * http://ithare.com/c-for-games-performance-allocations-and-data-locality/
+* More sensible benchmarks.
+    * Fixed vs dynamic storage in a situation where entities are continuously being created and destroyed.
+    * Impact of inner parallelism (already done).
+    * Impact of outer parallelism.
+    * Number of workers in thread pool.
+* Mention why sequential consistency isn't required in the lock-free queue.
+* Mention memory order used for `counter_blocker` class and why.
+* Add Jackie to acknowledgements for reviewing the thesis.
+* Mention somewhere?
+    * https://github.com/slide-rs/specs
+    * https://github.com/amethyst/amethyst/wiki/ECS-Design-Crossroads
+    
+-->
+
+
 ---
 link-citations: true
 ---
