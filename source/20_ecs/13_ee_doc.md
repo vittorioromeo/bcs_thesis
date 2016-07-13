@@ -3,7 +3,7 @@
 
 ## Data-oriented composition
 
-In order to make the most of a machine's hardware, a major development paradigm shift has to be taken: enter **data-oriented design**. DOD is *all about the data*: code **has to be designed around the data** and not vice-versa. When used correctly, data-oriented design can allow applications to take advantage of parallelism and a higher percentage of cache hits. Additional benefits include modularity, easier networking, and easier serialization.
+In order to make the most of a machine's hardware, a major development paradigm shift has to be taken: enter **data-oriented design**. DOD is *all about the data*: code **has to be designed around the data** and not vice-versa. When used correctly, data-oriented design can allow applications to take advantage of parallelism and a higher percentage of cache hits[^more_cache_hits]. Additional benefits include modularity, easier networking, and easier serialization.
 
 To achieve all the aforementioned advantages, the following design will be used:
 
@@ -429,3 +429,5 @@ In addition, data-oriented composition lends itself very nicely to multi-machine
 [^dataflow_programming]: "dataflow programming".
 
 [^easier_serialization]: the use of numerical IDs instead of pointers and the separation of data and logic make serialization trivial.
+
+[^more_cache_hits]: cache-friendliness is obtained by storing data contiguously in memory, loading only necessary data in the cache, and avoiding indirection. See [@ithare_allocations] and [@scee_oop_pitfalls] for more details.

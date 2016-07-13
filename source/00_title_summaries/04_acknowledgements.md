@@ -9,6 +9,8 @@ I would like to express my utmost appreciation to the following people for their
 
 * **Adam Martin**, founder of [t-machine.org](http://t-machine.org/) and of the [Entity Systems wiki](http://entity-systems.wikidot.com/), who reviewed *Part 1* of this thesis. His articles and his feedback have been extremely valuable.
 
+* **Jackie Kay**, for reviewing a draft version of the complete thesis, providing feedback and constructive criticism.
+
 * **Tom Pollard**, creator of [the Markdown template](https://github.com/tompollard/phd_thesis_markdown) used for this document.
 
 * **Christophe Delord**, developer of [pp](https://github.com/CDSoft/pp), who quickly answered my issue reports and feature requests.
