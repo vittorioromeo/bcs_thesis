@@ -101,7 +101,6 @@
 \usepackage[totoc]{idxlayout}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{eurosym}
-\usepackage{setspace}
 \usepackage{ctable}
 \usepackage{morefloats}
 \usepackage{siunitx}
@@ -111,7 +110,6 @@
 \usepackage{appendix}
 \usepackage{mdframed}
 \usepackage{emptypage}
-
 
 % Table of contents formatting
 \renewcommand{\contentsname}{Table of Contents}
@@ -141,7 +139,7 @@
 
 
 % Code and pseudocode
-\usepackage[final]{minted}
+\usepackage[draft]{minted}
 \definecolor{codebg}{rgb}{0.975,0.975,0.975}
 
 \mdfsetup{skipabove=0.4mm,skipbelow=0.4mm}
@@ -256,16 +254,18 @@ Complex real-time games and applications have to deal with enormous
 amounts of entities that greatly vary in behavior and constantly
 communicate with each other. Finding an elegant design for entity
 management that allows developers to quickly build applications from
-small composable elements, without sacrificing performance or
-abstraction, is the problem this thesis aims to solve.
+small composable elements, without sacrificing performance, abstraction
+and safety is a difficult problem - this thesis aims to solve it by
+designing and implementing a C++14 Entity-Component-System library
+\emph{ex novo}.
 
 An analyis of common entity encoding techniques is presented, which
 pinpoints the benefits and drawbacks of techniques such as
 object-oriented inheritance, object-oriented composition, and
 data-oriented composition. The Entity-Component-System architectural
-pattern is described and implemented in ECST, a multithreaded
+pattern is examined and implemented in ECST, a multithreaded
 compile-time C++14 library. The design and implementation of the library
-are examined in detail, using a large number of code snippets and
+are explored in detail, using a large number of code snippets and
 diagrams to aid the readers in appreciating the underlying concepts and
 architecture.
 
@@ -479,8 +479,8 @@ game development, has been extensively covered: see
 {[}\protect\hyperlink{ref-game_programming_gems_6}{4}, Sec. 4.6{]}, and
 {[}\protect\hyperlink{ref-doherty2003software}{5}{]}. Heavily
 composition-based approaches can be found in
-{[}\protect\hyperlink{ref-Wiebusch:2012}{6}{]} and
-in{[}\protect\hyperlink{ref-6658092}{7}{]}
+{[}\protect\hyperlink{ref-Wiebusch:2012}{6}{]} and in
+{[}\protect\hyperlink{ref-6658092}{7}{]}
 
 Countless online articles and blog posts on the ECS pattern and on
 data-oriented design have been written - AAA projects postmortems,

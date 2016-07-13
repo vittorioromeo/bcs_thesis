@@ -3,7 +3,6 @@
 
 <!-- TODO:
 
-* Clarify thesis objectives in abstract.
 * Clarify how cache benefits from DOD.
     * Maybe some cache-usage diagram?
     * http://harmful.cat-v.org/software/OO_programming/_pdf/Pitfalls_of_Object_Oriented_Programming_GCAP_09.pdf
