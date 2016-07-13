@@ -1,6 +1,6 @@
 # bcs_thesis
 
-Repository for my **Bachelor of Computer Science** experimental thesis. Written under *Prof.* Giacomo Fiumara's supervision for [**Università degli Studi di Messina**](https//unime.it).
+Repository for my **Bachelor of Computer Science** experimental thesis. Written under *Prof.* Giacomo Fiumara's supervision for [**Università degli Studi di Messina**](https://unime.it).
 
 The thesis is divided in three parts:
 
