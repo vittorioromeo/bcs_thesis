@@ -11,7 +11,6 @@
     * Impact of outer parallelism.
     * Number of workers in thread pool.
 * Mention why sequential consistency isn't required in the lock-free queue.
-* Mention memory order used for `counter_blocker` class and why.
 * Mention somewhere?
     * https://github.com/slide-rs/specs
     * https://github.com/amethyst/amethyst/wiki/ECS-Design-Crossroads
