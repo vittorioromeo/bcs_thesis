@@ -118,6 +118,7 @@ Removing an integer $i$ from the set consists in swapping $i$ with $D_{last}$ if
 
 Firstly, the component types specified in the system signature are retrieved and concatenated:
 
+<!-- TODO (?): update code -->
 ```cpp
 template <typename TSettings, typename TSystemSignature>
 auto make_from_system_signature(TSettings s, TSystemSignature ss)

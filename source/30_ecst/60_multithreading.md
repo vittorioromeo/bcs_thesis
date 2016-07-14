@@ -95,6 +95,7 @@ Synchronization and waiting are required when implementing both outer and inner 
 
 The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` and `std::atomic` counters. ECST provides a convenient and safe waiting interface, obtained by  wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a data structure called `counter_blocker`:
 
+<!-- TODO (?): update code snippet, look for "atomic" in chapter - not atomic anymore -->
 ```cpp
 struct counter_blocker
 {
@@ -109,6 +110,7 @@ struct counter_blocker
 };
 ```
 
+<!-- TODO (?): it's a method call now -->
 The `counter_blocker` can be used as follows:
 
 ```cpp
@@ -126,6 +128,7 @@ execute_and_wait_until_counter_zero(cb, [&]
 
 Here's a possible implementation for `spawn_tasks`:
 
+<!-- TODO (?): it's a method call now -->
 ```cpp
 void spawn_tasks(counter_blocker& cb, int n)
 {
@@ -145,6 +148,7 @@ The pattern shown above is used in the implementation of both outer and inner pa
 
 ### Implementation details
 
+<!-- TODO (?): these are methods now -->
 The synchronization operations are hidden behind an interface that takes a reference to a `counter_blocker`:
 
 ```cpp
@@ -362,6 +366,7 @@ The implementation of the algorithm above will be now analyzed in the sections b
 
 The first step is traversing the implicit dependency **directed acyclic graph**, from every user-provided starting system type, counting the unique traversed nodes. This is done with a compile-time [**breadth-first traversal**](#appendix_compiletime_bfs).
 
+<!-- TODO (?): these are methods now -->
 ```cpp
 template <typename TCtx, typename TSystemTagList, typename TF>
 void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
@@ -410,6 +415,7 @@ void atomic_counter::start_execution(
 
 After retrieving a task by ID, `atomic_counter::task::run` will effectively execute the overloaded user-provided processing function on the system and recursively run children tasks with no remaining dependencies:
 
+<!-- TODO (?): these are methods now -->
 ```cpp
 template <typename TBlocker, typename TID, typename TCtx, typename TF>
 void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
@@ -474,6 +480,7 @@ The code snippet above configures `s::acceleration` to run in a single thread if
 
 System instances invoke the parallel executor by passing a reference to the parent context, a **subtask adapter** function, and the overloaded user-provided processing function. The subtask adapter binds a `counter_blocker`, the context and the processing function to a new function which will *slice* the subscribed entity range depending on parameters provided by the inner parallelism strategy:
 
+<!-- TODO (?): update code -->
 ```cpp
 template <typename TContext, typename TF>
 void instance</* ... */>::execute_in_parallel(TContext& ctx, TF&& f)
@@ -498,6 +505,7 @@ void instance</* ... */>::execute_in_parallel(TContext& ctx, TF&& f)
 
 This design has been chosen in order to easily implement other system instance types in the future *(e.g. systems that directly process component data, without knowledge of entities)*. The parallel executor implementation will ask the caller instance to prepare execution of $n$ subtasks:
 
+<!-- TODO (?): update code -->
 ```cpp
 template <typename TInstance, typename TCtx, typename TFAdapter,
     typename TF>
@@ -524,6 +532,7 @@ void split_every_n</* ... */>::execute(
 
 The `instance::prepare_and_wait_n_subtasks` method takes care of initializing the `counter_blocker` with the number of produced subtasks and of starting the subtask execution:
 
+<!-- TODO (?): update code -->
 ```cpp
 template <typename TF>
 void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
@@ -544,6 +553,7 @@ void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
 
 The implementation of `make_bound_slice_executor` creates a *nullary[^nullary] function* that can be executed in a separate thread by binding all required parameters. The function instantiates a **data proxy** that is used in the system implementation code. The data proxy uses the bound parameters to provide a slice of subscribed entities behind a uniform interface *([syntax-level transparency](#ecstoverview_syntaxtransp))*.
 
+<!-- TODO (?): update code -->
 ```cpp
 template <typename TSettings, typename TSystemSignature>
 template <typename TBlocker, typename TCtx>
