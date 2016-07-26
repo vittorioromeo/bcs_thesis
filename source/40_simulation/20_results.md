@@ -47,7 +47,7 @@ The error bars in the following graphs represent the *standard deviation*.
 
 
 
-## Conclusions
+## Conclusions {#bench_parsim_conc}
 
 The following conclusions can be deduced from the benchmark graphs:
 

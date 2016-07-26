@@ -21,6 +21,14 @@ fixed_ip_50k = [3110, 2818, 2984] # mean = 2971
 fixed_ip_100k = [5754, 5442, 6098] # mean = 5765 
 fixed_ip_200k = [15202, 13737, 15734] # mean = 14891
 
+# 50k noip mean = 3102
+# 100k noip mean = 6997
+# 200k noip mean = 18099
+
+# 50k ip mean = 2978
+# 100k ip mean = 6001
+# 200k ip mean = 15792
+
 def output_file(filename):
     return "add_del_outputs/" + filename
 
