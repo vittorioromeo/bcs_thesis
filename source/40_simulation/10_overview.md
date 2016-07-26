@@ -19,7 +19,7 @@ The simulation consists in a number of **rigid-body circular particles** of vari
 
 Multiple simulations are executed and benchmarked, combining the following compile-time options and parameters:
 
-* Entity count: $50000$, $100000$ and $150000$;
+* Entity count: $50000$, $100000$ and $200000$;
 
 * Inner parallelism: **enabled** or **disabled**;
 

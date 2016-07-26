@@ -9,7 +9,7 @@ The benchmark aims to measure the performance of continuous real-time entity cre
 
 As with the previous example application, multiple simulations are executed and benchmarked, combining the following compile-time options and parameters:
 
-* Entity count: $50000$, $100000$ and $150000$;
+* Entity count: $50000$, $100000$ and $200000$;
 
 * Inner parallelism: **enabled** or **disabled**;
 
@@ -97,12 +97,12 @@ The [previously described machine and environment](#bench_particlesim) were used
 
 Again, the error bars in the following graphs represent the *standard deviation*.
 
-### Dynamic versus fixed entity storage
+#### Dynamic versus fixed entity storage
 
 ![Entity add/del: benchmark results - dynamic entity storage](source/figures/bench2/ipcomp_dynamic.png)
 ![Entity add/del: benchmark results - fixed entity storage](source/figures/bench2/ipcomp_fixed.png)
 
-### Entity scaling
+#### Entity scaling
 
 ![Entity add/del: benchmark results - 50000 entities](source/figures/bench2/entity_50k.png)
 ![Entity add/del: benchmark results - 100000 entities](source/figures/bench2/entity_100k.png)
@@ -111,8 +111,6 @@ Again, the error bars in the following graphs represent the *standard deviation*
 
 
 ## Conclusions 
-
-<!-- TODO (?) -->
 
 The following conclusions can be deduced from the benchmark graphs:
 
@@ -130,7 +128,7 @@ The following conclusions can be deduced from the benchmark graphs:
     | 100k | baseline     | +8.19%         |
     | 200k | baseline     | +12.09%        |
 
-* Again, using [**inner parallelism**](#multithreading_inner_par) results in an expected run-time performance boost. Due to the nature of this simulation, however, only an avarge $10$% relative performance increment is achieved compared to the [previous simulation's](#bench_parsim_conc) $65$% relative performance increment:
+* Again, using [**inner parallelism**](#multithreading_inner_par) results in an expected run-time performance boost. Due to the nature of this simulation, however, only an average $10$% relative performance increment is achieved compared to the [previous simulation's](#bench_parsim_conc) $65$% relative performance increment:
 
 
     |      | No inner parallelism | Inner parallelism |

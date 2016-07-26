@@ -34,12 +34,12 @@ The simulation was executed on a system with [**Arch Linux x64**](https://www.ar
 
 The error bars in the following graphs represent the *standard deviation*.
 
-### Dynamic versus fixed entity storage
+#### Dynamic versus fixed entity storage
 
 ![Particle simulation: benchmark results - dynamic entity storage](source/figures/bench/ipcomp_dynamic.png)
 ![Particle simulation: benchmark results - fixed entity storage](source/figures/bench/ipcomp_fixed.png)
 
-### Entity scaling
+#### Entity scaling
 
 ![Particle simulation: benchmark results - 50000 entities](source/figures/bench/entity_50k.png)
 ![Particle simulation: benchmark results - 100000 entities](source/figures/bench/entity_100k.png)

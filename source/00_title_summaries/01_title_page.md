@@ -5,11 +5,10 @@
 
 * Look for "TODO" and "(?".
 * Update code snippets where appropriate.
-* More sensible benchmarks.
-    * Fixed vs dynamic storage in a situation where entities are continuously being created and destroyed.
-    * Impact of inner parallelism (already done).
-    * Impact of outer parallelism.
-    * Number of workers in thread pool.
+* More benchmarks.
+    * Mention that it is not fair/easy to compare the system to existing ECSs or other encoding techniques.
+    * Impact of outer parallelism. (?)
+    * Number of workers in thread pool. (?)
 * Mention why sequential consistency isn't required in the lock-free queue.
 * Mention somewhere?
     * https://github.com/slide-rs/specs

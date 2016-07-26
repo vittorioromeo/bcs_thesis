@@ -69,7 +69,7 @@ def make_overview_plot(filename, title, noip_arrs, ip_arrs):
         ('no inner parallelism', 'inner parallelism'), \
         prop=fontP, loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=2)
    
-    plt.ylim([0,25000])
+    plt.ylim([0,21000])
     plt.savefig(output_file(filename))
     plt.clf()
 
@@ -79,7 +79,7 @@ def make_entity_plot(filename, title, fixed_noip, fixed_ip, dynamic_noip, dynami
     plt.title("Settings comparison - " + title)
     
     plt.xlabel('Time (ms)', fontsize=12)
-    plt.xlim([0,25000])
+    plt.xlim([0,21000])
 
     x = 0
     barwidth = 0.5

@@ -5511,13 +5511,14 @@ implemented using
 in the current version of ECST, introducing unnecessary run-time
 overhead due to dynamic allocation and polymorphism.
 
-A specialized \textbf{``deferred function queue''} class will be
+As suggested by \href{https://twitter.com/cppsage}{Matt Calabrese}, a
+specialized \textbf{``deferred function queue''} class will be
 introduced in the future, which will store callable objects of various
 size in the same resizable buffer. This will be achieved using
-fixed-size structures that will act as \emph{``vtables''}, which will be
-stored before their corresponding callable object in the buffer. A
-separate lightweight index will keep track of all the vtables -
-iterating over them will allow efficient sequential execution of
+fixed-size structures that will act similarly to \emph{``vtables''},
+which will be stored before their corresponding callable object in the
+buffer. A separate lightweight index will keep track of all the vtables
+- iterating over them will allow efficient sequential execution of
 deferred functions.
 
 Appending functions to the queue will not require any additional memory
@@ -6091,14 +6092,26 @@ in order to instantiate a
 that will block the calling thread until all systems belonging to a
 particular connected component of the dependency DAG have been executed.
 
-\part{Example ECST application: particle simulation}
+\part{Example ECST applications and benchmarks}
 
 \hypertarget{part3_sim}{\chapter{Overview}\label{part3_sim}}
 
-In this part a simple \textbf{real-time particle simulation} implemented
-using ECST will be analyzed, in order to provide the readers with a
-complete usage example of the library and with performance comparisons
-between various combinations of the compile-time multithreading options.
+In this part two simple applications implemented using ECST will be
+analyzed, in order to provide the readers with usage examples of the
+library and with performance comparisons between various combinations of
+the compile-time multithreading options:
+
+\begin{itemize}
+\item
+  A \textbf{2D real-time particle simulation}, where circular particles
+  collide with each other in a closed space;
+\item
+  A \textbf{real-time entity creation/destruction benchmark}, where
+  entities with a limited life replicate themselves a fixed amout of
+  times.
+\end{itemize}
+
+\chapter{2D particle simulation}\label{d-particle-simulation}
 
 \section{Description}\label{description}
 
@@ -6116,7 +6129,7 @@ following compile-time options and parameters:
 
 \begin{itemize}
 \item
-  Entity count: \(50000\), \(100000\) and \(150000\);
+  Entity count: \(50000\), \(100000\) and \(200000\);
 \item
   Inner parallelism: \textbf{enabled} or \textbf{disabled};
 \item
@@ -6498,9 +6511,9 @@ void process(TData& data)
 }
 \end{minted}
 
-\chapter{Results}\label{results}
+\section{Results}\label{results}
 
-\section{Screenshots}\label{screenshots}
+\subsection{Screenshots}\label{screenshots}
 
 Two screenshots of the particle simulations are shown below. The first
 one shows 50000 particle entities colliding in a closed space:
@@ -6520,7 +6533,7 @@ grid - all particles belonging to the cell are highlighted:
 \caption{Particle simulation: screenshot - spatial partitioning cell}
 \end{figure}
 
-\section{Benchmarks}\label{benchmarks}
+\hypertarget{bench_particlesim}{\subsection{Benchmarks}\label{bench_particlesim}}
 
 The computer used to benchmark the particle simulation has the following
 hardware specifications:
@@ -6551,19 +6564,19 @@ version 6.1.1 was used, with the following compiler flags:\\
 The error bars in the following graphs represent the \emph{standard
 deviation}.
 
-\subsection{Dynamic versus fixed entity
+\subsubsection{Dynamic versus fixed entity
 storage}\label{dynamic-versus-fixed-entity-storage}
 
 \includegraphics{source/figures/bench/ipcomp_dynamic.png}
 \includegraphics{source/figures/bench/ipcomp_fixed.png}
 
-\subsection{Entity scaling}\label{entity-scaling}
+\subsubsection{Entity scaling}\label{entity-scaling}
 
 \includegraphics{source/figures/bench/entity_50k.png}
 \includegraphics{source/figures/bench/entity_100k.png}
 \includegraphics{source/figures/bench/entity_200k.png}
 
-\section{Conclusions}\label{conclusions}
+\hypertarget{bench_parsim_conc}{\section{Conclusions}\label{bench_parsim_conc}}
 
 The following conclusions can be deduced from the benchmark graphs:
 
@@ -6625,6 +6638,204 @@ The following conclusions can be deduced from the benchmark graphs:
 The complete source code of the example particle simulation can be found
 in the following GitHub repository, under the \emph{Academic Free
 License (``AFL'') v. 3.0}:
+\url{https://github.com/SuperV1234/bcs_thesis}.
+
+\chapter{Entity creation/destruction
+benchmark}\label{entity-creationdestruction-benchmark}
+
+\section{Description}\label{description-1}
+
+The benchmark aims to measure the performance of continuous real-time
+entity creation/destruction with various combinations of compile-time
+settings. At the beginning of the application, a fixed number of
+entities is created. The entities possess a
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}
+component that will destroy them after a random amount of time, creating
+a new entity instance on destruction. The entity replication process is
+limited by a counter stored in
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}
+that is decreased on creation.
+
+As with the previous example application, multiple simulations are
+executed and benchmarked, combining the following compile-time options
+and parameters:
+
+\begin{itemize}
+\item
+  Entity count: \(50000\), \(100000\) and \(200000\);
+\item
+  Inner parallelism: \textbf{enabled} or \textbf{disabled};
+\item
+  Entity storage strategy: \textbf{fixed} or \textbf{dynamic}.
+\end{itemize}
+
+In total, \(12\) simulations are executed.
+
+\section{Components}\label{components-1}
+
+The only existing component type is
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}.
+
+\begin{itemize}
+\item
+  \textbf{Life}: controls the lifetime of an entity and its amount of
+  replications.
+
+  \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
+  struct life
+  {
+      float _v;
+      int _spawns;
+  };
+  \end{minted}
+\end{itemize}
+
+\section{Systems}\label{systems-1}
+
+\begin{itemize}
+\item
+  \textbf{Life}: deals with entity lifetime and replication.
+  Continuously decreases every particle's
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{life}
+  value and marks particles as dead when their lifetime is over. Once an
+  entity is marked as dead, a
+  \protect\hyperlink{flow_exec_dfuncs}{\textbf{deferred function}} that
+  creates a new particle is enqueued if
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life::_spawns}
+  is greater than \(0\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Multithreading is enabled.
+  \end{itemize}
+\end{itemize}
+
+\subsection{System implementations}\label{system-implementations-1}
+
+The commented implementation of the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::life}
+system is provided below:
+
+\begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
+struct life
+{
+    template <typename TData>
+    void process(ft dt, TData& data)
+    {
+        data.for_entities([&](auto eid)
+            {
+                // Alias the entity's lifetime value.
+                auto& l = data.get(ct::life, eid)._v;
+
+                // Alias the entity's left replications value.
+                auto& spawns = data.get(ct::life, eid)._spawns;
+
+                // Decrease the entity's lifetime.
+                l -= 10.f * dt;
+
+                // If the lifetime value reaches zero...
+                if(l <= 0.f)
+                {
+                    // ...mark the entity as dead.
+                    data.kill_entity(eid);
+
+                    // If the entity can replicate itself...
+                    if(spawns > 0)
+                    {
+                        // ...enqueue a deferred function creating
+                        // a new entity with one less replication.
+                        data.defer([spawns](auto& proxy)
+                            {
+                                mk_particle(proxy, spawns - 1);
+                            });
+                    }
+                }
+            });
+    }
+};
+\end{minted}
+
+\section{Results}\label{results-1}
+
+\subsection{Benchmarks}\label{benchmarks}
+
+The \protect\hyperlink{bench_particlesim}{previously described machine
+and environment} were used for this simulation.
+
+Again, the error bars in the following graphs represent the
+\emph{standard deviation}.
+
+\subsubsection{Dynamic versus fixed entity
+storage}\label{dynamic-versus-fixed-entity-storage-1}
+
+\includegraphics{source/figures/bench2/ipcomp_dynamic.png}
+\includegraphics{source/figures/bench2/ipcomp_fixed.png}
+
+\subsubsection{Entity scaling}\label{entity-scaling-1}
+
+\includegraphics{source/figures/bench2/entity_50k.png}
+\includegraphics{source/figures/bench2/entity_100k.png}
+\includegraphics{source/figures/bench2/entity_200k.png}
+
+\section{Conclusions}\label{conclusions}
+
+The following conclusions can be deduced from the benchmark graphs:
+
+\begin{itemize}
+\item
+  \textbf{Fixed} entity storage is definitely slightly faster than
+  \textbf{dynamic} entity storage, indepedently of inner parallelism
+  settings. The presence of reallocation checks \emph{(in dynamic entity
+  storage)} produces a noticeable run-time overhead due to the huge
+  number of entity creations/destructions. The tables below shows the
+  execution time percent change of the dynamic storage strategy:
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  & Fixed (no I.P.) & Dynamic (no I.P.)\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & +11.77\%\tabularnewline
+  100k & baseline & +12.56\%\tabularnewline
+  200k & baseline & +13.34\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  & Fixed (I.P.) & Dynamic (I.P.)\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & +0.47\%\tabularnewline
+  100k & baseline & +8.19\%\tabularnewline
+  200k & baseline & +12.09\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+\item
+  Again, using
+  \protect\hyperlink{multithreading_inner_par}{\textbf{inner
+  parallelism}} results in an expected run-time performance boost. Due
+  to the nature of this simulation, however, only an average \(10\)\%
+  relative performance increment is achieved compared to the
+  \protect\hyperlink{bench_parsim_conc}{previous simulation's} \(65\)\%
+  relative performance increment:
+
+  \begin{longtable}[]{@{}lcc@{}}
+  \toprule
+  & No inner parallelism & Inner parallelism\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & -3.98\%\tabularnewline
+  100k & baseline & -14.23\%\tabularnewline
+  200k & baseline & -12.75\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+\end{itemize}
+
+The complete source code of the example entity creation/destruction
+benchmark can be found in the following GitHub repository, under the
+\emph{Academic Free License (``AFL'') v. 3.0}:
 \url{https://github.com/SuperV1234/bcs_thesis}.
 
 \chapter*{List of figures}\label{list-of-figures}
