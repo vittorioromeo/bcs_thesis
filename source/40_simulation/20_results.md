@@ -1,11 +1,11 @@
 
 
 
-# Results
+## Results
 
 
 
-## Screenshots
+### Screenshots
 
 Two screenshots of the particle simulations are shown below. The first one shows 50000 particle entities colliding in a closed space:
 
@@ -17,7 +17,7 @@ The second one shows one of the cells of the spatial partitioning 2D grid - all 
 
 
 
-## Benchmarks
+### Benchmarks {#bench_particlesim}
 
 The computer used to benchmark the particle simulation has the following hardware specifications:
 
