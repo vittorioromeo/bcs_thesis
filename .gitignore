@@ -11,3 +11,4 @@ output/*.toc
 output/*.bcf
 output/*.xml
 output/*.lof
+bench/error.out
