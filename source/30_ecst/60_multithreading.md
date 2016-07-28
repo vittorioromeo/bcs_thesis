@@ -45,7 +45,7 @@ digraph
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tasks are implemented using `ecst::fixed_function`, similar to `std::function` but with a fixed allocation size. Synchronization is implemented using `std::condition_variable` and `std::atomic` counters. An implementation making use of `std::packaged_task` and `std::future` was tested, but the unnecessary overhead brought by those classes was significant.
+Tasks are implemented using `ecst::fixed_function`, similar to `std::function` but with a fixed allocation size. Synchronization is implemented using `std::condition_variable` and simple `std::size_t` counters. An implementation making use of `std::packaged_task` and `std::future` was tested, but the unnecessary overhead brought by those classes was significant.
 
 
 
@@ -93,24 +93,34 @@ Synchronization and waiting are required when implementing both outer and inner 
 
 * When executing inner parallelism, **all** subtasks must be finished in order to complete a system execution.
 
-The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` and `std::atomic` counters. ECST provides a convenient and safe waiting interface, obtained by  wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a data structure called `counter_blocker`:
+The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` and simple `std::size_T` counters. ECST provides a convenient and safe waiting interface, obtained by wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a class called `counter_blocker`:
 
 <!-- TODO (?): update code snippet, look for "atomic" in chapter - not atomic anymore -->
 ```cpp
-struct counter_blocker
+class counter_blocker
 {
+private:
     std::condition_variable _cv;
     std::mutex _mutex;
-    std::atomic<std::size_t> _counter;
+    std::size_t _counter;
 
-    counter_blocker(std::size_t initial_count)
-        : _counter{initial_count}
-    {
-    }
+public:
+    counter_blocker(std::size_t initial_count);
+
+    // Decrements the counter and notifies one waiting thread.
+    void decrement_and_notify_one();
+
+    // Decrements the counter and notifies all waiting threads.
+    void decrement_and_notify_all();
+
+    // Executes `f` and blocks the caller until the counter 
+    // reaches zero. Assumes that `f` will trigger a chain of 
+    // operations that will decrement the counter.
+    template <typename TF>
+    void execute_and_wait_until_zero(TF&& f);
 };
 ```
 
-<!-- TODO (?): it's a method call now -->
 The `counter_blocker` can be used as follows:
 
 ```cpp
@@ -119,16 +129,15 @@ counter_blocker cb{n};
 
 // Immediately execute the passed function and block
 // until `cb` reaches zero.
-execute_and_wait_until_counter_zero(cb, [&]
+cb.execute_and_wait_until_zero([&]
     {
-        // `spawn_tasks` needs to decrement the counter.
+        // `spawn_tasks` will decrement the counter.
         spawn_tasks(cb, n);
     });
 ```
 
 Here's a possible implementation for `spawn_tasks`:
 
-<!-- TODO (?): it's a method call now -->
 ```cpp
 void spawn_tasks(counter_blocker& cb, int n)
 {
@@ -138,7 +147,7 @@ void spawn_tasks(counter_blocker& cb, int n)
             {
                 // Decrement the counter inside `cb` and
                 // notify one thread.
-                decrement_cv_counter_and_notify_one(cb);
+                cb.decrement_and_notify_one();
             });
     }
 }
@@ -147,26 +156,32 @@ void spawn_tasks(counter_blocker& cb, int n)
 The pattern shown above is used in the implementation of both outer and inner parallelism and in the refresh stage.
 
 ### Implementation details
-
-<!-- TODO (?): these are methods now -->
-The synchronization operations are hidden behind an interface that takes a reference to a `counter_blocker`:
+The synchronization operations are hidden behind an interface that takes a reference to the members of a `counter_blocker`. The public methods in `counter_blocker` call the following functions:
 
 ```cpp
-void decrement_cv_counter_and_notify_one(counter_blocker&);
-void decrement_cv_counter_and_notify_all(counter_blocker&);
+// Decrements `c` through `mutex`, and calls `cv.notify_one()`.
+void decrement_cv_counter_and_notify_one(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
 
+// Decrements `c` through `mutex`, and calls `cv.notify_all()`.
+void decrement_cv_counter_and_notify_all(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
+
+// Locks `mutex`, executes `f` and waits until `c` is zero
+// through `cv`.
 template <typename TF>
-void execute_and_wait_until_counter_zero(counter_blocker&, TF&&);
+void execute_and_wait_until_counter_zero(
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f);
 ```
 
-The functions above call implementation functions by explicitly passing `counter_blocker` members. The most primitive implementation function is `access_cv_counter`, which calls a passed function after safely accessing the counter inside a `counter_blocker`:
+The functions above call implementation functions to access the passed arguments. The most primitive implementation function is `access_cv_counter`, which calls a passed function after safely accessing the counter inside a `counter_blocker`:
 
 ```cpp
 template <typename TF>
 void access_cv_counter(
-    mutex_type& m, cv_type& cv, counter_type& c, TF&& f)
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f)
 {
-    lock_guard_type l(m);
+    lock_guard_type l(mutex);
     f(cv, c);
 }
 ```
@@ -366,7 +381,6 @@ The implementation of the algorithm above will be now analyzed in the sections b
 
 The first step is traversing the implicit dependency **directed acyclic graph**, from every user-provided starting system type, counting the unique traversed nodes. This is done with a compile-time [**breadth-first traversal**](#appendix_compiletime_bfs).
 
-<!-- TODO (?): these are methods now -->
 ```cpp
 template <typename TCtx, typename TSystemTagList, typename TF>
 void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
@@ -379,7 +393,7 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
     counter_blocker b{n};
 
     // Begin the execution and block until all systems have finished.
-    execute_and_wait_until_counter_zero(b, [&]() mutable
+    b.execute_and_wait_until_zero([&]() mutable
         {
             this->start_execution(ctx, sstl, b, f);
         });
@@ -415,7 +429,6 @@ void atomic_counter::start_execution(
 
 After retrieving a task by ID, `atomic_counter::task::run` will effectively execute the overloaded user-provided processing function on the system and recursively run children tasks with no remaining dependencies:
 
-<!-- TODO (?): these are methods now -->
 ```cpp
 template <typename TBlocker, typename TID, typename TCtx, typename TF>
 void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
@@ -427,7 +440,7 @@ void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
     s_instance.execute(ctx, f);
 
     // Safely decrement "remaining systems" counter.
-    decrement_cv_counter_and_notify_one(b);
+    b.decrement_and_notify_one();
 
     // For every dependent task ID...
     for_dependent_ids([&](auto id)
@@ -544,7 +557,7 @@ void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
     counter_blocker b{n};
 
     // Runs the subtasks and blocks until the counter reaches zero.
-    execute_and_wait_until_counter_zero(b, [&]{ f(b); });
+    b.execute_and_wait_until_zero([&]{ f(b); });
 }
 ```
 
@@ -572,7 +585,7 @@ auto instance<TSettings, TSystemSignature>::make_slice_executor(
         f(dp);
 
         // Decrement counter and notify waiting threads.
-        decrement_cv_counter_and_notify_all(b);
+        b.decrement_and_notify_all();
     };
 }
 ```
