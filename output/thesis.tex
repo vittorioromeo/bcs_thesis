@@ -2428,8 +2428,8 @@ data-oriented ECS library include:
   strategies and policies allows code to be conveniently reused.
 \end{itemize}
 
-\hypertarget{ecstoverview_syntaxtransp}{\subsubsection{Syntax-level
-transparency}\label{ecstoverview_syntaxtransp}}
+\subsubsection{Syntax-level
+transparency}\label{ecstoverview_syntaxtransp}
 
 One important design goal of ECST is allowing the user to experiment
 with different policies, schedulers and execution methods
@@ -4203,8 +4203,8 @@ similar to
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::function}
 but with a fixed allocation size. Synchronization is implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
-and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
+and simple
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_t}
 counters. An implementation making use of
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::packaged_task}
 and
@@ -4276,26 +4276,37 @@ and inner parallelism:
 The waiting conditions are very simple and can easily and efficiently be
 implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
-and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
+and simple
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_T}
 counters. ECST provides a convenient and safe waiting interface,
 obtained by wrapping the aforementioned synchronization primitives
 alongside an
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::mutex}
-in a data structure called
+in a class called
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-struct counter_blocker
+class counter_blocker
 {
+private:
     std::condition_variable _cv;
     std::mutex _mutex;
-    std::atomic<std::size_t> _counter;
+    std::size_t _counter;
 
-    counter_blocker(std::size_t initial_count)
-        : _counter{initial_count}
-    {
-    }
+public:
+    counter_blocker(std::size_t initial_count);
+
+    // Decrements the counter and notifies one waiting thread.
+    void decrement_and_notify_one();
+
+    // Decrements the counter and notifies all waiting threads.
+    void decrement_and_notify_all();
+
+    // Executes `f` and blocks the caller until the counter
+    // reaches zero. Assumes that `f` will trigger a chain of
+    // operations that will decrement the counter.
+    template <typename TF>
+    void execute_and_wait_until_zero(TF&& f);
 };
 \end{minted}
 
@@ -4309,9 +4320,9 @@ counter_blocker cb{n};
 
 // Immediately execute the passed function and block
 // until `cb` reaches zero.
-execute_and_wait_until_counter_zero(cb, [&]
+cb.execute_and_wait_until_zero([&]
     {
-        // `spawn_tasks` needs to decrement the counter.
+        // `spawn_tasks` will decrement the counter.
         spawn_tasks(cb, n);
     });
 \end{minted}
@@ -4328,7 +4339,7 @@ void spawn_tasks(counter_blocker& cb, int n)
             {
                 // Decrement the counter inside `cb` and
                 // notify one thread.
-                decrement_cv_counter_and_notify_one(cb);
+                cb.decrement_and_notify_one();
             });
     }
 }
@@ -4340,20 +4351,30 @@ inner parallelism and in the refresh stage.
 \subsection{Implementation details}\label{implementation-details}
 
 The synchronization operations are hidden behind an interface that takes
-a reference to a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
+a reference to the members of a
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}.
+The public methods in
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
+call the following functions:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-void decrement_cv_counter_and_notify_one(counter_blocker&);
-void decrement_cv_counter_and_notify_all(counter_blocker&);
+// Decrements `c` through `mutex`, and calls `cv.notify_one()`.
+void decrement_cv_counter_and_notify_one(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
 
+// Decrements `c` through `mutex`, and calls `cv.notify_all()`.
+void decrement_cv_counter_and_notify_all(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
+
+// Locks `mutex`, executes `f` and waits until `c` is zero
+// through `cv`.
 template <typename TF>
-void execute_and_wait_until_counter_zero(counter_blocker&, TF&&);
+void execute_and_wait_until_counter_zero(
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f);
 \end{minted}
 
-The functions above call implementation functions by explicitly passing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
-members. The most primitive implementation function is
+The functions above call implementation functions to access the passed
+arguments. The most primitive implementation function is
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{access_cv_counter},
 which calls a passed function after safely accessing the counter inside
 a
@@ -4362,9 +4383,9 @@ a
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TF>
 void access_cv_counter(
-    mutex_type& m, cv_type& cv, counter_type& c, TF&& f)
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f)
 {
-    lock_guard_type l(m);
+    lock_guard_type l(mutex);
     f(cv, c);
 }
 \end{minted}
@@ -4606,7 +4627,7 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
     counter_blocker b{n};
 
     // Begin the execution and block until all systems have finished.
-    execute_and_wait_until_counter_zero(b, [&]() mutable
+    b.execute_and_wait_until_zero([&]() mutable
         {
             this->start_execution(ctx, sstl, b, f);
         });
@@ -4662,7 +4683,7 @@ void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
     s_instance.execute(ctx, f);
 
     // Safely decrement "remaining systems" counter.
-    decrement_cv_counter_and_notify_one(b);
+    b.decrement_and_notify_one();
 
     // For every dependent task ID...
     for_dependent_ids([&](auto id)
@@ -4727,33 +4748,34 @@ to run in a single thread if its subscriber count is less than
 cores.
 
 System instances invoke the parallel executor by passing a reference to
-the parent context, a \textbf{subtask adapter} function, and the
-overloaded user-provided processing function. The subtask adapter binds
-a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker},
-the context and the processing function to a new function which will
-\emph{slice} the subscribed entity range depending on parameters
-provided by the inner parallelism strategy:
+the parent context and a \textbf{subtask adapter} function. The subtask
+adapter function for parallel execution takes the following arguments:
+
+\begin{itemize}
+\item
+  \textbf{Split index}, which is the ID of the current subtask.
+\item
+  Begin and end \textbf{slice indices}, which will be stored inside a
+  \protect\hyperlink{dddata_proxy}{data proxy}. They are used to
+  retrieve the target entity subset.
+\end{itemize}
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TContext, typename TF>
 void instance</* ... */>::execute_in_parallel(TContext& ctx, TF&& f)
 {
-    auto subtask_adapter = [this](auto& b, auto& x_ctx, auto&& xf)
+    // "Subtask adapter" lambda.
+    auto st = [&](auto split_idx, auto i_begin, auto i_end)
     {
-        return [&](auto split_idx, auto i_begin, auto i_end)
-        {
-            // Nullary function that will process the entities in
-            // the `[i_begin, i_end)` range.
-            auto bse = this->make_bound_slice_executor(
-                b, x_ctx, split_idx, i_begin, i_end, xf);
+        // Create multi data proxy.
+        auto dp = data_proxy::make_multi<TSystemSignature>(
+            *this, ctx, split_idx, i_begin, i_end);
 
-            this->run_subtask_in_thread_pool(x_ctx, std::move(bse));
-        };
+        // Execute the bound slice.
+        f(dp);
     };
 
-    _parallel_executor.execute(
-        *this, ctx, std::move(subtask_adapter), f);
+    _parallel_executor.execute(*this, ctx, std::move(st));
 }
 \end{minted}
 
@@ -4764,84 +4786,76 @@ implementation will ask the caller instance to prepare execution of
 \(n\) subtasks:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TInstance, typename TCtx, typename TFAdapter,
-    typename TF>
+template <typename TInstance, typename TCtx, typename TF>
 void split_every_n</* ... */>::execute(
-    TInstance& i, TCtx& ctx, TFAdapter&& fa, TF&& f)
+    TInstance& i, TCtx& ctx, TF&& f)
 {
     // Perform strategy-related calculations.
     auto per_split = /* ... */;
     auto split_count = /* ... */;
 
-    // Prepare and execute `split_count` subtasks and block until
-    // their execution is complete.
-    i.prepare_and_wait_n_subtasks(split_count, [&](auto& b)
-        {
-            auto adapted_subtask(fa(b, ctx, f));
-
-            // Builds and runs the subtasks.
-            utils::execute_split(
-                i.subscribed_count(), per_split, split_count,
-                adapted_subtask);
-        });
+    // Executes all subtasks. Blocks until completed.
+    utils::prepare_execute_wait_subtasks(
+       inst, ctx, split_count, per_split, f);
 }
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance::prepare_and_wait_n_subtasks}
-method takes care of initializing the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{utils::prepare_execute_wait_subtasks}
+function takes care of calling the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance::prepare_and_wait_subtasks}
+method, which initializes the
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
-with the number of produced subtasks and of starting the subtask
-execution:
+with the number of produced subtasks and starts their execution. The
+method performs the following operations:
+
+\begin{itemize}
+\item
+  It \textbf{clears} and \textbf{prepares} the
+  \protect\hyperlink{storage_state}{\emph{states}} necessary for subtask
+  execution.
+\item
+  It instantiates a
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
+  that will block until all subtasks have been executed.
+\item
+  It creates an adapter \emph{``run in separate thread''} function that
+  will be used to run all subtasks except one in separate thread pool
+  tasks. This will allow the current thread to execute one of the
+  subtasks.
+\end{itemize}
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TF>
-void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
+template <typename TContext, typename TF>
+void instance</* ... */>::prepare_and_wait_n_subtasks(
+    TContext& ctx, int n, TF&& f)
 {
-    // Clear and prepare substask states.
+    // Prepare `n` states, but set the counter to `n - 1` since one
+    // of the subtasks will be executed in the current thread.
     _sm.clear_and_prepare(n);
+    counter_blocker b{n - 1};
 
-    // Initialize a `counter_blocker`.
-    counter_blocker b{n};
-
-    // Runs the subtasks and blocks until the counter reaches zero.
-    execute_and_wait_until_counter_zero(b, [&]{ f(b); });
-}
-\end{minted}
-
-\hypertarget{inner_par_slicing}{\subsubsection{Slicing}\label{inner_par_slicing}}
-
-The implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{make_bound_slice_executor}
-creates a \emph{nullary\footnote{that takes no arguments.} function}
-that can be executed in a separate thread by binding all required
-parameters. The function instantiates a \textbf{data proxy} that is used
-in the system implementation code. The data proxy uses the bound
-parameters to provide a slice of subscribed entities behind a uniform
-interface
-\emph{(\protect\hyperlink{ecstoverview_syntaxtransp}{syntax-level
-transparency})}.
-
-\begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TSettings, typename TSystemSignature>
-template <typename TBlocker, typename TCtx>
-auto instance<TSettings, TSystemSignature>::make_slice_executor(
-    TBlocker& b, TCtx& ctx,
-    int state_idx, int i_begin, int i_end, TF&& f)
-{
-    // The returned function will be executed by a thread pool worker.
-    return [&, state_idx, i_begin, i_end]
+    // Function accepting a callable object which will be executed
+    // in a separate thread. Intended to be called from inner
+    // parallelism strategy executors.
+    auto run_in_separate_thread = [this, &ctx, &b](auto& xf)
     {
-        // Create a "data proxy".
-        auto dp = data_proxy::make<TSystemSignature>(/* ... */);
-
-        // Execute the user-defined processing function, passing the
-        // proxy as an argument.
-        f(dp);
-
-        // Decrement counter and notify waiting threads.
-        decrement_cv_counter_and_notify_all(b);
+        return [this, &b, &ctx, &xf](auto&&... xs)
+        {
+            ctx.post_in_thread_pool([&xf, &b, xs...]()
+                {
+                    xf(xs...);
+                    b.decrement_and_notify_all();
+                });
+        };
     };
+
+    // Runs the parallel executor and waits until the remaining
+    // subtasks counter is zero.
+    b.execute_and_wait_until_zero([&f, &run_in_separate_thread]
+        {
+            f(run_in_separate_thread);
+        });
 }
 \end{minted}
 
@@ -4890,7 +4904,7 @@ callable objects \emph{(and additional data)}, with a
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{public}
 interface that invokes the stored callables.
 
-\section{Data proxies}\label{data-proxies}
+\hypertarget{dddata_proxy}{\section{Data proxies}\label{dddata_proxy}}
 
 \textbf{Data proxies} are created during
 \protect\hyperlink{inner_par_slicing}{\emph{inner parallelism slicing}}.
@@ -5696,20 +5710,16 @@ Firstly, the component types specified in the system signature are
 retrieved and concatenated:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TSettings, typename TSystemSignature>
-auto make_from_system_signature(TSettings s, TSystemSignature ss)
+template <typename TSystemSignature, typename TSettings>
+auto make_from_system_signature(TSystemSignature ss, TSettings s)
 {
-    // Tag list of components read by `ss`.
-    auto read_ctag_list = signature::system::read_ctag_list(ss);
+    // The "read" and "write" component tags are concatenated.
+    auto all = boost::hana::concat(
+        ss.read_ctag_list(), ss.write_ctag_list());
 
-    // Tag list of components written by `ss`.
-    auto write_ctag_list = signature::system::write_ctag_list(ss);
-
-    // Concatenate the two lists.
-    auto ctag_list =
-        boost::hana::concat(read_ctag_list, write_ctag_list);
-
-    return make_from_tag_list(s, ctag_list);
+    // The complete list is passed to the `make_from_tag_list` 
+    // function, which will create the bitset.
+    return make_from_tag_list(s, all);
 }
 \end{minted}
 
