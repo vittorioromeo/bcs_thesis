@@ -1,6 +1,22 @@
 
 
 
+<!-- TODO:
+
+* Look for "TODO" and "(?".
+* Update code snippets where appropriate.
+* More benchmarks.
+    * Mention that it is not fair/easy to compare the system to existing ECSs or other encoding techniques.
+    * Impact of outer parallelism. (?)
+    * Number of workers in thread pool. (?)
+* Mention why sequential consistency isn't required in the lock-free queue.
+* Mention somewhere?
+    * https://github.com/slide-rs/specs
+    * https://github.com/amethyst/amethyst/wiki/ECS-Design-Crossroads
+    
+-->
+
+
 ---
 link-citations: true
 ---

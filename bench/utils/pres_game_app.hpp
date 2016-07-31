@@ -33,6 +33,7 @@ namespace example
             {
                 auto cb = hrc.now();
 
+                // auto focus = window().hasFocus();
 
                 sf::Event e;
                 while(window().pollEvent(e))
@@ -50,7 +51,7 @@ namespace example
                 if(mposi.y < (int)0) mposi.y = 0;
                 if(mposi.y > (int)ws.y) mposi.y = ws.y;
 
-                vec2f mpos = window().mapPixelToCoords(mposi);
+                // vec2f mpos = window().mapPixelToCoords(mposi);
 
                 update_ctx(_ctx, this->window(), dt);
 

@@ -18,7 +18,7 @@ Generalized system instances will have no knowledge of entities and purely act o
 
 [*Deferred functions*](#flow_exec_dfuncs) are implemented using `std::vector<std::function>` in the current version of ECST, introducing unnecessary run-time overhead due to dynamic allocation and polymorphism.
 
-A specialized **"deferred function queue"** class will be introduced in the future, which will store callable objects of various size in the same resizable buffer. This will be achieved using fixed-size structures that will act as *"vtables"*, which will be stored before their corresponding callable object in the buffer. A separate lightweight index will keep track of all the vtables - iterating over them will allow efficient sequential execution of deferred functions.
+As suggested by [Matt Calabrese](https://twitter.com/cppsage), a specialized **"deferred function queue"** class will be introduced in the future, which will store callable objects of various size in the same resizable buffer. This will be achieved using fixed-size structures that will act similarly to *"vtables"*, which will be stored before their corresponding callable object in the buffer. A separate lightweight index will keep track of all the vtables - iterating over them will allow efficient sequential execution of deferred functions.
 
 Appending functions to the queue will not require any additional memory allocation.
 

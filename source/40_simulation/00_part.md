@@ -1,4 +1,4 @@
 
 
 
-\part{Example ECST application: particle simulation}
+\part{Example ECST applications and benchmarks}

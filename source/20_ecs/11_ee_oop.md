@@ -365,6 +365,8 @@ This approach is versatile and can be implemented more cleverly and efficiently,
 
 Compared to a completely *unstructured* approach, using polymorphic objects to encode entities provides a cleaner and simpler way of managing data and logic. However, the object-oriented inheritance technique is only suitable for simple applications and games with a limited amount of entity types and a small number of active entity instances at run-time. Its main selling point is the ease of development and programming productivity.
 
-The use of polymorphism negatively impacts performance and memory usage in comparison to a data-oriented approach, especially because it makes taking advantage of data locality and cache-friendliness impossible.
+The use of polymorphism negatively impacts performance and memory usage in comparison to a data-oriented approach, especially because it makes taking advantage of data locality and cache-friendliness impossible[^cache_friendliness_impossible].
 
 Using inheritance to build an entity type hierarchy lacks flexibility and, as seen in the examples, introduces significant architectural problems.
+
+[^cache_friendliness_impossible]: common reasons include: indirection and size overhead caused by dynamic allocation; loading unused fields in the cache. More information at [@ithare_allocations] and [@scee_oop_pitfalls].

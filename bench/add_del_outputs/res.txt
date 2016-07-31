@@ -1,0 +1,25 @@
+
+entity storage: dynamic (initial: 50000)
+multithreading: disallows inner parallelism
+50000: 3340, 3194, 3291 (mean: 3275)
+100000: 7293, 7627, 7314 (mean: 7411)
+200000: 19034, 18952, 19704 (mean: 19230)
+
+entity storage: fixed (capacity: 400000)
+multithreading: disallows inner parallelism
+50000: 2789, 2904, 3097 (mean: 2930)
+100000: 5961, 6830, 6962 (mean: 6584)
+200000: 15741, 17585, 17575 (mean: 16967) 
+
+entity storage: dynamic (initial: 50000)
+multithreading: allows inner parallelism
+50000: 2930, 3027, 3000 (mean: 2985)
+100000: 6241, 6295, 6176 (mean: 6237)
+200000: 16258, 17046, 16772 (mean: 16692)
+
+entity storage: fixed (capacity: 400000)
+multithreading: allows inner parallelism
+50000: 3110, 2818, 2984 (mean: 2971)
+100000: 5754, 5442, 6098 (mean: 5765)
+200000: 15202, 13737, 15734 (mean: 14891)
+

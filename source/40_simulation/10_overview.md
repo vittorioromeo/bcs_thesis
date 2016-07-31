@@ -3,8 +3,15 @@
 
 # Overview {#part3_sim}
 
-In this part a simple **real-time particle simulation** implemented using ECST will be analyzed, in order to provide the readers with a complete usage example of the library and with performance comparisons between various combinations of the compile-time multithreading options.
+In this part two simple applications implemented using ECST will be analyzed, in order to provide the readers with usage examples of the library and with performance comparisons between various combinations of the compile-time multithreading options:
 
+* A **2D real-time particle simulation**, where circular particles collide with each other in a closed space;
+
+* A **real-time entity creation/destruction benchmark**, where entities with a limited life replicate themselves a fixed amout of times.
+
+
+
+# 2D particle simulation
 
 ## Description
 
@@ -12,7 +19,7 @@ The simulation consists in a number of **rigid-body circular particles** of vari
 
 Multiple simulations are executed and benchmarked, combining the following compile-time options and parameters:
 
-* Entity count: $50000$, $100000$ and $150000$;
+* Entity count: $50000$, $100000$ and $200000$;
 
 * Inner parallelism: **enabled** or **disabled**;
 

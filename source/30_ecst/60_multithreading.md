@@ -45,7 +45,7 @@ digraph
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tasks are implemented using `ecst::fixed_function`, similar to `std::function` but with a fixed allocation size. Synchronization is implemented using `std::condition_variable` and `std::atomic` counters. An implementation making use of `std::packaged_task` and `std::future` was tested, but the unnecessary overhead brought by those classes was significant.
+Tasks are implemented using `ecst::fixed_function`, similar to `std::function` but with a fixed allocation size. Synchronization is implemented using `std::condition_variable` and simple `std::size_t` counters. An implementation making use of `std::packaged_task` and `std::future` was tested, but the unnecessary overhead brought by those classes was significant.
 
 
 
@@ -93,19 +93,30 @@ Synchronization and waiting are required when implementing both outer and inner 
 
 * When executing inner parallelism, **all** subtasks must be finished in order to complete a system execution.
 
-The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` and `std::atomic` counters. ECST provides a convenient and safe waiting interface, obtained by  wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a data structure called `counter_blocker`:
+The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` in conjunction with a simple `std::size_t` counter. ECST provides a convenient and safe waiting interface, obtained by wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a class called `counter_blocker`:
 
 ```cpp
-struct counter_blocker
+class counter_blocker
 {
+private:
     std::condition_variable _cv;
     std::mutex _mutex;
-    std::atomic<std::size_t> _counter;
+    std::size_t _counter;
 
-    counter_blocker(std::size_t initial_count)
-        : _counter{initial_count}
-    {
-    }
+public:
+    counter_blocker(std::size_t initial_count);
+
+    // Decrements the counter and notifies one waiting thread.
+    void decrement_and_notify_one();
+
+    // Decrements the counter and notifies all waiting threads.
+    void decrement_and_notify_all();
+
+    // Executes `f` and blocks the caller until the counter
+    // reaches zero. Assumes that `f` will trigger a chain of
+    // operations that will decrement the counter.
+    template <typename TF>
+    void execute_and_wait_until_zero(TF&& f);
 };
 ```
 
@@ -117,9 +128,9 @@ counter_blocker cb{n};
 
 // Immediately execute the passed function and block
 // until `cb` reaches zero.
-execute_and_wait_until_counter_zero(cb, [&]
+cb.execute_and_wait_until_zero([&]
     {
-        // `spawn_tasks` needs to decrement the counter.
+        // `spawn_tasks` will decrement the counter.
         spawn_tasks(cb, n);
     });
 ```
@@ -135,7 +146,7 @@ void spawn_tasks(counter_blocker& cb, int n)
             {
                 // Decrement the counter inside `cb` and
                 // notify one thread.
-                decrement_cv_counter_and_notify_one(cb);
+                cb.decrement_and_notify_one();
             });
     }
 }
@@ -144,25 +155,32 @@ void spawn_tasks(counter_blocker& cb, int n)
 The pattern shown above is used in the implementation of both outer and inner parallelism and in the refresh stage.
 
 ### Implementation details
-
-The synchronization operations are hidden behind an interface that takes a reference to a `counter_blocker`:
+The synchronization operations are hidden behind interfaces that take references to the members of a `counter_blocker`. The public methods in `counter_blocker` call the following functions:
 
 ```cpp
-void decrement_cv_counter_and_notify_one(counter_blocker&);
-void decrement_cv_counter_and_notify_all(counter_blocker&);
+// Decrements `c` through `mutex`, and calls `cv.notify_one()`.
+void decrement_cv_counter_and_notify_one(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
 
+// Decrements `c` through `mutex`, and calls `cv.notify_all()`.
+void decrement_cv_counter_and_notify_all(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
+
+// Locks `mutex`, executes `f` and waits until `c` is zero
+// through `cv`.
 template <typename TF>
-void execute_and_wait_until_counter_zero(counter_blocker&, TF&&);
+void execute_and_wait_until_counter_zero(
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f);
 ```
 
-The functions above call implementation functions by explicitly passing `counter_blocker` members. The most primitive implementation function is `access_cv_counter`, which calls a passed function after safely accessing the counter inside a `counter_blocker`:
+The functions above call implementation functions to access the passed arguments. The most primitive implementation function is `access_cv_counter`, which calls a passed function after safely accessing the counter inside a `counter_blocker`:
 
 ```cpp
 template <typename TF>
 void access_cv_counter(
-    mutex_type& m, cv_type& cv, counter_type& c, TF&& f)
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f)
 {
-    lock_guard_type l(m);
+    lock_guard_type l(mutex);
     f(cv, c);
 }
 ```
@@ -374,7 +392,7 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
     counter_blocker b{n};
 
     // Begin the execution and block until all systems have finished.
-    execute_and_wait_until_counter_zero(b, [&]() mutable
+    b.execute_and_wait_until_zero([&]() mutable
         {
             this->start_execution(ctx, sstl, b, f);
         });
@@ -421,7 +439,7 @@ void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
     s_instance.execute(ctx, f);
 
     // Safely decrement "remaining systems" counter.
-    decrement_cv_counter_and_notify_one(b);
+    b.decrement_and_notify_one();
 
     // For every dependent task ID...
     for_dependent_ids([&](auto id)
@@ -472,101 +490,86 @@ constexpr auto ss_acceleration =
 
 The code snippet above configures `s::acceleration` to run in a single thread if its subscriber count is less than $10000$, otherwise it will be evenly split across the available CPU cores.
 
-System instances invoke the parallel executor by passing a reference to the parent context, a **subtask adapter** function, and the overloaded user-provided processing function. The subtask adapter binds a `counter_blocker`, the context and the processing function to a new function which will *slice* the subscribed entity range depending on parameters provided by the inner parallelism strategy:
+System instances invoke the parallel executor by passing a reference to the parent context and a **subtask adapter** function. The subtask adapter function for parallel execution takes the following arguments:
+
+* **Split index**, which is the ID of the current subtask.
+
+* Begin and end **slice indices**, which will be stored inside a [data proxy](#dddata_proxy). They are used to retrieve the target entity subset.
 
 ```cpp
 template <typename TContext, typename TF>
 void instance</* ... */>::execute_in_parallel(TContext& ctx, TF&& f)
 {
-    auto subtask_adapter = [this](auto& b, auto& x_ctx, auto&& xf)
+    // "Subtask adapter" lambda.
+    auto st = [&](auto split_idx, auto i_begin, auto i_end)
     {
-        return [&](auto split_idx, auto i_begin, auto i_end)
-        {
-            // Nullary function that will process the entities in
-            // the `[i_begin, i_end)` range.
-            auto bse = this->make_bound_slice_executor(
-                b, x_ctx, split_idx, i_begin, i_end, xf);
+        // Create multi data proxy.
+        auto dp = data_proxy::make_multi<TSystemSignature>(
+            *this, ctx, split_idx, i_begin, i_end);
 
-            this->run_subtask_in_thread_pool(x_ctx, std::move(bse));
-        };
+        // Execute the bound slice.
+        f(dp);
     };
 
-    _parallel_executor.execute(
-        *this, ctx, std::move(subtask_adapter), f);
+    _parallel_executor.execute(*this, ctx, std::move(st));
 }
 ```
 
 This design has been chosen in order to easily implement other system instance types in the future *(e.g. systems that directly process component data, without knowledge of entities)*. The parallel executor implementation will ask the caller instance to prepare execution of $n$ subtasks:
 
 ```cpp
-template <typename TInstance, typename TCtx, typename TFAdapter,
-    typename TF>
+template <typename TInstance, typename TCtx, typename TF>
 void split_every_n</* ... */>::execute(
-    TInstance& i, TCtx& ctx, TFAdapter&& fa, TF&& f)
+    TInstance& i, TCtx& ctx, TF&& f)
 {
     // Perform strategy-related calculations.
     auto per_split = /* ... */;
     auto split_count = /* ... */;
 
-    // Prepare and execute `split_count` subtasks and block until
-    // their execution is complete.
-    i.prepare_and_wait_n_subtasks(split_count, [&](auto& b)
-        {
-            auto adapted_subtask(fa(b, ctx, f));
+    // Executes all subtasks. Blocks until completed.
+    utils::prepare_execute_wait_subtasks(
+       inst, ctx, split_count, per_split, f);
+}
+```
 
-            // Builds and runs the subtasks.
-            utils::execute_split(
-                i.subscribed_count(), per_split, split_count,
-                adapted_subtask);
+The `utils::prepare_execute_wait_subtasks` function takes care of calling the `instance::prepare_and_wait_subtasks` method, which initializes the `counter_blocker` with the number of produced subtasks and starts their execution. The method performs the following operations:
+
+* It **clears** and **prepares** the [*states*](#storage_state) necessary for subtask execution.
+
+* It instantiates a `counter_blocker` that will block until all subtasks have been executed.
+
+* It creates an adapter *"run in separate thread"* function that will be used to run all subtasks except one in separate thread pool tasks. This will allow the current thread to execute one of the subtasks.
+
+```cpp
+template <typename TContext, typename TF>
+void instance</* ... */>::prepare_and_wait_n_subtasks(
+    TContext& ctx, int n, TF&& f)
+{
+    // Prepare `n` states, but set the counter to `n - 1` since one
+    // of the subtasks will be executed in the current thread.
+    _sm.clear_and_prepare(n);
+    counter_blocker b{n - 1};
+
+    // Function accepting a callable object which will be executed
+    // in a separate thread. Intended to be called from inner
+    // parallelism strategy executors.
+    auto run_in_separate_thread = [this, &ctx, &b](auto& xf)
+    {
+        return [this, &b, &ctx, &xf](auto&&... xs)
+        {
+            ctx.post_in_thread_pool([&xf, &b, xs...]()
+                {
+                    xf(xs...);
+                    b.decrement_and_notify_all();
+                });
+        };
+    };
+
+    // Runs the parallel executor and waits until the remaining
+    // subtasks counter is zero.
+    b.execute_and_wait_until_zero([&f, &run_in_separate_thread]
+        {
+            f(run_in_separate_thread);
         });
 }
 ```
-
-The `instance::prepare_and_wait_n_subtasks` method takes care of initializing the `counter_blocker` with the number of produced subtasks and of starting the subtask execution:
-
-```cpp
-template <typename TF>
-void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
-{
-    // Clear and prepare substask states.
-    _sm.clear_and_prepare(n);
-
-    // Initialize a `counter_blocker`.
-    counter_blocker b{n};
-
-    // Runs the subtasks and blocks until the counter reaches zero.
-    execute_and_wait_until_counter_zero(b, [&]{ f(b); });
-}
-```
-
-
-#### Slicing {#inner_par_slicing}
-
-The implementation of `make_bound_slice_executor` creates a *nullary[^nullary] function* that can be executed in a separate thread by binding all required parameters. The function instantiates a **data proxy** that is used in the system implementation code. The data proxy uses the bound parameters to provide a slice of subscribed entities behind a uniform interface *([syntax-level transparency](#ecstoverview_syntaxtransp))*.
-
-```cpp
-template <typename TSettings, typename TSystemSignature>
-template <typename TBlocker, typename TCtx>
-auto instance<TSettings, TSystemSignature>::make_slice_executor(
-    TBlocker& b, TCtx& ctx,
-    int state_idx, int i_begin, int i_end, TF&& f)
-{
-    // The returned function will be executed by a thread pool worker.
-    return [&, state_idx, i_begin, i_end]
-    {
-        // Create a "data proxy".
-        auto dp = data_proxy::make<TSystemSignature>(/* ... */);
-
-        // Execute the user-defined processing function, passing the
-        // proxy as an argument.
-        f(dp);
-
-        // Decrement counter and notify waiting threads.
-        decrement_cv_counter_and_notify_all(b);
-    };
-}
-```
-
-
-
-[^nullary]: that takes no arguments.

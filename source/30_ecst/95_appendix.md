@@ -119,20 +119,16 @@ Removing an integer $i$ from the set consists in swapping $i$ with $D_{last}$ if
 Firstly, the component types specified in the system signature are retrieved and concatenated:
 
 ```cpp
-template <typename TSettings, typename TSystemSignature>
-auto make_from_system_signature(TSettings s, TSystemSignature ss)
+template <typename TSystemSignature, typename TSettings>
+auto make_from_system_signature(TSystemSignature ss, TSettings s)
 {
-    // Tag list of components read by `ss`.
-    auto read_ctag_list = signature::system::read_ctag_list(ss);
+    // The "read" and "write" component tags are concatenated.
+    auto all = boost::hana::concat(
+        ss.read_ctag_list(), ss.write_ctag_list());
 
-    // Tag list of components written by `ss`.
-    auto write_ctag_list = signature::system::write_ctag_list(ss);
-
-    // Concatenate the two lists.
-    auto ctag_list =
-        boost::hana::concat(read_ctag_list, write_ctag_list);
-
-    return make_from_tag_list(s, ctag_list);
+    // The complete list is passed to the `make_from_tag_list` 
+    // function, which will create the bitset.
+    return make_from_tag_list(s, all);
 }
 ```
 

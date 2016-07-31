@@ -16,7 +16,7 @@
 All proxies are implemented as template classes containing `private` callable objects *(and additional data)*, with a `public` interface that invokes the stored callables.
 
 
-## Data proxies
+## Data proxies {#dddata_proxy}
 
 **Data proxies** are created during [*inner parallelism slicing*](#inner_par_slicing). Every data proxy is bound to a particular [*subtask state*](#storage_state) and provides the following interface functions:
 

@@ -1,10 +1,10 @@
-% web
-% \documentclass[oneside, 12pt, a4paper, openright]{book}
-% \usepackage[top=3cm, left=3cm, bottom=4cm, right=3cm]{geometry}
+% TODO (?): web
+\documentclass[oneside, 12pt, a4paper, openany]{book}
+\usepackage[top=3cm, left=3cm, bottom=4cm, right=3cm]{geometry}
 
-% print
-\documentclass[twoside, 12pt, a4paper, openright]{book}
-\usepackage[top=3cm, left=4cm, bottom=4cm, right=3cm]{geometry}
+% TODO (?): print
+% \documentclass[twoside, 12pt, a4paper, openright]{book}
+% \usepackage[top=3cm, left=4cm, bottom=4cm, right=3cm]{geometry}
 
 
 
@@ -101,7 +101,6 @@
 \usepackage[totoc]{idxlayout}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{eurosym}
-\usepackage{setspace}
 \usepackage{ctable}
 \usepackage{morefloats}
 \usepackage{siunitx}
@@ -109,9 +108,8 @@
 \usepackage{etoolbox}
 \usepackage[style=ieee]{biblatex}
 \usepackage{appendix}
-\usepackage{mdframed}
+\usepackage[framemethod=1]{mdframed}
 \usepackage{emptypage}
-
 
 % Table of contents formatting
 \renewcommand{\contentsname}{Table of Contents}
@@ -171,7 +169,7 @@
 \usepackage{hyperref}
 \hypersetup{%
     colorlinks=true,%
-    linkcolor=black,%
+    linkcolor=blue,%
     citecolor=blue,%
     breaklinks=true,%
     unicode%
@@ -256,18 +254,20 @@ Complex real-time games and applications have to deal with enormous
 amounts of entities that greatly vary in behavior and constantly
 communicate with each other. Finding an elegant design for entity
 management that allows developers to quickly build applications from
-small composable elements, without sacrificing performance or
-abstraction, is the problem this thesis aims to solve.
+small composable elements, without sacrificing performance, abstraction
+and safety is a difficult problem - this thesis aims to solve it by
+designing and implementing a C++14 Entity-Component-System library
+\emph{ex novo}.
 
-An analyis of common entity encoding techniques is presented, which
-pinpoints the benefits and drawbacks of techniques such as
-object-oriented inheritance, object-oriented composition, and
-data-oriented composition. The Entity-Component-System architectural
-pattern is described and implemented in ECST, a multithreaded
-compile-time C++14 library. The design and implementation of the library
-are examined in detail, using a large number of code snippets and
-diagrams to aid the readers in appreciating the underlying concepts and
-architecture.
+An analysis of common entity encoding techniques is presented, which
+pinpoints the benefits and drawbacks of approaches such as
+\emph{object-oriented inheritance}, \emph{object-oriented composition},
+and \emph{data-oriented composition}. The
+\textbf{Entity-Component-System} architectural pattern is examined and
+implemented in \textbf{ECST}, a multithreaded compile-time C++14
+library. The design and implementation of the library are explored in
+detail, using a large number of code snippets and diagrams to aid the
+readers in appreciating the underlying concepts and architecture.
 
 ECST's objective is to let developers conveniently use the
 Entity-Component-System pattern at compile-time, striving for maximum
@@ -299,6 +299,9 @@ for their support:
   \href{http://entity-systems.wikidot.com/}{Entity Systems wiki}, who
   reviewed \emph{Part 1} of this thesis. His articles and his feedback
   have been extremely valuable.
+\item
+  \textbf{Jackie Kay}, for reviewing a draft version of the complete
+  thesis, providing feedback and constructive criticism.
 \item
   \textbf{Tom Pollard}, creator of
   \href{https://github.com/tompollard/phd_thesis_markdown}{the Markdown
@@ -357,7 +360,9 @@ This thesis was written using the following technologies:
 
 \newpage
 
-\tableofcontents
+\hypersetup{linkcolor=black} \tableofcontents
+
+\hypersetup{linkcolor=blue}
 
 \chapter{Introduction}\label{introduction}
 
@@ -479,8 +484,8 @@ game development, has been extensively covered: see
 {[}\protect\hyperlink{ref-game_programming_gems_6}{4}, Sec. 4.6{]}, and
 {[}\protect\hyperlink{ref-doherty2003software}{5}{]}. Heavily
 composition-based approaches can be found in
-{[}\protect\hyperlink{ref-Wiebusch:2012}{6}{]} and
-in{[}\protect\hyperlink{ref-6658092}{7}{]}
+{[}\protect\hyperlink{ref-Wiebusch:2012}{6}{]} and in
+{[}\protect\hyperlink{ref-6658092}{7}{]}
 
 Countless online articles and blog posts on the ECS pattern and on
 data-oriented design have been written - AAA projects postmortems,
@@ -522,9 +527,10 @@ author:
   polymorphism, was released as an open-source library in 2012;
 \item
   A singlethreaded compile-time Entity-Component-System implementation
-  tutorial talk was presented at \href{http://cppcon.org}{CppCon 2015}.
-  All material used during the talk is available in the following GitHub
-  repository: \url{https://github.com/SuperV1234/cppcon2015};
+  tutorial talk was presented at \href{http://cppcon.org}{CppCon 2015}
+  \emph{(Bellevue, WA)}. All material used during the talk is available
+  in the following GitHub repository:
+  \url{https://github.com/SuperV1234/cppcon2015};
 \item
   Development of ECST started in December 2015. An earlier version of
   the library was presented in May 2016 at
@@ -1228,7 +1234,12 @@ and programming productivity.
 
 The use of polymorphism negatively impacts performance and memory usage
 in comparison to a data-oriented approach, especially because it makes
-taking advantage of data locality and cache-friendliness impossible.
+taking advantage of data locality and cache-friendliness
+impossible\footnote{common reasons include: indirection and size
+  overhead caused by dynamic allocation; loading unused fields in the
+  cache. More information at
+  {[}\protect\hyperlink{ref-ithare_allocations}{19}{]} and
+  {[}\protect\hyperlink{ref-scee_oop_pitfalls}{20}{]}.}.
 
 Using inheritance to build an entity type hierarchy lacks flexibility
 and, as seen in the examples, introduces significant architectural
@@ -1509,8 +1520,13 @@ paradigm shift has to be taken: enter \textbf{data-oriented design}. DOD
 is \emph{all about the data}: code \textbf{has to be designed around the
 data} and not vice-versa. When used correctly, data-oriented design can
 allow applications to take advantage of parallelism and a higher
-percentage of cache hits. Additional benefits include modularity, easier
-networking, and easier serialization.
+percentage of cache hits\footnote{cache-friendliness is obtained by
+  storing data contiguously in memory, loading only necessary data in
+  the cache, and avoiding indirection. See
+  {[}\protect\hyperlink{ref-ithare_allocations}{19}{]} and
+  {[}\protect\hyperlink{ref-scee_oop_pitfalls}{20}{]} for more details.}.
+Additional benefits include modularity, easier networking, and easier
+serialization.
 
 To achieve all the aforementioned advantages, the following design will
 be used:
@@ -2023,7 +2039,7 @@ do \textbf{not have to be sacrificed}.
 In addition, data-oriented composition lends itself very nicely to
 multi-machine parallel computing - a real-world example is Improbable's
 \textbf{SpatialOS} cloud-based architecture
-{[}\protect\hyperlink{ref-spatialos_learnmore}{19}{]}, which massively
+{[}\protect\hyperlink{ref-spatialos_learnmore}{21}{]}, which massively
 parallelizes computation in a transparent way using a variant of the
 Entity-Component-System pattern.
 
@@ -2413,8 +2429,8 @@ data-oriented ECS library include:
   strategies and policies allows code to be conveniently reused.
 \end{itemize}
 
-\hypertarget{ecstoverview_syntaxtransp}{\subsubsection{Syntax-level
-transparency}\label{ecstoverview_syntaxtransp}}
+\subsubsection{Syntax-level
+transparency}\label{ecstoverview_syntaxtransp}
 
 One important design goal of ECST is allowing the user to experiment
 with different policies, schedulers and execution methods
@@ -2804,11 +2820,11 @@ prerequisite for the analysis of ECST's modules.
 
 \section{Boost.Hana}\label{boost.hana}
 
-\textbf{Boost.Hana} {[}\protect\hyperlink{ref-boosthana}{20}{]} is an
+\textbf{Boost.Hana} {[}\protect\hyperlink{ref-boosthana}{22}{]} is an
 astonishing modern \emph{header-only} C++14 metaprogramming library
 created \href{http://ldionne.com/}{by Louis Dionne} that uses the
 \textbf{type-value encoding} paradigm \emph{(a.k.a. dependent typing
-{[}\protect\hyperlink{ref-pfultz2_dependentyping}{21}{]})} - it is
+{[}\protect\hyperlink{ref-pfultz2_dependentyping}{23}{]})} - it is
 heavily used throughout ECST's implementation. By wrapping types in
 values, Hana allows users to perform both type-level computations and
 heterogeneous computations using natural syntax\footnote{syntax that
@@ -3838,7 +3854,7 @@ computing \emph{dense bitset inclusion} between the entity's active
 component bitset and the system's required component bitset. Testing
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::bitset}
 inclusion is not part of the Standard Library \emph{(although proposed,
-see {[}\protect\hyperlink{ref-isocpp_proposal_p0125r0}{22}{]})} - it can
+see {[}\protect\hyperlink{ref-isocpp_proposal_p0125r0}{24}{]})} - it can
 be implemented using bitwise operators as follows:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
@@ -4018,7 +4034,7 @@ constexpr auto cs_test_component =
 \end{minted}
 
 Several component storage strategy designs have been analyzed in depth
-by Adam Martin {[}\protect\hyperlink{ref-tmachine_compstorage}{23}{]}.
+by Adam Martin {[}\protect\hyperlink{ref-tmachine_compstorage}{25}{]}.
 
 \hypertarget{storage_entity}{\section{Entity
 metadata}\label{storage_entity}}
@@ -4045,13 +4061,13 @@ derives from
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{TChunkMetadataTuple}
 in order to take advantage of the \textbf{empty base optimization}
 \emph{(EBO)} \emph{(more details at
-{[}\protect\hyperlink{ref-cppreference_ebo}{24}{]})}. The stored
+{[}\protect\hyperlink{ref-cppreference_ebo}{26}{]})}. The stored
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_counter}
 is incremented every time an entity IDs is reused - handles that try to
 access an entity check if their local counter matches with
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{_counter}
 to make sure they're not accessing another entity reusing the same ID
-{[}\protect\hyperlink{ref-tmachine_eids}{25}{]}.
+{[}\protect\hyperlink{ref-tmachine_eids}{27}{]}.
 
 All entity metadata instances, along with available entity IDs, are
 stored in either
@@ -4188,8 +4204,8 @@ similar to
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::function}
 but with a fixed allocation size. Synchronization is implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
-and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
+and simple
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_t}
 counters. An implementation making use of
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::packaged_task}
 and
@@ -4261,26 +4277,36 @@ and inner parallelism:
 The waiting conditions are very simple and can easily and efficiently be
 implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
-and
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::atomic}
-counters. ECST provides a convenient and safe waiting interface,
-obtained by wrapping the aforementioned synchronization primitives
-alongside an
+in conjunction with a simple
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_t}
+counter. ECST provides a convenient and safe waiting interface, obtained
+by wrapping the aforementioned synchronization primitives alongside an
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::mutex}
-in a data structure called
+in a class called
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-struct counter_blocker
+class counter_blocker
 {
+private:
     std::condition_variable _cv;
     std::mutex _mutex;
-    std::atomic<std::size_t> _counter;
+    std::size_t _counter;
 
-    counter_blocker(std::size_t initial_count)
-        : _counter{initial_count}
-    {
-    }
+public:
+    counter_blocker(std::size_t initial_count);
+
+    // Decrements the counter and notifies one waiting thread.
+    void decrement_and_notify_one();
+
+    // Decrements the counter and notifies all waiting threads.
+    void decrement_and_notify_all();
+
+    // Executes `f` and blocks the caller until the counter
+    // reaches zero. Assumes that `f` will trigger a chain of
+    // operations that will decrement the counter.
+    template <typename TF>
+    void execute_and_wait_until_zero(TF&& f);
 };
 \end{minted}
 
@@ -4294,9 +4320,9 @@ counter_blocker cb{n};
 
 // Immediately execute the passed function and block
 // until `cb` reaches zero.
-execute_and_wait_until_counter_zero(cb, [&]
+cb.execute_and_wait_until_zero([&]
     {
-        // `spawn_tasks` needs to decrement the counter.
+        // `spawn_tasks` will decrement the counter.
         spawn_tasks(cb, n);
     });
 \end{minted}
@@ -4313,7 +4339,7 @@ void spawn_tasks(counter_blocker& cb, int n)
             {
                 // Decrement the counter inside `cb` and
                 // notify one thread.
-                decrement_cv_counter_and_notify_one(cb);
+                cb.decrement_and_notify_one();
             });
     }
 }
@@ -4324,21 +4350,31 @@ inner parallelism and in the refresh stage.
 
 \subsection{Implementation details}\label{implementation-details}
 
-The synchronization operations are hidden behind an interface that takes
-a reference to a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
+The synchronization operations are hidden behind interfaces that take
+references to the members of a
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}.
+The public methods in
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
+call the following functions:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-void decrement_cv_counter_and_notify_one(counter_blocker&);
-void decrement_cv_counter_and_notify_all(counter_blocker&);
+// Decrements `c` through `mutex`, and calls `cv.notify_one()`.
+void decrement_cv_counter_and_notify_one(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
 
+// Decrements `c` through `mutex`, and calls `cv.notify_all()`.
+void decrement_cv_counter_and_notify_all(
+    mutex_type& mutex, cv_type& cv, counter_type& c);
+
+// Locks `mutex`, executes `f` and waits until `c` is zero
+// through `cv`.
 template <typename TF>
-void execute_and_wait_until_counter_zero(counter_blocker&, TF&&);
+void execute_and_wait_until_counter_zero(
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f);
 \end{minted}
 
-The functions above call implementation functions by explicitly passing
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
-members. The most primitive implementation function is
+The functions above call implementation functions to access the passed
+arguments. The most primitive implementation function is
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{access_cv_counter},
 which calls a passed function after safely accessing the counter inside
 a
@@ -4347,9 +4383,9 @@ a
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TF>
 void access_cv_counter(
-    mutex_type& m, cv_type& cv, counter_type& c, TF&& f)
+    mutex_type& mutex, cv_type& cv, counter_type& c, TF&& f)
 {
-    lock_guard_type l(m);
+    lock_guard_type l(mutex);
     f(cv, c);
 }
 \end{minted}
@@ -4591,7 +4627,7 @@ void atomic_counter::execute(TCtx& ctx, TSystemTagList sstl, TF&& f)
     counter_blocker b{n};
 
     // Begin the execution and block until all systems have finished.
-    execute_and_wait_until_counter_zero(b, [&]() mutable
+    b.execute_and_wait_until_zero([&]() mutable
         {
             this->start_execution(ctx, sstl, b, f);
         });
@@ -4647,7 +4683,7 @@ void atomic_counter::task::run(TBlocker& b, TID sid, TCtx& ctx, TF&& f)
     s_instance.execute(ctx, f);
 
     // Safely decrement "remaining systems" counter.
-    decrement_cv_counter_and_notify_one(b);
+    b.decrement_and_notify_one();
 
     // For every dependent task ID...
     for_dependent_ids([&](auto id)
@@ -4712,33 +4748,34 @@ to run in a single thread if its subscriber count is less than
 cores.
 
 System instances invoke the parallel executor by passing a reference to
-the parent context, a \textbf{subtask adapter} function, and the
-overloaded user-provided processing function. The subtask adapter binds
-a
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker},
-the context and the processing function to a new function which will
-\emph{slice} the subscribed entity range depending on parameters
-provided by the inner parallelism strategy:
+the parent context and a \textbf{subtask adapter} function. The subtask
+adapter function for parallel execution takes the following arguments:
+
+\begin{itemize}
+\item
+  \textbf{Split index}, which is the ID of the current subtask.
+\item
+  Begin and end \textbf{slice indices}, which will be stored inside a
+  \protect\hyperlink{dddata_proxy}{data proxy}. They are used to
+  retrieve the target entity subset.
+\end{itemize}
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 template <typename TContext, typename TF>
 void instance</* ... */>::execute_in_parallel(TContext& ctx, TF&& f)
 {
-    auto subtask_adapter = [this](auto& b, auto& x_ctx, auto&& xf)
+    // "Subtask adapter" lambda.
+    auto st = [&](auto split_idx, auto i_begin, auto i_end)
     {
-        return [&](auto split_idx, auto i_begin, auto i_end)
-        {
-            // Nullary function that will process the entities in
-            // the `[i_begin, i_end)` range.
-            auto bse = this->make_bound_slice_executor(
-                b, x_ctx, split_idx, i_begin, i_end, xf);
+        // Create multi data proxy.
+        auto dp = data_proxy::make_multi<TSystemSignature>(
+            *this, ctx, split_idx, i_begin, i_end);
 
-            this->run_subtask_in_thread_pool(x_ctx, std::move(bse));
-        };
+        // Execute the bound slice.
+        f(dp);
     };
 
-    _parallel_executor.execute(
-        *this, ctx, std::move(subtask_adapter), f);
+    _parallel_executor.execute(*this, ctx, std::move(st));
 }
 \end{minted}
 
@@ -4749,84 +4786,76 @@ implementation will ask the caller instance to prepare execution of
 \(n\) subtasks:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TInstance, typename TCtx, typename TFAdapter,
-    typename TF>
+template <typename TInstance, typename TCtx, typename TF>
 void split_every_n</* ... */>::execute(
-    TInstance& i, TCtx& ctx, TFAdapter&& fa, TF&& f)
+    TInstance& i, TCtx& ctx, TF&& f)
 {
     // Perform strategy-related calculations.
     auto per_split = /* ... */;
     auto split_count = /* ... */;
 
-    // Prepare and execute `split_count` subtasks and block until
-    // their execution is complete.
-    i.prepare_and_wait_n_subtasks(split_count, [&](auto& b)
-        {
-            auto adapted_subtask(fa(b, ctx, f));
-
-            // Builds and runs the subtasks.
-            utils::execute_split(
-                i.subscribed_count(), per_split, split_count,
-                adapted_subtask);
-        });
+    // Executes all subtasks. Blocks until completed.
+    utils::prepare_execute_wait_subtasks(
+       inst, ctx, split_count, per_split, f);
 }
 \end{minted}
 
 The
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance::prepare_and_wait_n_subtasks}
-method takes care of initializing the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{utils::prepare_execute_wait_subtasks}
+function takes care of calling the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{instance::prepare_and_wait_subtasks}
+method, which initializes the
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
-with the number of produced subtasks and of starting the subtask
-execution:
+with the number of produced subtasks and starts their execution. The
+method performs the following operations:
+
+\begin{itemize}
+\item
+  It \textbf{clears} and \textbf{prepares} the
+  \protect\hyperlink{storage_state}{\emph{states}} necessary for subtask
+  execution.
+\item
+  It instantiates a
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
+  that will block until all subtasks have been executed.
+\item
+  It creates an adapter \emph{``run in separate thread''} function that
+  will be used to run all subtasks except one in separate thread pool
+  tasks. This will allow the current thread to execute one of the
+  subtasks.
+\end{itemize}
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TF>
-void instance</* ... */>::prepare_and_wait_n_subtasks(int n, TF&& f)
+template <typename TContext, typename TF>
+void instance</* ... */>::prepare_and_wait_n_subtasks(
+    TContext& ctx, int n, TF&& f)
 {
-    // Clear and prepare substask states.
+    // Prepare `n` states, but set the counter to `n - 1` since one
+    // of the subtasks will be executed in the current thread.
     _sm.clear_and_prepare(n);
+    counter_blocker b{n - 1};
 
-    // Initialize a `counter_blocker`.
-    counter_blocker b{n};
-
-    // Runs the subtasks and blocks until the counter reaches zero.
-    execute_and_wait_until_counter_zero(b, [&]{ f(b); });
-}
-\end{minted}
-
-\hypertarget{inner_par_slicing}{\subsubsection{Slicing}\label{inner_par_slicing}}
-
-The implementation of
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{make_bound_slice_executor}
-creates a \emph{nullary\footnote{that takes no arguments.} function}
-that can be executed in a separate thread by binding all required
-parameters. The function instantiates a \textbf{data proxy} that is used
-in the system implementation code. The data proxy uses the bound
-parameters to provide a slice of subscribed entities behind a uniform
-interface
-\emph{(\protect\hyperlink{ecstoverview_syntaxtransp}{syntax-level
-transparency})}.
-
-\begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TSettings, typename TSystemSignature>
-template <typename TBlocker, typename TCtx>
-auto instance<TSettings, TSystemSignature>::make_slice_executor(
-    TBlocker& b, TCtx& ctx,
-    int state_idx, int i_begin, int i_end, TF&& f)
-{
-    // The returned function will be executed by a thread pool worker.
-    return [&, state_idx, i_begin, i_end]
+    // Function accepting a callable object which will be executed
+    // in a separate thread. Intended to be called from inner
+    // parallelism strategy executors.
+    auto run_in_separate_thread = [this, &ctx, &b](auto& xf)
     {
-        // Create a "data proxy".
-        auto dp = data_proxy::make<TSystemSignature>(/* ... */);
-
-        // Execute the user-defined processing function, passing the
-        // proxy as an argument.
-        f(dp);
-
-        // Decrement counter and notify waiting threads.
-        decrement_cv_counter_and_notify_all(b);
+        return [this, &b, &ctx, &xf](auto&&... xs)
+        {
+            ctx.post_in_thread_pool([&xf, &b, xs...]()
+                {
+                    xf(xs...);
+                    b.decrement_and_notify_all();
+                });
+        };
     };
+
+    // Runs the parallel executor and waits until the remaining
+    // subtasks counter is zero.
+    b.execute_and_wait_until_zero([&f, &run_in_separate_thread]
+        {
+            f(run_in_separate_thread);
+        });
 }
 \end{minted}
 
@@ -4875,7 +4904,7 @@ callable objects \emph{(and additional data)}, with a
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{public}
 interface that invokes the stored callables.
 
-\section{Data proxies}\label{data-proxies}
+\hypertarget{dddata_proxy}{\section{Data proxies}\label{dddata_proxy}}
 
 \textbf{Data proxies} are created during
 \protect\hyperlink{inner_par_slicing}{\emph{inner parallelism slicing}}.
@@ -5272,10 +5301,10 @@ using enable_matching_instance =
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{impl::enable_matching_instance}
 is a type alias that makes use of
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::enable_if_t}
-\emph{(see {[}\protect\hyperlink{ref-cppreference_enable_if}{26}{]})},
+\emph{(see {[}\protect\hyperlink{ref-cppreference_enable_if}{28}{]})},
 which prevents functions from participating in \textbf{overload
 resolution} \emph{(see
-{[}\protect\hyperlink{ref-cppreference_overload_resolution}{27}{]})} if
+{[}\protect\hyperlink{ref-cppreference_overload_resolution}{29}{]})} if
 the
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{check_tag<TInstance, TSystemTag>()}
 expression evaluates to
@@ -5496,13 +5525,14 @@ implemented using
 in the current version of ECST, introducing unnecessary run-time
 overhead due to dynamic allocation and polymorphism.
 
-A specialized \textbf{``deferred function queue''} class will be
+As suggested by \href{https://twitter.com/cppsage}{Matt Calabrese}, a
+specialized \textbf{``deferred function queue''} class will be
 introduced in the future, which will store callable objects of various
 size in the same resizable buffer. This will be achieved using
-fixed-size structures that will act as \emph{``vtables''}, which will be
-stored before their corresponding callable object in the buffer. A
-separate lightweight index will keep track of all the vtables -
-iterating over them will allow efficient sequential execution of
+fixed-size structures that will act similarly to \emph{``vtables''},
+which will be stored before their corresponding callable object in the
+buffer. A separate lightweight index will keep track of all the vtables
+- iterating over them will allow efficient sequential execution of
 deferred functions.
 
 Appending functions to the queue will not require any additional memory
@@ -5553,18 +5583,18 @@ Its space complexity is \(\mathcal{O}(n)\).
 
 Sparse integers sets are perfect for entity ID management, as the
 complexity of all required operations is optimal. They have been
-extensively covered in {[}\protect\hyperlink{ref-sparsesets132}{28}{]}
-and {[}\protect\hyperlink{ref-sparsesets_praxis}{29}{]}. A possible C++
+extensively covered in {[}\protect\hyperlink{ref-sparsesets132}{30}{]}
+and {[}\protect\hyperlink{ref-sparsesets_praxis}{31}{]}. A possible C++
 implementation is analyzed in
-{[}\protect\hyperlink{ref-sparsesets_cpp}{30}{]}. Sparse integer sets
+{[}\protect\hyperlink{ref-sparsesets_cpp}{32}{]}. Sparse integer sets
 have been already used in existing ECS libraries: an example is
 \emph{Diana}, by Vincent Adam Burns
-{[}\protect\hyperlink{ref-github_diana}{31}{]}.
+{[}\protect\hyperlink{ref-github_diana}{33}{]}.
 
 \subsection{Implementation details}\label{implementation-details-4}
 
 Sparse integer sets are implemented in \textbf{vrm\_core} \emph{(see
-{[}\protect\hyperlink{ref-github_vrmcore}{32}{]})}, which is a
+{[}\protect\hyperlink{ref-github_vrmcore}{34}{]})}, which is a
 dependency of ECST. The used storage types depend on context settings
 \emph{(\protect\hyperlink{appendix_static_dispatching}{static
 dispatching})}, but conceptually every implementation is composed of the
@@ -5680,20 +5710,16 @@ Firstly, the component types specified in the system signature are
 retrieved and concatenated:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
-template <typename TSettings, typename TSystemSignature>
-auto make_from_system_signature(TSettings s, TSystemSignature ss)
+template <typename TSystemSignature, typename TSettings>
+auto make_from_system_signature(TSystemSignature ss, TSettings s)
 {
-    // Tag list of components read by `ss`.
-    auto read_ctag_list = signature::system::read_ctag_list(ss);
+    // The "read" and "write" component tags are concatenated.
+    auto all = boost::hana::concat(
+        ss.read_ctag_list(), ss.write_ctag_list());
 
-    // Tag list of components written by `ss`.
-    auto write_ctag_list = signature::system::write_ctag_list(ss);
-
-    // Concatenate the two lists.
-    auto ctag_list =
-        boost::hana::concat(read_ctag_list, write_ctag_list);
-
-    return make_from_tag_list(s, ctag_list);
+    // The complete list is passed to the `make_from_tag_list` 
+    // function, which will create the bitset.
+    return make_from_tag_list(s, all);
 }
 \end{minted}
 
@@ -5753,21 +5779,21 @@ will be used to store metadata depending on the
 Most occurrences of static dispatching are implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if},
 available in \textbf{vrm\_core} \emph{(see
-{[}\protect\hyperlink{ref-github_vrmcore}{32}{]})}. A compile-time
+{[}\protect\hyperlink{ref-github_vrmcore}{34}{]})}. A compile-time
 branching construct is not yet part of the standard, but it has been
 proposed several times \emph{(see
-{[}\protect\hyperlink{ref-isocpp_sif0}{33}{]},
-{[}\protect\hyperlink{ref-isocpp_sif1}{34}{]},
-{[}\protect\hyperlink{ref-isocpp_sif2}{35}{]} and
-{[}\protect\hyperlink{ref-isocpp_sif3}{36}{]})} and it's likely to be
+{[}\protect\hyperlink{ref-isocpp_sif0}{35}{]},
+{[}\protect\hyperlink{ref-isocpp_sif1}{36}{]},
+{[}\protect\hyperlink{ref-isocpp_sif2}{37}{]} and
+{[}\protect\hyperlink{ref-isocpp_sif3}{38}{]})} and it's likely to be
 introduced in C++17. Nevertheless, a
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if}
 construct that's more convienient and localized than \emph{explicit
 template specialization}
-{[}\protect\hyperlink{ref-cppreference_ets}{37}{]} can be implemented
-using C++14 features \emph{(see {[}\protect\hyperlink{ref-sif0}{38}{]},
-{[}\protect\hyperlink{ref-sif1}{39}{]} and
-{[}\protect\hyperlink{ref-sif2}{40}{]})}.
+{[}\protect\hyperlink{ref-cppreference_ets}{39}{]} can be implemented
+using C++14 features \emph{(see {[}\protect\hyperlink{ref-sif0}{40}{]},
+{[}\protect\hyperlink{ref-sif1}{41}{]} and
+{[}\protect\hyperlink{ref-sif2}{42}{]})}.
 
 Using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{static_if},
@@ -6076,14 +6102,26 @@ in order to instantiate a
 that will block the calling thread until all systems belonging to a
 particular connected component of the dependency DAG have been executed.
 
-\part{Example ECST application: particle simulation}
+\part{Example ECST applications and benchmarks}
 
 \hypertarget{part3_sim}{\chapter{Overview}\label{part3_sim}}
 
-In this part a simple \textbf{real-time particle simulation} implemented
-using ECST will be analyzed, in order to provide the readers with a
-complete usage example of the library and with performance comparisons
-between various combinations of the compile-time multithreading options.
+In this part two simple applications implemented using ECST will be
+analyzed, in order to provide the readers with usage examples of the
+library and with performance comparisons between various combinations of
+the compile-time multithreading options:
+
+\begin{itemize}
+\item
+  A \textbf{2D real-time particle simulation}, where circular particles
+  collide with each other in a closed space;
+\item
+  A \textbf{real-time entity creation/destruction benchmark}, where
+  entities with a limited life replicate themselves a fixed amout of
+  times.
+\end{itemize}
+
+\chapter{2D particle simulation}\label{d-particle-simulation}
 
 \section{Description}\label{description}
 
@@ -6101,7 +6139,7 @@ following compile-time options and parameters:
 
 \begin{itemize}
 \item
-  Entity count: \(50000\), \(100000\) and \(150000\);
+  Entity count: \(50000\), \(100000\) and \(200000\);
 \item
   Inner parallelism: \textbf{enabled} or \textbf{disabled};
 \item
@@ -6483,9 +6521,9 @@ void process(TData& data)
 }
 \end{minted}
 
-\chapter{Results}\label{results}
+\section{Results}\label{results}
 
-\section{Screenshots}\label{screenshots}
+\subsection{Screenshots}\label{screenshots}
 
 Two screenshots of the particle simulations are shown below. The first
 one shows 50000 particle entities colliding in a closed space:
@@ -6505,7 +6543,7 @@ grid - all particles belonging to the cell are highlighted:
 \caption{Particle simulation: screenshot - spatial partitioning cell}
 \end{figure}
 
-\section{Benchmarks}\label{benchmarks}
+\hypertarget{bench_particlesim}{\subsection{Benchmarks}\label{bench_particlesim}}
 
 The computer used to benchmark the particle simulation has the following
 hardware specifications:
@@ -6536,19 +6574,19 @@ version 6.1.1 was used, with the following compiler flags:\\
 The error bars in the following graphs represent the \emph{standard
 deviation}.
 
-\subsection{Dynamic versus fixed entity
+\subsubsection{Dynamic versus fixed entity
 storage}\label{dynamic-versus-fixed-entity-storage}
 
 \includegraphics{source/figures/bench/ipcomp_dynamic.png}
 \includegraphics{source/figures/bench/ipcomp_fixed.png}
 
-\subsection{Entity scaling}\label{entity-scaling}
+\subsubsection{Entity scaling}\label{entity-scaling}
 
 \includegraphics{source/figures/bench/entity_50k.png}
 \includegraphics{source/figures/bench/entity_100k.png}
 \includegraphics{source/figures/bench/entity_200k.png}
 
-\section{Conclusions}\label{conclusions}
+\hypertarget{bench_parsim_conc}{\section{Conclusions}\label{bench_parsim_conc}}
 
 The following conclusions can be deduced from the benchmark graphs:
 
@@ -6610,6 +6648,204 @@ The following conclusions can be deduced from the benchmark graphs:
 The complete source code of the example particle simulation can be found
 in the following GitHub repository, under the \emph{Academic Free
 License (``AFL'') v. 3.0}:
+\url{https://github.com/SuperV1234/bcs_thesis}.
+
+\chapter{Entity creation/destruction
+benchmark}\label{entity-creationdestruction-benchmark}
+
+\section{Description}\label{description-1}
+
+The benchmark aims to measure the performance of continuous real-time
+entity creation/destruction with various combinations of compile-time
+settings. At the beginning of the application, a fixed number of
+entities is created. The entities possess a
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}
+component that will destroy them after a random amount of time, creating
+a new entity instance on destruction. The entity replication process is
+limited by a counter stored in
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}
+that is decreased on creation.
+
+As with the previous example application, multiple simulations are
+executed and benchmarked, combining the following compile-time options
+and parameters:
+
+\begin{itemize}
+\item
+  Entity count: \(50000\), \(100000\) and \(200000\);
+\item
+  Inner parallelism: \textbf{enabled} or \textbf{disabled};
+\item
+  Entity storage strategy: \textbf{fixed} or \textbf{dynamic}.
+\end{itemize}
+
+In total, \(12\) simulations are executed.
+
+\section{Components}\label{components-1}
+
+The only existing component type is
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life}.
+
+\begin{itemize}
+\item
+  \textbf{Life}: controls the lifetime of an entity and its amount of
+  replications.
+
+  \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
+  struct life
+  {
+      float _v;
+      int _spawns;
+  };
+  \end{minted}
+\end{itemize}
+
+\section{Systems}\label{systems-1}
+
+\begin{itemize}
+\item
+  \textbf{Life}: deals with entity lifetime and replication.
+  Continuously decreases every particle's
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{life}
+  value and marks particles as dead when their lifetime is over. Once an
+  entity is marked as dead, a
+  \protect\hyperlink{flow_exec_dfuncs}{\textbf{deferred function}} that
+  creates a new particle is enqueued if
+  \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{c::life::_spawns}
+  is greater than \(0\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Multithreading is enabled.
+  \end{itemize}
+\end{itemize}
+
+\subsection{System implementations}\label{system-implementations-1}
+
+The commented implementation of the
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{s::life}
+system is provided below:
+
+\begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
+struct life
+{
+    template <typename TData>
+    void process(ft dt, TData& data)
+    {
+        data.for_entities([&](auto eid)
+            {
+                // Alias the entity's lifetime value.
+                auto& l = data.get(ct::life, eid)._v;
+
+                // Alias the entity's left replications value.
+                auto& spawns = data.get(ct::life, eid)._spawns;
+
+                // Decrease the entity's lifetime.
+                l -= 10.f * dt;
+
+                // If the lifetime value reaches zero...
+                if(l <= 0.f)
+                {
+                    // ...mark the entity as dead.
+                    data.kill_entity(eid);
+
+                    // If the entity can replicate itself...
+                    if(spawns > 0)
+                    {
+                        // ...enqueue a deferred function creating
+                        // a new entity with one less replication.
+                        data.defer([spawns](auto& proxy)
+                            {
+                                mk_particle(proxy, spawns - 1);
+                            });
+                    }
+                }
+            });
+    }
+};
+\end{minted}
+
+\section{Results}\label{results-1}
+
+\subsection{Benchmarks}\label{benchmarks}
+
+The \protect\hyperlink{bench_particlesim}{previously described machine
+and environment} were used for this simulation.
+
+Again, the error bars in the following graphs represent the
+\emph{standard deviation}.
+
+\subsubsection{Dynamic versus fixed entity
+storage}\label{dynamic-versus-fixed-entity-storage-1}
+
+\includegraphics{source/figures/bench2/ipcomp_dynamic.png}
+\includegraphics{source/figures/bench2/ipcomp_fixed.png}
+
+\subsubsection{Entity scaling}\label{entity-scaling-1}
+
+\includegraphics{source/figures/bench2/entity_50k.png}
+\includegraphics{source/figures/bench2/entity_100k.png}
+\includegraphics{source/figures/bench2/entity_200k.png}
+
+\section{Conclusions}\label{conclusions}
+
+The following conclusions can be deduced from the benchmark graphs:
+
+\begin{itemize}
+\item
+  \textbf{Fixed} entity storage is definitely slightly faster than
+  \textbf{dynamic} entity storage, indepedently of inner parallelism
+  settings. The presence of reallocation checks \emph{(in dynamic entity
+  storage)} produces a noticeable run-time overhead due to the huge
+  number of entity creations/destructions. The tables below shows the
+  execution time percent change of the dynamic storage strategy:
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  & Fixed (no I.P.) & Dynamic (no I.P.)\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & +11.77\%\tabularnewline
+  100k & baseline & +12.56\%\tabularnewline
+  200k & baseline & +13.34\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+
+  \begin{longtable}[]{@{}lll@{}}
+  \toprule
+  & Fixed (I.P.) & Dynamic (I.P.)\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & +0.47\%\tabularnewline
+  100k & baseline & +8.19\%\tabularnewline
+  200k & baseline & +12.09\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+\item
+  Again, using
+  \protect\hyperlink{multithreading_inner_par}{\textbf{inner
+  parallelism}} results in an expected run-time performance boost. Due
+  to the nature of this simulation, however, only an average \(10\)\%
+  relative performance increment is achieved compared to the
+  \protect\hyperlink{bench_parsim_conc}{previous simulation's} \(65\)\%
+  relative performance increment:
+
+  \begin{longtable}[]{@{}lcc@{}}
+  \toprule
+  & No inner parallelism & Inner parallelism\tabularnewline
+  \midrule
+  \endhead
+  50k & baseline & -3.98\%\tabularnewline
+  100k & baseline & -14.23\%\tabularnewline
+  200k & baseline & -12.75\%\tabularnewline
+  \bottomrule
+  \end{longtable}
+\end{itemize}
+
+The complete source code of the example entity creation/destruction
+benchmark can be found in the following GitHub repository, under the
+\emph{Academic Free License (``AFL'') v. 3.0}:
 \url{https://github.com/SuperV1234/bcs_thesis}.
 
 \chapter*{List of figures}\label{list-of-figures}
@@ -6719,104 +6955,114 @@ generalization and solution to the common ancestor dilemma problem in
 delegation-based object systems,'' in \emph{Dynamic aspects workshop
 (daw04)}, 2004, vol. 6.
 
+\hypertarget{ref-ithare_allocations}{}
+{[}19{]} ``No Bugs'' Hare, ``C++ for Games: Performance. Allocations and
+Data Locality,'' 2016. {[}Online{]}. Available:
+\url{http://ithare.com/c-for-games-performance-allocations-and-data-locality/}.
+
+\hypertarget{ref-scee_oop_pitfalls}{}
+{[}20{]} T. Albrecht, ``Pitfalls of Object Oriented Programming,'' 2009.
+{[}Online{]}. Available:
+\url{http://harmful.cat-v.org/software/OO_programming/_pdf/Pitfalls_of_Object_Oriented_Programming_GCAP_09.pdf}.
+
 \hypertarget{ref-spatialos_learnmore}{}
-{[}19{]} Improbable, ``Improbable - SpatialOS - Learn more,'' 2016.
+{[}21{]} Improbable, ``Improbable - SpatialOS - Learn more,'' 2016.
 {[}Online{]}. Available: \url{https://improbable.io/learn-more}.
 
 \hypertarget{ref-boosthana}{}
-{[}20{]} L. Dionne, ``Boost.Hana documentation.'' {[}Online{]}.
+{[}22{]} L. Dionne, ``Boost.Hana documentation.'' {[}Online{]}.
 Available:
 \url{http://www.boost.org/doc/libs/1_61_0/libs/hana/doc/html/index.html}.
 
 \hypertarget{ref-pfultz2_dependentyping}{}
-{[}21{]} P. F. II, ``Dependent typing in C++,'' 2015. {[}Online{]}.
+{[}23{]} P. F. II, ``Dependent typing in C++,'' 2015. {[}Online{]}.
 Available: \url{http://pfultz2.com/blog/2015/01/24/dependent-typing/}.
 
 \hypertarget{ref-isocpp_proposal_p0125r0}{}
-{[}22{]} V. Romeo, ```std::bitset` inclusion test methods,'' 2015.
+{[}24{]} V. Romeo, ```std::bitset` inclusion test methods,'' 2015.
 {[}Online{]}. Available:
 \url{http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0125r0.html}.
 
 \hypertarget{ref-tmachine_compstorage}{}
-{[}23{]} A. Martin, ``Data Structures for Entity Systems: Contiguous
+{[}25{]} A. Martin, ``Data Structures for Entity Systems: Contiguous
 memory,'' 2014. {[}Online{]}. Available:
 \url{http://t-machine.org/index.php/2014/03/08/data-structures-for-entity-systems-contiguous-memory/}.
 
 \hypertarget{ref-cppreference_ebo}{}
-{[}24{]} cppreference, ``Empty base optimization.'' {[}Online{]}.
+{[}26{]} cppreference, ``Empty base optimization.'' {[}Online{]}.
 Available: \url{http://en.cppreference.com/w/cpp/language/ebo}.
 
 \hypertarget{ref-tmachine_eids}{}
-{[}25{]} A. Martin, ``Entity ID's: how big, using UUIDs or not, why,
+{[}27{]} A. Martin, ``Entity ID's: how big, using UUIDs or not, why,
 etc?'' 2015. {[}Online{]}. Available:
 \url{http://t-machine.org/index.php/2015/06/09/entity-ids-how-big-using-uuids-or-not-why-etc/}.
 
 \hypertarget{ref-cppreference_enable_if}{}
-{[}26{]} cppreference, ```std::enable\_if`.'' {[}Online{]}. Available:
+{[}28{]} cppreference, ```std::enable\_if`.'' {[}Online{]}. Available:
 \url{http://en.cppreference.com/w/cpp/types/enable_if}.
 
 \hypertarget{ref-cppreference_overload_resolution}{}
-{[}27{]} cppreference, ``Overload resolution.'' {[}Online{]}. Available:
+{[}29{]} cppreference, ``Overload resolution.'' {[}Online{]}. Available:
 \url{http://en.cppreference.com/w/cpp/language/overload_resolution}.
 
 \hypertarget{ref-sparsesets132}{}
-{[}28{]} V. le Clément, P. Schaus, C. Solnon, and C. Lecoutre,
+{[}30{]} V. le Clément, P. Schaus, C. Solnon, and C. Lecoutre,
 \emph{Sparse-sets for domain implementation}. 2013.
 
 \hypertarget{ref-sparsesets_praxis}{}
-{[}29{]} P. Praxis, ``Sparse Sets,'' 2012. {[}Online{]}. Available:
+{[}31{]} P. Praxis, ``Sparse Sets,'' 2012. {[}Online{]}. Available:
 \url{https://programmingpraxis.com/2012/03/09/sparse-sets/}.
 
 \hypertarget{ref-sparsesets_cpp}{}
-{[}30{]} M. Semenov, ``Fast Implementations of Sparse Sets in C++,''
+{[}32{]} M. Semenov, ``Fast Implementations of Sparse Sets in C++,''
 2015. {[}Online{]}. Available:
 \url{http://www.codeproject.com/Articles/859324/Fast-Implementations-of-Sparse-Sets-in-Cplusplus}.
 
 \hypertarget{ref-github_diana}{}
-{[}31{]} V. A. Burns, ``GitHub: `Diana`,'' 2013. {[}Online{]}.
+{[}33{]} V. A. Burns, ``GitHub: `Diana`,'' 2013. {[}Online{]}.
 Available: \url{https://github.com/discoloda/Diana}.
 
 \hypertarget{ref-github_vrmcore}{}
-{[}32{]} V. Romeo, ``GitHub: `vrm\_core`.'' {[}Online{]}. Available:
+{[}34{]} V. Romeo, ``GitHub: `vrm\_core`.'' {[}Online{]}. Available:
 \url{https://github.com/SuperV1234/vrm_core}.
 
 \hypertarget{ref-isocpp_sif0}{}
-{[}33{]} B. Stroustrup, G. D. Reis, and A. Sutton, ```Static If '
+{[}35{]} B. Stroustrup, G. D. Reis, and A. Sutton, ```Static If '
 Considered,'' 2013. {[}Online{]}. Available:
 \url{http://open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3613.pdf}.
 
 \hypertarget{ref-isocpp_sif1}{}
-{[}34{]} V. Voutilainen, ``Static if resurrected,'' 2015. {[}Online{]}.
+{[}36{]} V. Voutilainen, ``Static if resurrected,'' 2015. {[}Online{]}.
 Available:
 \url{http://open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4461.html}.
 
 \hypertarget{ref-isocpp_sif2}{}
-{[}35{]} V. Voutilainen, ``constexpr\_if,'' 2015. {[}Online{]}.
+{[}37{]} V. Voutilainen, ``constexpr\_if,'' 2015. {[}Online{]}.
 Available:
 \url{http://open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0128r0.html}.
 
 \hypertarget{ref-isocpp_sif3}{}
-{[}36{]} J. Maurer, ``constexpr if: A slightly different syntax,'' 2016.
+{[}38{]} J. Maurer, ``constexpr if: A slightly different syntax,'' 2016.
 {[}Online{]}. Available:
 \url{http://open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0292r0.html}.
 
 \hypertarget{ref-cppreference_ets}{}
-{[}37{]} cppreference, ``explicit (full) template specialization.''
+{[}39{]} cppreference, ``explicit (full) template specialization.''
 {[}Online{]}. Available:
 \url{http://en.cppreference.com/w/cpp/language/template_specialization}.
 
 \hypertarget{ref-sif0}{}
-{[}38{]} B. Wicht, ``Simulate static\_if with C++11/C++14,'' 2015.
+{[}40{]} B. Wicht, ``Simulate static\_if with C++11/C++14,'' 2015.
 {[}Online{]}. Available:
 \url{http://baptiste-wicht.com/posts/2015/07/simulate-static_if-with-c11c14.html}.
 
 \hypertarget{ref-sif1}{}
-{[}39{]} G. Diago, ``Proposal for techniques that improve ad-hoc generic
+{[}41{]} G. Diago, ``Proposal for techniques that improve ad-hoc generic
 code: static\_if emulation,'' 2015. {[}Online{]}. Available:
 \url{https://github.com/isocpp/CppCoreGuidelines/issues/353}.
 
 \hypertarget{ref-sif2}{}
-{[}40{]} V. Romeo, ``C++Now 2016: "Implementing `static` control flow in
+{[}42{]} V. Romeo, ``C++Now 2016: "Implementing `static` control flow in
 C++14",'' 2016. {[}Online{]}. Available:
 \url{https://github.com/SuperV1234/cppnow2016/tree/master/static_control_flow}.
 
