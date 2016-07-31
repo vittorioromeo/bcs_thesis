@@ -67,7 +67,7 @@ Research on the Entity-Component-System pattern and its possible implementations
 
 * [SSVEntitySystem](https://github.com/SuperV1234/SSVEntitySystem), a naive implementation of a single-threaded ECS making use of run-time polymorphism, was released as an open-source library in 2012;
 
-* A singlethreaded compile-time Entity-Component-System implementation tutorial talk was presented at [CppCon 2015](http://cppcon.org). All material used during the talk is available in the following GitHub repository: [https://github.com/SuperV1234/cppcon2015](https://github.com/SuperV1234/cppcon2015);
+* A singlethreaded compile-time Entity-Component-System implementation tutorial talk was presented at [CppCon 2015](http://cppcon.org) *(Bellevue, WA)*. All material used during the talk is available in the following GitHub repository: [https://github.com/SuperV1234/cppcon2015](https://github.com/SuperV1234/cppcon2015);
 
 * Development of ECST started in December 2015. An earlier version of the library was presented in May 2016 at [C++Now 2016](http://cppnow.org) *(Aspen, CO)*. The material used during the presentation is available in the following GitHub repository: [https://github.com/SuperV1234/cppnow2016](https://github.com/SuperV1234/cppnow2016).
 

@@ -93,7 +93,7 @@ Synchronization and waiting are required when implementing both outer and inner 
 
 * When executing inner parallelism, **all** subtasks must be finished in order to complete a system execution.
 
-The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` and simple `std::size_T` counters. ECST provides a convenient and safe waiting interface, obtained by wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a class called `counter_blocker`:
+The waiting conditions are very simple and can easily and efficiently be implemented using `std::condition_variable` in conjunction with a simple `std::size_t` counter. ECST provides a convenient and safe waiting interface, obtained by wrapping the aforementioned synchronization primitives alongside an `std::mutex` in a class called `counter_blocker`:
 
 ```cpp
 class counter_blocker
@@ -155,7 +155,7 @@ void spawn_tasks(counter_blocker& cb, int n)
 The pattern shown above is used in the implementation of both outer and inner parallelism and in the refresh stage.
 
 ### Implementation details
-The synchronization operations are hidden behind an interface that takes a reference to the members of a `counter_blocker`. The public methods in `counter_blocker` call the following functions:
+The synchronization operations are hidden behind interfaces that take references to the members of a `counter_blocker`. The public methods in `counter_blocker` call the following functions:
 
 ```cpp
 // Decrements `c` through `mutex`, and calls `cv.notify_one()`.

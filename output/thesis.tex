@@ -108,7 +108,7 @@
 \usepackage{etoolbox}
 \usepackage[style=ieee]{biblatex}
 \usepackage{appendix}
-\usepackage{mdframed}
+\usepackage[framemethod=1]{mdframed}
 \usepackage{emptypage}
 
 % Table of contents formatting
@@ -139,7 +139,7 @@
 
 
 % Code and pseudocode
-\usepackage[draft]{minted}
+\usepackage[final]{minted}
 \definecolor{codebg}{rgb}{0.975,0.975,0.975}
 
 \mdfsetup{skipabove=0.4mm,skipbelow=0.4mm}
@@ -260,14 +260,14 @@ designing and implementing a C++14 Entity-Component-System library
 \emph{ex novo}.
 
 An analyis of common entity encoding techniques is presented, which
-pinpoints the benefits and drawbacks of techniques such as
-object-oriented inheritance, object-oriented composition, and
-data-oriented composition. The Entity-Component-System architectural
-pattern is examined and implemented in ECST, a multithreaded
-compile-time C++14 library. The design and implementation of the library
-are explored in detail, using a large number of code snippets and
-diagrams to aid the readers in appreciating the underlying concepts and
-architecture.
+pinpoints the benefits and drawbacks of approaches such as
+\emph{object-oriented inheritance}, \emph{object-oriented composition},
+and \emph{data-oriented composition}. The
+\textbf{Entity-Component-System} architectural pattern is examined and
+implemented in \textbf{ECST}, a multithreaded compile-time C++14
+library. The design and implementation of the library are explored in
+detail, using a large number of code snippets and diagrams to aid the
+readers in appreciating the underlying concepts and architecture.
 
 ECST's objective is to let developers conveniently use the
 Entity-Component-System pattern at compile-time, striving for maximum
@@ -527,9 +527,10 @@ author:
   polymorphism, was released as an open-source library in 2012;
 \item
   A singlethreaded compile-time Entity-Component-System implementation
-  tutorial talk was presented at \href{http://cppcon.org}{CppCon 2015}.
-  All material used during the talk is available in the following GitHub
-  repository: \url{https://github.com/SuperV1234/cppcon2015};
+  tutorial talk was presented at \href{http://cppcon.org}{CppCon 2015}
+  \emph{(Bellevue, WA)}. All material used during the talk is available
+  in the following GitHub repository:
+  \url{https://github.com/SuperV1234/cppcon2015};
 \item
   Development of ECST started in December 2015. An earlier version of
   the library was presented in May 2016 at
@@ -4276,11 +4277,10 @@ and inner parallelism:
 The waiting conditions are very simple and can easily and efficiently be
 implemented using
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::condition_variable}
-and simple
-\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_T}
-counters. ECST provides a convenient and safe waiting interface,
-obtained by wrapping the aforementioned synchronization primitives
-alongside an
+in conjunction with a simple
+\mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::size_t}
+counter. ECST provides a convenient and safe waiting interface, obtained
+by wrapping the aforementioned synchronization primitives alongside an
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{std::mutex}
 in a class called
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}:
@@ -4350,8 +4350,8 @@ inner parallelism and in the refresh stage.
 
 \subsection{Implementation details}\label{implementation-details}
 
-The synchronization operations are hidden behind an interface that takes
-a reference to the members of a
+The synchronization operations are hidden behind interfaces that take
+references to the members of a
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}.
 The public methods in
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{counter_blocker}
