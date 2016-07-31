@@ -13,11 +13,12 @@ The thesis is divided in three parts:
 
 ## Quick shortcuts
 
-* [**Print version PDF**](https://github.com/SuperV1234/bcs_thesis/blob/master/final/print_version.pdf)
 
-* ~~Web version PDF~~
+* [**Web version PDF**](https://github.com/SuperV1234/bcs_thesis/blob/master/final/rev1/web_version.pdf) *(latest revision)*
 
-* ~~Slides~~
+* [Print version PDF](https://github.com/SuperV1234/bcs_thesis/blob/master/final/rev0/print_version.pdf) *(rev. 0)*
+
+* [Slides](https://github.com/SuperV1234/bcs_thesis/blob/master/defense/slides.pdf) 
 
 
 ## How to compile
@@ -41,6 +42,9 @@ Instructions:
 
 
 ## Links
+
+* **ResearchGate** entry:
+[https://www.researchgate.net/publication/305730566](https://www.researchgate.net/publication/305730566_Analysis_of_entity_encoding_techniques_design_and_implementation_of_a_multithreaded_compile-time_Entity-Component-System_C14_library)
 
 * **ECST** repository:
 [https://github.com/SuperV1234/ecst](https://github.com/SuperV1234/ecst)
