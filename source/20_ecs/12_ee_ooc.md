@@ -14,7 +14,7 @@ A flexible way of solving the aforementioned *repetition* and *diamond* issues r
 From a high-level perspective, object-oriented composition looks like this:
 
 \dot(source/figures/generated/ecs/overview/oop_composition/example { width=75% })
-(Object-oriented composition: hypotetical entity hierarchy)
+(Object-oriented composition: hypothetical entity hierarchy)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 digraph
 {

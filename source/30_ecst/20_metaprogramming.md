@@ -35,7 +35,7 @@ As an example, component and system signature lists are implemented as [`boost::
 
 A very large number of methods in the library is parametrized on component types and system types. User code calling those methods would normally require the constant and inelegant use of the `instance.template method<...>(...)` template disambiguation syntax[^annoying_syntax]. **Tags** are designed to solve this problem.
 
-Examples will be used in order to easily explain the role of tags. Here is an hypotetical set of component and system types:
+Examples will be used in order to easily explain the role of tags. Here is an hypothetical set of component and system types:
 
 ```cpp
 namespace c
