@@ -759,7 +759,7 @@ approach: both \textbf{data} and \textbf{logic} are stored inside
 entities. Entity types encoded using this technique produce hierarchy
 graphs similar to the following one:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.65000\textwidth]{source/figures/generated/ecs/overview/oop/example_hierarchy_0.png}
 \caption{Object-oriented inheritance: hypothetical entity hierarchy}
@@ -783,7 +783,7 @@ actions on them.
 To simulate the implementation of the example RPG, a hypothetical class
 hierarchy is shown below:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.70000\textwidth]{source/figures/generated/ecs/overview/oop/example_hierarchy_rpg.png}
 \caption{Object-oriented inheritance: RPG entity hierarchy}
@@ -890,7 +890,7 @@ object-oriented hierarchies. It was comprehensively covered in
 {[}\protect\hyperlink{ref-truyen2004generalization}{18}{]}. An example
 is found in this part of the previous hierarchy:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.85000\textwidth]{source/figures/generated/ecs/overview/oop/diamond_of_death.png}
 \caption{OOP encoding issue: ``diamond of death''}
@@ -929,7 +929,7 @@ would be defining a base
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{animated_widget}
 class and have all widgets derive from it.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/oop/repetition_problem_0.png}
 \caption{OOP encoding issue: repetition \#0}
@@ -943,7 +943,7 @@ will have potentially unnecessary fields and methods if they do not make
 use of the framework's animation capabilities. To solve this, one may
 try to restructure the hierarchy as follows:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecs/overview/oop/repetition_problem_1.png}
 \caption{OOP encoding issue: repetition \#1}
@@ -951,7 +951,7 @@ try to restructure the hierarchy as follows:
 
 Or in the following way:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.70000\textwidth]{source/figures/generated/ecs/overview/oop/repetition_problem_2.png}
 \caption{OOP encoding issue: repetition \#2}
@@ -1271,10 +1271,10 @@ following characteristics:
 From a high-level perspective, object-oriented composition looks like
 this:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/oop_composition/example.png}
-\caption{Object-oriented composition: hypotetical entity hierarchy}
+\caption{Object-oriented composition: hypothetical entity hierarchy}
 \end{figure}
 
 \subsection{Implementation}\label{implementation-1}
@@ -1293,7 +1293,7 @@ and
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{dragon}
 entities could be encoded using object-oriented composition:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecs/overview/oop_composition/example_rpg_0.png}
 \caption{Object-oriented composition: RPG - skeleton and dragon}
@@ -1302,7 +1302,7 @@ entities could be encoded using object-oriented composition:
 This approach also solves the previously encountered ``diamond of
 death'' issue:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecs/overview/oop_composition/example_rpg_1.png}
 \caption{Object-oriented composition: RPG - unarmed and sword+bow
@@ -1414,7 +1414,7 @@ This technique solves the \textbf{repetition problem} encountered during
 the object-oriented inheritance-based implementation of the example GUI
 framework.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecs/overview/oop_composition/example_gui_0.png}
 \caption{Object-oriented composition: GUI entity hierarchy}
@@ -1565,12 +1565,44 @@ types as columns, and entity instances as rows:
 
 \begin{longtable}[]{@{}lccc@{}}
 \toprule
-& ComponentA & ComponentB & ComponentC\tabularnewline
+\begin{minipage}[b]{0.24\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\centering\strut
+ComponentA\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\centering\strut
+ComponentB\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\centering\strut
+ComponentC\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-Entity \#0 & X & X &\tabularnewline
-Entity \#1 & & X &\tabularnewline
-Entity \#2 & X & & X\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright\strut
+Entity \#0\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+X\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+X\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright\strut
+Entity \#1\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+X\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright\strut
+Entity \#2\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+X\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\centering\strut
+X\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1580,7 +1612,7 @@ keep track of component availability in entity instances, thus providing
 an interface roughly similar to
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{bool context::has_component<...>(entity_id)}.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.65000\textwidth]{source/figures/generated/ecs/overview/dod_composition/uml_context_has_component.png}
 \caption{DOD: checking component type availability through context
@@ -1592,7 +1624,7 @@ function that retrieves the data of the component for that particular
 instance will also be provided by the context object:
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{auto& context::get_component<...>(entity_id)}.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.65000\textwidth]{source/figures/generated/ecs/overview/dod_composition/uml_context_get_component.png}
 \caption{DOD: getting component instance data through context object}
@@ -1613,7 +1645,7 @@ matching entities\footnote{in a real implementation, systems will
 with an interface like
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{void context::for_entities_with<...>(f)}.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/dod_composition/uml_context_for_entities_with.png}
 \caption{DOD: retrieving entities matching a component type set through
@@ -1648,7 +1680,7 @@ and provide a high level of abstraction. Component data could be stored
 in \emph{arrays}, \emph{hash tables}, or even on another machine over
 the network.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecs/overview/dod_composition/context_role.png}
 \caption{DOD: role of the context object}
@@ -1956,7 +1988,7 @@ There are various ways of solving this problem:
   processing before accessing its output and that its memory location
   does not change.
 
-  \begin{figure}[htbp]
+  \begin{figure}
   \centering
   \includegraphics[width=0.55000\textwidth]{source/figures/generated/ecs/overview/dod_composition/output_system_communication.png}
   \caption{DOD communication: example stateful system communication
@@ -1970,7 +2002,7 @@ There are various ways of solving this problem:
   entity processing - other systems would not directly process entities,
   instead process received messages.
 
-  \begin{figure}[htbp]
+  \begin{figure}
   \centering
   \includegraphics[width=0.70000\textwidth]{source/figures/generated/ecs/overview/dod_composition/queue_system_communication.png}
   \caption{DOD communication: example streaming system communication
@@ -2572,7 +2604,7 @@ Consider the previously defined system signatures - an implicit DAG
 isomorphic to the one below will be generated by ECST \emph{(arrows
 between nodes should be read as ``depends on'')}:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.50000\textwidth]{source/figures/generated/ecst/overview/multithreading/outer/dag0.png}
 \caption{ECST multithreading: example outer parallelism DAG \#0}
@@ -2584,7 +2616,7 @@ separate dependency chains - imagine the addition of \textbf{Growth},
 \textbf{Shape}, \textbf{Rotation} and \textbf{Rendering} systems for a
 graphical particle simulation:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.65000\textwidth]{source/figures/generated/ecst/overview/multithreading/outer/dag1.png}
 \caption{ECST multithreading: example outer parallelism DAG \#1}
@@ -2638,7 +2670,7 @@ Imagine applying a \emph{``split into 4 sub-tasks''} strategy to
 \textbf{Velocity} and \textbf{Acceleration} - the resulting DAG would
 look as follows:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecst/overview/multithreading/inner/dag0.png}
 \caption{ECST multithreading: example inner parallelism DAG}
@@ -2662,7 +2694,7 @@ architecture of the library will be examined.
 A very high-level view of ECST's architecture can be illustrated as
 such:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecst/architecture/high_level.png}
 \caption{ECST architecture: high-level overview}
@@ -2695,7 +2727,7 @@ stores entity, system and component data.
   \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{system_manager}.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.80000\textwidth]{source/figures/generated/ecst/architecture/context_aggregation.png}
 \caption{ECST architecture: context}
@@ -2716,7 +2748,7 @@ instances for every entity, which are used to:
 
 It also manages unused and used entity IDs.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecst/architecture/entity_metadata_storage.png}
 \caption{ECST architecture: entity metadata storage}
@@ -2731,7 +2763,7 @@ data of one or more component types with a user-specified strategy
 \emph{(e.g.~contiguous buffer or hash map)} and provide a way to
 retrieve references to component data given entity IDs.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.85000\textwidth]{source/figures/generated/ecst/architecture/component_data_storage.png}
 \caption{ECST architecture: component data storage}
@@ -2763,7 +2795,7 @@ The system manager contains:
   \end{itemize}
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.85000\textwidth]{source/figures/generated/ecst/architecture/system_manager.png}
 \caption{ECST architecture: system manager}
@@ -2805,7 +2837,7 @@ Instances wrap user-provided systems, storing an instance of the
   subscription.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecst/architecture/instance.png}
 \caption{ECST architecture: system instance}
@@ -2876,7 +2908,7 @@ template disambiguation syntax\footnote{such syntax negatively impacts
   cppreference}.}. \textbf{Tags} are designed to solve this problem.
 
 Examples will be used in order to easily explain the role of tags. Here
-is an hypotetical set of component and system types:
+is an hypothetical set of component and system types:
 
 \begin{minted}[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape]{cpp}
 namespace c
@@ -3366,7 +3398,7 @@ After including ECST, the user must define some mandatory compile-time
 settings, required to instantiate a
 \mintinline[numbersep=12pt, fontsize=\footnotesize, xleftmargin=17pt, linenos, mathescape, bgcolor=codebg]{text}{context}:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecst/compiletime/options_activity.png}
 \caption{ECST compile-time settings: mandatory options}
@@ -3419,7 +3451,7 @@ constexpr auto cs_position =
     cs::make(ct::position).contiguous_buffer();
 \end{minted}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/generated/ecst/compiletime/soa_layout.png}
 \caption{ECST compile-time settings: high-level view of SoA component
@@ -3439,7 +3471,7 @@ constexpr auto cs_physics = signature::component::make(
         .contiguous_buffer();
 \end{minted}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecst/compiletime/aos_layout.png}
 \caption{ECST compile-time settings: high-level view of AoS component
@@ -3666,7 +3698,7 @@ They:
   Execute a \textbf{refresh} after completion.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.90000\textwidth]{source/figures/generated/ecst/flow/stepact.png}
 \caption{ECST flow: ``step'' stage overview}
@@ -3869,7 +3901,7 @@ about systems as \textbf{keys} and entity instances as \textbf{locks}.
 If a key \emph{fits in} a lock, the corresponding entity matches the
 system.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.85000\textwidth]{source/figures/keylock.png}
 \caption{ECST flow: key/lock entity/system matching
@@ -4192,7 +4224,7 @@ Execution of operations in separate threads is achieved through a simple
 number of \textbf{workers}. Every worker runs on a separate thread and
 continuously dequeues \textbf{tasks} from the queue, executing them.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.75000\textwidth]{source/figures/generated/ecst/multithreading/threadpool.png}
 \caption{ECST multithreading: thread-pool architecture}
@@ -5490,7 +5522,7 @@ steps:
   \end{itemize}
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.80000\textwidth]{source/figures/handle.png}
 \caption{ECST advanced features: accessing entity metadata through
@@ -5569,7 +5601,11 @@ positive integers with the following time complexity characteristics:
 
 \begin{longtable}[]{@{}lc@{}}
 \toprule
-& Time complexity\tabularnewline
+\begin{minipage}[b]{0.48\columnwidth}\raggedright\strut
+\strut
+\end{minipage} & \begin{minipage}[b]{0.48\columnwidth}\centering\strut
+Time complexity\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
 Check presence of integer & \(\mathcal{O}(1)\)\tabularnewline
@@ -5609,7 +5645,7 @@ following elements:
   \(D\), or special null \(\emptyset\) values.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[width=0.85000\textwidth]{source/figures/sparseset.png}
 \caption{ECST miscellaneous: fixed sparse integer set
@@ -6324,7 +6360,7 @@ Every particle is composed of the following component types:
 
 The implicitly generated depedency DAG is shown below:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics[height=0.85000\textwidth]{source/figures/generated/sim/dag0.png}
 \caption{Particle simulation: dependency DAG}
@@ -6528,7 +6564,7 @@ void process(TData& data)
 Two screenshots of the particle simulations are shown below. The first
 one shows 50000 particle entities colliding in a closed space:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/bench/sc0.png}
 \caption{Particle simulation: screenshot - 50000 colliding particles}
@@ -6537,7 +6573,7 @@ one shows 50000 particle entities colliding in a closed space:
 The second one shows one of the cells of the spatial partitioning 2D
 grid - all particles belonging to the cell are highlighted:
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{source/figures/bench/sc1.png}
 \caption{Particle simulation: screenshot - spatial partitioning cell}
@@ -6607,7 +6643,15 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lll@{}}
   \toprule
-  & Fixed (no I.P.) & Dynamic (no I.P.)\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Fixed (no I.P.)\strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Dynamic (no I.P.)\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & +2.28\%\tabularnewline
@@ -6618,7 +6662,15 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lll@{}}
   \toprule
-  & Fixed (I.P.) & Dynamic (I.P.)\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Fixed (I.P.)\strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Dynamic (I.P.)\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & -0.45\%\tabularnewline
@@ -6635,7 +6687,13 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lcc@{}}
   \toprule
-  & No inner parallelism & Inner parallelism\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering\strut
+  No inner parallelism\strut
+  \end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering\strut
+  Inner parallelism\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & -62.32\%\tabularnewline
@@ -6803,7 +6861,15 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lll@{}}
   \toprule
-  & Fixed (no I.P.) & Dynamic (no I.P.)\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Fixed (no I.P.)\strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Dynamic (no I.P.)\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & +11.77\%\tabularnewline
@@ -6814,7 +6880,15 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lll@{}}
   \toprule
-  & Fixed (I.P.) & Dynamic (I.P.)\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Fixed (I.P.)\strut
+  \end{minipage} &
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  Dynamic (I.P.)\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & +0.47\%\tabularnewline
@@ -6833,7 +6907,13 @@ The following conclusions can be deduced from the benchmark graphs:
 
   \begin{longtable}[]{@{}lcc@{}}
   \toprule
-  & No inner parallelism & Inner parallelism\tabularnewline
+  \begin{minipage}[b]{0.32\columnwidth}\raggedright\strut
+  \strut
+  \end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering\strut
+  No inner parallelism\strut
+  \end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering\strut
+  Inner parallelism\strut
+  \end{minipage}\tabularnewline
   \midrule
   \endhead
   50k & baseline & -3.98\%\tabularnewline

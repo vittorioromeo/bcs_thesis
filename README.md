@@ -33,6 +33,16 @@ Requirements:
 
 * [Python 3](https://www.python.org/)
 
+Arch Linux packages:
+
+* `pandoc-citeproc`
+
+* `minted`
+
+* `texlive-most`
+
+* `python-pandocfilters`
+
 Instructions:
 
 1. Simply run the `./mk.sh` bash script.
